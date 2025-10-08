@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { Training, TrainingService } from '../../services/training.service';
+import { Course, Training, TrainingService } from '../../services/training.service';
 
 @Component({
   selector: 'app-trainings',
@@ -14,13 +14,8 @@ import { Training, TrainingService } from '../../services/training.service';
 })
 export class TrainingsComponent {
   currentUser: any = null;
-  isAdmin = true;
-  filter = signal<'All' | 'In Progress' | 'Completed' | 'Not Started'>('All');
-  showForm = signal(false);
-  editMode = signal(false);
-
-  trainings: Training[] = [];
-  currentTraining!: Training;
+  themes: string[] = [];
+  courses: { [theme: string]: Course[] } = {};
 
   constructor(private router: Router, private authService: AuthService, private service: TrainingService) {
     // Verificar se usuário está logado
@@ -31,56 +26,31 @@ export class TrainingsComponent {
 
     // Obter dados do usuário atual
     this.currentUser = this.authService.getCurrentUser();
-    this.trainings = service.getTrainings();
-    this.currentTraining = this.createEmptyTraining();
+    this.themes = this.service.themes;
+    this.themes.forEach(theme => {
+      this.courses[theme] = this.service.getCoursesByTheme(theme);
+    });
   }
 
-  createEmptyTraining(): Training {
-    return { id: Date.now(), title: '', description: '', duration: '', status: 'Not Started' };
+  getCoursesForTheme(theme: string): Course[] {
+    return this.courses[theme] || [];
   }
 
-  setFilter(f: 'All' | 'In Progress' | 'Completed' | 'Not Started') {
-    this.filter.set(f);
-  }
-
-  addNew() {
-    this.showForm.set(true);
-    this.editMode.set(false);
-    this.currentTraining = this.createEmptyTraining();
-  }
-
-  editTraining(training: Training) {
-    this.showForm.set(true);
-    this.editMode.set(true);
-    this.currentTraining = structuredClone(training);
-  }
-
-  deleteTraining(id: number) {
-    this.service.deleteTraining(id);
-    this.trainings = this.service.getTrainings();
-  }
-
-  saveTraining() {
-    if (this.editMode()) {
-      this.service.updateTraining(this.currentTraining);
-    } else {
-      this.service.addTraining(this.currentTraining);
+  scrollLeft(theme: string) {
+    const container = document.querySelector(`.carousel-container.${theme.replace(' ', '-')}`) as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: -300, behavior: 'smooth' });
     }
-    this.trainings = this.service.getTrainings();
-    this.cancel();
   }
 
-  cancel() {
-    this.showForm.set(false);
-    this.currentTraining = this.createEmptyTraining();
+  scrollRight(theme: string) {
+    const container = document.querySelector(`.carousel-container.${theme.replace(' ', '-')}`) as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
   }
 
-  get filteredTrainings(): Training[] {
-    const f = this.filter();
-    return f === 'All' ? this.trainings : this.trainings.filter(t => t.status === f);
-  }
-
-  trackById(index: number, item: Training): number {
+  trackById(index: number, item: Course): number {
     return item.id;
   }
 }
