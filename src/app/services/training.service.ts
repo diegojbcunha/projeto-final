@@ -128,4 +128,17 @@ export class TrainingService {
   deletePath(id: number) {
     this.paths.update(p => p.filter(pth => pth.id !== id));
   }
+
+  // Métodos para Courses
+  addCourse(course: Course) {
+    this.courses.update(c => [...c, { ...course, id: Date.now() }]);
+  }
+
+  updateCourse(updated: Course) {
+    this.courses.update(c => c.map(course => course.id === updated.id ? updated : course));
+  }
+
+  deleteCourse(id: number) {
+    this.courses.update(c => c.filter(course => course.id !== id));
+  }
 }

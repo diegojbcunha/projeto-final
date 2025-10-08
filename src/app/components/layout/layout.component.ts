@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LayoutComponent implements OnInit {
   currentUser: any = null;
+  isAdmin = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -23,6 +24,7 @@ export class LayoutComponent implements OnInit {
 
     // Obter dados do usuário atual
     this.currentUser = this.authService.getCurrentUser();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   logout() {

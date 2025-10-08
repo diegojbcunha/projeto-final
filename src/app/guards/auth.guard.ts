@@ -14,3 +14,17 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     return false;
   }
 };
+
+// Role-based guard for admin access
+export const AdminGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if (authService.isLoggedIn() && authService.isAdmin()) {
+    return true;
+  } else {
+    console.log('Admin access denied. Redirecting to dashboard...');
+    router.navigate(['/dashboard']);
+    return false;
+  }
+};

@@ -10,10 +10,10 @@
     <ul class="sidebar-menu">
       <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
       <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/trainings" routerLinkActive="active">Treinamentos</a></li>
+      <li><a routerLink="/trainings" routerLinkActive="active">Courses</a></li>
       <li><a routerLink="/learning-paths" routerLinkActive="active">Learning Paths</a></li>
       <li><a routerLink="/schedule" routerLinkActive="active">Schedule</a></li>
-      <li><a routerLink="/reports" routerLinkActive="active">Reports</a></li>
+      <li *ngIf="isAdmin"><a routerLink="/reports" routerLinkActive="active">Reports</a></li>
     </ul>
   </div>
 

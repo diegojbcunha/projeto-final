@@ -1,6 +1,11 @@
 <div class="trainings-container">
   <h2 class="title">Corporate Training Courses</h2>
 
+  <!-- Add Course Button -->
+  <div class="actions-bar" *ngIf="isAdmin">
+    <button class="add-btn" (click)="addNew()">+ Add New Course</button>
+  </div>
+
   <!-- Themes Sections -->
   <div class="themes-section" *ngFor="let theme of themes">
     <h3 class="theme-title">{{ theme }}</h3>
@@ -26,10 +31,100 @@
               </div>
             </div>
             <p class="audience">Audience: {{ course.targetAudience }}</p>
+            <div class="admin-actions" *ngIf="isAdmin">
+              <button (click)="editCourse(course)">Edit</button>
+              <button class="delete" (click)="deleteCourse(course.id)">Delete</button>
+            </div>
           </div>
         </div>
       </div>
       <button class="nav-btn right" (click)="scrollRight(theme)" [class.disabled]="getCoursesForTheme(theme).length <= 3">&rarr;</button>
     </div>
+  </div>
+
+  <!-- Admin Form -->
+  <div *ngIf="showForm()" class="form-card">
+    <h3>{{ editMode() ? 'Edit Course' : 'Add New Course' }}</h3>
+
+    <form (ngSubmit)="saveCourse()">
+      <input
+        type="text"
+        [(ngModel)]="currentCourse.title"
+        name="title"
+        placeholder="Title"
+        required
+      />
+
+      <textarea
+        [(ngModel)]="currentCourse.description"
+        name="description"
+        placeholder="Description"
+        required></textarea>
+
+      <input
+        type="number"
+        [(ngModel)]="currentCourse.duration"
+        name="duration"
+        placeholder="Duration (hours)"
+        min="0.5"
+        step="0.5"
+        required
+      />
+
+      <input
+        type="number"
+        [(ngModel)]="currentCourse.modules"
+        name="modules"
+        placeholder="Number of modules"
+        min="1"
+        required
+      />
+
+      <input
+        type="text"
+        [(ngModel)]="currentCourse.image"
+        name="image"
+        placeholder="Image URL"
+        required
+      />
+
+      <select
+        [(ngModel)]="currentCourse.status"
+        name="status"
+        required>
+        <option value="Active">Active</option>
+        <option value="Upcoming">Upcoming</option>
+      </select>
+
+      <input
+        type="number"
+        [(ngModel)]="currentCourse.completionRate"
+        name="completionRate"
+        placeholder="Completion Rate (%)"
+        min="0"
+        max="100"
+        required
+      />
+
+      <input
+        type="text"
+        [(ngModel)]="currentCourse.targetAudience"
+        name="targetAudience"
+        placeholder="Target Audience"
+        required
+      />
+
+      <select
+        [(ngModel)]="currentCourse.theme"
+        name="theme"
+        required>
+        <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
+      </select>
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
   </div>
 </div>

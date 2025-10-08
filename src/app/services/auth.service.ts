@@ -7,7 +7,7 @@ import { Usuario } from '../models/usuario.model';
 })
 export class AuthService {
 
-  private mockUsers = [
+  private mockUsers: Usuario[] = [
     { nome: 'admin', senha: '123456', email: 'admin@sistema.com', perfil: 'admin' },
     { nome: 'usuario', senha: '123456', email: 'usuario@sistema.com', perfil: 'user' }
   ];
@@ -57,6 +57,12 @@ export class AuthService {
   getCurrentUser(): Usuario | null {
     const userData = localStorage.getItem('usuario');
     return userData ? JSON.parse(userData) : null;
+  }
+
+  // metodo para verificar se o usuario atual e admin
+  isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    return user ? user.perfil === 'admin' : false;
   }
 
   //metodo para logout
