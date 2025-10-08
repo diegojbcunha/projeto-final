@@ -1,0 +1,59 @@
+<div class="login-container">
+  <div class="login-form">
+    <img src="/img/ford.png" alt="Ford Logo" class="ford-logo">
+    <h2 class="welcome-message">Boas-vindas</h2>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="mb-3">
+        <label for="nome" class="visually-hidden">Nome de usuário:</label>
+        <div class="input-with-icon">
+          <i class="icon fas fa-user"></i>
+          <input type="text" id="nome" name="nome" [(ngModel)]="usuario.nome" required #nome="ngModel"
+            class="form-control" [class.is-invalid]="nome.invalid && nome.touched" placeholder="Insira seu usuário ou e-mail">
+        </div>
+        <div *ngIf="nome.invalid && nome.touched" class="invalid-feedback d-block">
+          Nome de usuário é obrigatório
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="senha" class="visually-hidden">Senha:</label>
+        <div class="input-with-icon">
+          <i class="icon fas fa-lock"></i>
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="senha" 
+            name="senha" 
+            [(ngModel)]="usuario.senha" 
+            required 
+            #senha="ngModel"
+            class="form-control" 
+            [class.is-invalid]="senha.invalid && senha.touched" 
+            placeholder="Insira sua senha">
+          <i 
+            class="password-toggle-icon fas" 
+            [class.fa-eye]="!showPassword"
+            [class.fa-eye-slash]="showPassword"
+            (click)="togglePasswordVisibility()" 
+            title="{{ showPassword ? 'Ocultar senha' : 'Mostrar senha' }}">
+          </i>
+        </div>
+        <div *ngIf="senha.invalid && senha.touched" class="invalid-feedback d-block">
+          Senha é obrigatória
+        </div>
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.form.invalid || isLoading">
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        {{ isLoading ? 'Entrando...' : 'Entrar' }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="reports-container">
+  <h2 class="title">Reports</h2>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button
+      *ngFor="let p of periodOptions"
+      [class.active]="filterPeriod() === p"
+      (click)="setPeriod(p)">
+      {{ p | titlecase }}
+    </button>
+    <button *ngIf="isAdmin" class="export-btn" (click)="exportCSV()">Export CSV</button>
+  </div>
+
+  <!-- KPIs Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <h3>Total Trainings</h3>
+      <p class="kpi-value">{{ totalTrainings() }}</p>
+    </div>
+    <div class="kpi-card">
+      <h3>Completion Rate</h3>
+      <p class="kpi-value">{{ completionRate() | number:'1.1-1' }}%</p>
+    </div>
+    <div class="kpi-card">
+      <h3>Active Paths</h3>
+      <p class="kpi-value">{{ activePaths() }}</p>
+    </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Progress by Category</h3>
+      <ngx-charts-bar-vertical
+        [view]="[400, 300]"
+        [scheme]="'cool'"
+        [results]="barChartData()"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        xAxisLabel="Category"
+        yAxisLabel="Progress %">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-card">
+      <h3>Trainings vs Paths</h3>
+      <ngx-charts-pie-chart
+        [view]="[400, 300]"
+        [scheme]="'cool'"
+        [results]="pieChartData()"
+        [labels]="true"
+        [doughnut]="false">
+      </ngx-charts-pie-chart>
+    </div>
+  </div>
+</div>

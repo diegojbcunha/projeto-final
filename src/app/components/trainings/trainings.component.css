@@ -1,0 +1,252 @@
+/* Trainings Container - Alinhado ao padrão Dashboard */
+.trainings-container {
+  padding: 1.5rem;
+  color: var(--primary-dark);
+  background-color: var(--white);
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--light-gray);
+  color: var(--primary-dark);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.filters button:hover {
+  background: var(--secondary-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.filters button.active {
+  background: var(--primary-dark);
+  color: var(--white);
+}
+
+.add-btn {
+  background: var(--accent-blue);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.add-btn:hover {
+  background: var(--secondary-dark);
+  transform: translateY(-1px);
+}
+
+.trainings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.training-card {
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.training-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.training-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.training-info {
+  padding-top: 0.5rem;
+}
+
+.training-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+}
+
+.training-info p {
+  margin: 0 0 0.5rem 0;
+  color: var(--secondary-dark);
+  font-size: 0.9rem;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.admin-actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--secondary-dark);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.admin-actions button:hover {
+  background: var(--light-gray);
+  color: var(--primary-dark);
+}
+
+.admin-actions .delete {
+  color: #E74C3C; /* Cor vermelha para delete, mantida hardcoded por ser semântica */
+}
+
+.admin-actions .delete:hover {
+  background: #f8d7da;
+  color: #dc3545;
+}
+
+.form-card {
+  background-color: #F7F9FC; /* Fundo claro para forms, alinhado ao padrão */
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-card input,
+.form-card textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-card input:focus,
+.form-card textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background-color: var(--secondary-dark);
+  color: var(--white);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.save-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.cancel-btn {
+  background-color: var(--light-gray);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--primary-dark);
+}
+
+.cancel-btn:hover {
+  background-color: var(--secondary-dark);
+  color: var(--white);
+}
+
+/* Responsive adjustments alinhadas ao padrão */
+@media (max-width: 768px) {
+  .trainings-container {
+    padding: 1rem;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .add-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .trainings-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .form-card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .training-card {
+    padding: 0.75rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .trainings-container {
+    padding: 0.75rem;
+  }
+
+  .filters button {
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+  }
+}

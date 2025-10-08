@@ -1,0 +1,217 @@
+/* Schedule Container - Alinhado ao padrão Dashboard */
+.schedule-container {
+  padding: 1.5rem;
+  color: var(--primary-dark);
+  background-color: var(--white);
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--light-gray);
+  color: var(--primary-dark);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.filters button:hover {
+  background: var(--secondary-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.filters button.active {
+  background: var(--primary-dark);
+  color: var(--white);
+}
+
+.add-btn {
+  background: var(--accent-blue);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.add-btn:hover {
+  background: var(--secondary-dark);
+  transform: translateY(-1px);
+}
+
+.calendar-wrapper {
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.calendar-wrapper:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-card {
+  background-color: #F7F9FC; /* Fundo claro para forms, alinhado ao padrão */
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-card input,
+.form-card select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-card input:focus,
+.form-card select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background-color: var(--secondary-dark);
+  color: var(--white);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.save-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.cancel-btn {
+  background-color: var(--light-gray);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--primary-dark);
+}
+
+.cancel-btn:hover {
+  background-color: var(--secondary-dark);
+  color: var(--white);
+}
+
+/* Estilos para FullCalendar - Alinhados ao padrão */
+:host ::ng-deep .fc {
+  font-family: 'Roboto', sans-serif;
+}
+
+:host ::ng-deep .fc .fc-button {
+  background: var(--primary-dark) !important;
+  color: var(--white) !important;
+  border: none !important;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .fc .fc-button:hover {
+  background: var(--secondary-dark) !important;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .fc-event {
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .fc-event:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments alinhadas ao padrão */
+@media (max-width: 768px) {
+  .schedule-container {
+    padding: 1rem;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .add-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .calendar-wrapper {
+    padding: 0.5rem;
+  }
+
+  .form-card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .filters button {
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-container {
+    padding: 0.75rem;
+  }
+
+  .calendar-wrapper {
+    border-radius: 8px;
+  }
+}

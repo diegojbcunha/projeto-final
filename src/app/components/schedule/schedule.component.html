@@ -1,0 +1,50 @@
+<div class="schedule-container">
+  <h2 class="title">Schedule</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button
+      *ngFor="let f of filterOptions"
+      [class.active]="filter() === f"
+      (click)="setFilter(f)">
+      {{ f }}
+    </button>
+
+    <button *ngIf="isAdmin" class="add-btn" (click)="addNew()">+ Add Event</button>
+  </div>
+
+  <!-- Admin Form -->
+  <div *ngIf="showForm()" class="form-card">
+    <h3>{{ editMode() ? 'Edit Event' : 'Add New Event' }}</h3>
+
+    <form (ngSubmit)="saveEvent()">
+      <input
+        type="text"
+        [(ngModel)]="currentEvent.title"
+        name="title"
+        placeholder="Event Title"
+        required />
+
+      <input
+        type="date"
+        [(ngModel)]="currentEvent.start"
+        name="start"
+        required />
+
+      <select [(ngModel)]="currentEvent.type" name="type">
+        <option value="Training">Training</option>
+        <option value="Path">Learning Path</option>
+      </select>
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- FullCalendar -->
+  <div class="calendar-wrapper">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>

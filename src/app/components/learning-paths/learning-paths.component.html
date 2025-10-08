@@ -1,0 +1,116 @@
+<div class="paths-container">
+  <h2 class="title">Learning Paths</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button
+      [class.active]="filter() === 'All'"
+      (click)="setFilter('All')">
+      All
+    </button>
+    <button
+      [class.active]="filter() === 'In Progress'"
+      (click)="setFilter('In Progress')">
+      In Progress
+    </button>
+    <button
+      [class.active]="filter() === 'Completed'"
+      (click)="setFilter('Completed')">
+      Completed
+    </button>
+    <button
+      [class.active]="filter() === 'Not Started'"
+      (click)="setFilter('Not Started')">
+      Not Started
+    </button>
+
+    <button *ngIf="isAdmin" class="add-btn" (click)="addNew()">+ Add New Path</button>
+  </div>
+
+  <!-- Admin Form -->
+  <div *ngIf="showForm()" class="form-card">
+    <h3>{{ editMode() ? 'Edit Learning Path' : 'Add New Learning Path' }}</h3>
+
+    <form (ngSubmit)="savePath()">
+      <input
+        type="text"
+        [(ngModel)]="currentPath.title"
+        name="title"
+        placeholder="Title"
+        required
+      />
+
+      <textarea
+        [(ngModel)]="currentPath.description"
+        name="description"
+        placeholder="Description"></textarea>
+
+      <input
+        type="text"
+        [(ngModel)]="currentPath.estimatedHours"
+        name="estimatedHours"
+        placeholder="Estimated Hours" />
+
+      <input
+        type="text"
+        [(ngModel)]="currentPath.image"
+        name="image"
+        placeholder="Image URL" />
+
+      <div class="trainings-list">
+        <h4>Select Trainings</h4>
+        <div
+          class="training-item"
+          *ngFor="let t of allTrainings; trackBy: trackById">
+          <label>
+            <input
+              type="checkbox"
+              [checked]="isTrainingSelected(t.id)"
+              (change)="toggleTrainingSelection(t.id)" />
+            {{ t.title }} ({{ t.duration }})
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Paths Grid -->
+  <div class="paths-grid">
+    <div
+      class="path-card"
+      *ngFor="let p of filteredPaths; trackBy: trackById">
+      <img
+        *ngIf="p.image"
+        [src]="p.image"
+        alt="{{ p.title }}"
+        class="path-image" />
+
+      <div class="path-info">
+        <h3>{{ p.title }}</h3>
+        <p class="desc">{{ p.description }}</p>
+
+        <ul class="training-list">
+          <li *ngFor="let t of p.trainings; trackBy: trackById">
+            • {{ t.title }} ({{ t.duration }})
+          </li>
+        </ul>
+
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="p.progress"></div>
+        </div>
+
+        <p class="status">{{ p.status }}</p>
+
+        <div *ngIf="isAdmin" class="admin-actions">
+          <button (click)="editPath(p)">Edit</button>
+          <button (click)="deletePath(p.id)" class="delete">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

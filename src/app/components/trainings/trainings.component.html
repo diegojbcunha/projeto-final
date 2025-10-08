@@ -1,0 +1,85 @@
+<div class="trainings-container">
+  <h2 class="title">Trainings</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button
+      [class.active]="filter() === 'All'"
+      (click)="setFilter('All')">
+      All
+    </button>
+    <button
+      [class.active]="filter() === 'In Progress'"
+      (click)="setFilter('In Progress')">
+      In Progress
+    </button>
+    <button
+      [class.active]="filter() === 'Completed'"
+      (click)="setFilter('Completed')">
+      Completed
+    </button>
+    <button
+      [class.active]="filter() === 'Not Started'"
+      (click)="setFilter('Not Started')">
+      Not Started
+    </button>
+
+    <button *ngIf="isAdmin" class="add-btn" (click)="addNew()">+ Add New Training</button>
+  </div>
+
+  <!-- Admin Form -->
+  <div *ngIf="showForm()" class="form-card">
+    <h3>{{ editMode() ? 'Edit Training' : 'Add New Training' }}</h3>
+
+    <form (ngSubmit)="saveTraining()">
+      <input
+        type="text"
+        [(ngModel)]="currentTraining.title"
+        name="title"
+        placeholder="Title"
+        required
+      />
+
+      <textarea
+        [(ngModel)]="currentTraining.description"
+        name="description"
+        placeholder="Description"></textarea>
+
+      <input
+        type="text"
+        [(ngModel)]="currentTraining.duration"
+        name="duration"
+        placeholder="Duration (e.g., 2h 30m)" />
+
+      <input
+        type="text"
+        [(ngModel)]="currentTraining.image"
+        name="image"
+        placeholder="Image URL" />
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Trainings Grid -->
+  <div class="trainings-grid">
+    <div class="training-card" *ngFor="let t of filteredTrainings; trackBy: trackById">
+      <img *ngIf="t.image" [src]="t.image" alt="{{ t.title }}" class="training-image" />
+
+      <div class="training-info">
+        <h3>{{ t.title }}</h3>
+        <p class="desc">{{ t.description }}</p>
+        <p class="duration">{{ t.duration }}</p>
+        <p class="status">{{ t.status }}</p>
+
+        <div *ngIf="isAdmin" class="admin-actions">
+          <button (click)="editTraining(t)">Edit</button>
+          <button class="delete" (click)="deleteTraining(t.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+.login-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: auto;
+  background-image: url('/img/ranger.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.login-form {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.ford-logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+.welcome-message {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.form-group label {
+  display: none;
+}
+
+/* Custom input styling for icons */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1.1em;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.input-with-icon .form-control {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1.1em;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+  z-index: 3;
+}
+
+.password-toggle-icon:hover {
+  color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .login-container::before {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container::before {
+    width: 60%;
+  }
+
+  .login-form {
+    padding: 30px 25px;
+    max-width: 350px;
+  }
+
+  .welcome-message {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container::before {
+    width: 70%;
+  }
+
+  .login-form {
+    padding: 25px 20px;
+    max-width: 300px;
+  }
+
+  .welcome-message {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+  }
+
+  .ford-logo {
+    width: 120px;
+    margin-bottom: 20px;
+  }
+
+  .input-with-icon .icon {
+    font-size: 1em;
+  }
+
+  .password-toggle-icon {
+    font-size: 1em;
+  }
+
+  .input-with-icon .form-control {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
