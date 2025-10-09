@@ -1,15 +1,38 @@
-/* Schedule Container - Alinhado ao padrão Dashboard */
+/* Schedule Container - Alinhado ao padrão Home */
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
 .schedule-container {
   padding: 1.5rem;
-  color: var(--primary-dark);
-  background-color: var(--white);
+  color: var(--ford-dark-blue);
+  background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
 }
 
 .title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--primary-dark);
+  color: var(--ford-dark-blue);
   font-weight: 600;
+  text-align: left; /* Título sempre à esquerda */
+  position: relative;
+  padding-left: 1rem;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.2em;
+  background: var(--ford-light-blue);
+  border-radius: 2px;
 }
 
 .filters {
@@ -22,57 +45,64 @@
 .filters button {
   padding: 0.5rem 1rem;
   border: none;
-  background: var(--light-gray);
-  color: var(--primary-dark);
+  background: var(--ford-gray);
+  color: var(--ford-dark-blue);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .filters button:hover {
-  background: var(--secondary-dark);
-  color: var(--white);
-  transform: translateY(-1px);
+  background: var(--ford-medium-blue);
+  color: var(--ford-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .filters button.active {
-  background: var(--primary-dark);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
+  color: var(--ford-white);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .add-btn {
-  background: var(--accent-blue);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .add-btn:hover {
-  background: var(--secondary-dark);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .calendar-wrapper {
-  background: var(--white);
-  border: 1px solid var(--light-gray);
+  background: var(--ford-white);
+  border: 1px solid var(--ford-gray);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%);
 }
 
 .calendar-wrapper:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .form-card {
-  background-color: #F7F9FC; /* Fundo claro para forms, alinhado ao padrão */
-  border: 1px solid var(--light-gray);
+  background-color: var(--ford-white);
+  border: 1px solid var(--ford-gray);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
@@ -83,7 +113,7 @@
   width: 100%;
   margin-bottom: 12px;
   padding: 8px;
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--ford-gray);
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 14px;
@@ -93,7 +123,7 @@
 .form-card input:focus,
 .form-card select:focus {
   outline: none;
-  border-color: var(--accent-blue);
+  border-color: var(--ford-medium-blue);
 }
 
 .form-actions {
@@ -104,34 +134,39 @@
 }
 
 .save-btn {
-  background-color: var(--secondary-dark);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .save-btn:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .cancel-btn {
-  background-color: var(--light-gray);
+  background: linear-gradient(135deg, var(--ford-gray) 0%, #a8a8a8 100%);
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--primary-dark);
+  color: var(--ford-dark-blue);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .cancel-btn:hover {
-  background-color: var(--secondary-dark);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* Estilos para FullCalendar - Alinhados ao padrão */
@@ -140,15 +175,15 @@
 }
 
 :host ::ng-deep .fc .fc-button {
-  background: var(--primary-dark) !important;
-  color: var(--white) !important;
+  background: var(--ford-dark-blue) !important;
+  color: var(--ford-white) !important;
   border: none !important;
   border-radius: 6px;
   transition: all 0.3s ease;
 }
 
 :host ::ng-deep .fc .fc-button:hover {
-  background: var(--secondary-dark) !important;
+  background: var(--ford-medium-blue) !important;
   transform: translateY(-1px);
 }
 

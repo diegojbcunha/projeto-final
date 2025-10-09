@@ -1,9 +1,21 @@
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
 .carousel-container {
   position: relative;
   width: 100%;
   height: auto;
   overflow: hidden;
   padding: 20px 0;
+  background: rgba(19, 58, 124, 0.3);
+  border: 1px solid var(--ford-medium-blue);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .carousel {
@@ -22,6 +34,7 @@
   gap: 20px;
   padding: 0 20px;
   justify-content: center;
+  padding: 20px;
 }
 
 /* Navigation buttons */
@@ -29,26 +42,27 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--ford-white);
   border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   font-size: 18px;
-  color: #333;
+  color: var(--ford-dark-blue);
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-btn:hover {
-  background: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transform: translateY(-50%) scale(1.1);
+  color: var(--ford-white);
 }
 
 .nav-btn.prev {
@@ -75,18 +89,22 @@
   height: 10px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--ford-gray);
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .indicator.active {
-  background: #007bff;
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
   transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .indicator:hover {
-  background: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Responsive adjustments */

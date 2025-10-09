@@ -2,8 +2,8 @@ import { Component, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Course, Training, TrainingService } from '../../services/training.service';
+import { FormsModule } from '@angular/forms';
+import { Course, Training, TrainingService, CourseModule } from '../../services/training.service';
 
 @Component({
   selector: 'app-trainings',
@@ -20,6 +20,11 @@ export class TrainingsComponent {
   showForm = signal(false);
   editMode = signal(false);
   currentCourse!: Course;
+  
+  // Nova propriedade para controle do modal de módulos
+  showModulesModal = signal(false);
+  selectedCourse: Course | null = null;
+  selectedCourseModules: CourseModule[] = [];
 
   constructor(private router: Router, private authService: AuthService, private service: TrainingService) {
     // Verificar se usuário está logado
@@ -39,8 +44,6 @@ export class TrainingsComponent {
   getCoursesForTheme(theme: string): Course[] {
     return this.courses[theme] || [];
   }
-
-
 
   trackById(index: number, item: Course): number {
     return item.id;
@@ -63,7 +66,8 @@ export class TrainingsComponent {
       status: 'Active',
       completionRate: 0,
       targetAudience: '',
-      theme: 'Safety'
+      theme: 'Safety',
+      courseModules: []
     };
   }
 
@@ -91,7 +95,7 @@ export class TrainingsComponent {
     // Show success message if needed
   }
 
-  saveCourse(form: any) {
+  saveCourse() {
     // Validate required fields
     if (!this.currentCourse.title || !this.currentCourse.description ||
         !this.currentCourse.image || !this.currentCourse.targetAudience) {
@@ -123,6 +127,10 @@ export class TrainingsComponent {
     if (this.showForm()) {
       this.cancel();
     }
+    // Fechar modal de módulos com ESC também
+    if (this.showModulesModal()) {
+      this.closeModulesModal();
+    }
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -139,5 +147,85 @@ export class TrainingsComponent {
     if (event.target === event.currentTarget) {
       this.cancel();
     }
+  }
+
+  // Novo método para fechar o modal de módulos ao clicar fora
+  onModulesModalClick(event: Event) {
+    if (event.target === event.currentTarget) {
+      this.closeModulesModal();
+    }
+  }
+
+  addNewModule() {
+    const newModule: CourseModule = {
+      id: Date.now(),
+      title: '',
+      type: 'video',
+      duration: 30,
+      isCompleted: false,
+      order: this.currentCourse.courseModules.length + 1
+    };
+    this.currentCourse.courseModules.push(newModule);
+  }
+
+  removeModule(index: number) {
+    if (confirm('Are you sure you want to remove this module?')) {
+      this.currentCourse.courseModules.splice(index, 1);
+      // Re-order remaining modules
+      this.currentCourse.courseModules.forEach((module, i) => {
+        module.order = i + 1;
+      });
+    }
+  }
+  
+  // Novos métodos para gerenciar o modal de módulos
+  openModulesModal(course: Course) {
+    this.selectedCourse = course;
+    this.selectedCourseModules = [...course.courseModules].sort((a, b) => a.order - b.order);
+    this.showModulesModal.set(true);
+  }
+  
+  closeModulesModal() {
+    this.showModulesModal.set(false);
+    this.selectedCourse = null;
+    this.selectedCourseModules = [];
+  }
+  
+  getModuleStatus(module: CourseModule): string {
+    if (module.isCompleted) {
+      return 'Completed';
+    }
+    
+    // Verificar se o módulo está bloqueado (se módulos anteriores não foram concluídos)
+    const moduleIndex = this.selectedCourseModules.findIndex(m => m.id === module.id);
+    for (let i = 0; i < moduleIndex; i++) {
+      if (!this.selectedCourseModules[i].isCompleted) {
+        return 'Locked';
+      }
+    }
+    
+    return 'Not Started';
+  }
+  
+  getTotalDuration(courseModules: CourseModule[]): number {
+    const totalMinutes = courseModules.reduce((sum, module) => sum + module.duration, 0);
+    return +(totalMinutes / 60).toFixed(1); // Convert to hours and round to 1 decimal
+  }
+  
+  getTypeLabel(type: string): string {
+    const labels: { [key: string]: string } = {
+      'video': 'Video',
+      'quiz': 'Quiz',
+      'reading': 'Reading',
+      'assignment': 'Assignment',
+      'presentation': 'Presentation'
+    };
+    return labels[type] || 'Content';
+  }
+  
+  startModule(module: CourseModule) {
+    // Navegar para o visualizador de módulos do curso
+    this.closeModulesModal();
+    this.router.navigate(['/course-viewer'], { queryParams: { courseId: this.selectedCourse?.id } });
   }
 }

@@ -1,0 +1,160 @@
+/* Adicionado no-body pois será útil pra abrir os modal quando os componentes abrigar elementos <main></main>*/
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, #0d2a5a 100%);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.register-card {
+  background: var(--ford-white);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid var(--ford-light-blue);
+}
+
+h2 {
+  text-align: left; /* Título sempre à esquerda */
+  margin-bottom: 1.5rem;
+  color: var(--ford-dark-blue);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--ford-gray);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--ford-light-blue);
+  box-shadow: 0 0 0 3px rgba(71, 168, 229, 0.2);
+  outline: none;
+}
+
+.form-control:hover {
+  border-color: var(--ford-medium-blue);
+}
+
+.form-control.is-invalid {
+  border-color: var(--ford-light-blue);
+}
+
+.invalid-feedback {
+  color: var(--ford-light-blue);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.btn-register {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
+  color: var(--ford-white);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-register:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-light-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.btn-register:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-link {
+  text-align: left; /* Conteúdo sempre à esquerda */
+  margin-top: 1.5rem;
+}
+
+.login-link .btn-secondary {
+  background: linear-gradient(135deg, var(--ford-gray) 0%, #a8a8a8 100%);
+  color: var(--ford-dark-blue);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.login-link .btn-secondary:hover {
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ✅ MODAL LGPD */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.privacy-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.privacy-content {
+  position: relative;
+  background: var(--ford-white);
+  border-radius: 10px;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem;
+  z-index: 2100;
+}
+
+.btn-close {
+  display: block;
+  margin: 1rem auto 0;
+  background: var(--ford-dark-blue);
+  color: var(--ford-white);
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}

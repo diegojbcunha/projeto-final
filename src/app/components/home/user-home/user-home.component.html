@@ -1,0 +1,109 @@
+<!-- User Home Page - Netflix-Style -->
+
+<div class="user-home-container">
+  <!-- Continue Learning Section - Apenas exibir se o usuário já iniciou algum curso -->
+  <section class="section continue-section" *ngIf="hasStartedCourses && continueCourses.length > 0">
+    <h2 class="section-title">Continue Learning</h2>
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="course-card" *ngFor="let course of continueCourses" (click)="onCourseClick(course)">
+          <div class="card-image">
+            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
+            <div class="progress-overlay">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="course.completionRate"></div>
+              </div>
+            </div>
+            <div class="play-indicator">
+              <i class="play-icon">▶</i>
+            </div>
+          </div>
+          <div class="card-info">
+            <h3>{{ course.title }}</h3>
+            <p class="description">{{ course.description }}</p>
+            <div class="card-meta">
+              <span class="progress-text">{{ course.completionRate }}% complete</span>
+            </div>
+            <button class="continue-btn">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onboarding Path Section - Exibir apenas para novos usuários -->
+  <section class="section onboarding-section" *ngIf="!hasStartedCourses && onboardingPath">
+    <h2 class="section-title">Onboarding Path</h2>
+    <div (click)="onPathClick(onboardingPath)">
+      <app-learning-path-card [learningPath]="onboardingPath"></app-learning-path-card>
+    </div>
+  </section>
+
+  <!-- Welcome Section for New Users - Exibir apenas se o usuário não iniciou nenhum curso -->
+  <section class="section welcome-section" *ngIf="!hasStartedCourses">
+    <h2 class="section-title">Welcome to Ford Training Hub</h2>
+    <p class="welcome-text">Start your learning journey by exploring our recommended courses below.</p>
+    
+    <!-- Recommended Courses Carousel for New Users -->
+    <div class="recommended-carousel-wrapper">
+      <app-recommended-courses-carousel 
+        [courses]="recommendedCourses" 
+        (courseClick)="onCourseClick($event)">
+      </app-recommended-courses-carousel>
+    </div>
+  </section>
+
+  <!-- Recommended Courses Section -->
+  <section class="section recommended-section" *ngIf="recommendedCourses.length > 0">
+    <h2 class="section-title">Recommended</h2>
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="course-card" *ngFor="let course of recommendedCourses" (click)="onCourseClick(course)">
+          <div class="card-image">
+            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
+            <!-- Badges for new or popular courses -->
+            <div *ngIf="isNewCourse(course)" class="status-badge new">New</div>
+            <div *ngIf="isPopularCourse(course)" class="status-badge popular">Popular</div>
+            <div class="duration-badge">{{ course.duration }}h</div>
+          </div>
+          <div class="card-info">
+            <h3>{{ course.title }}</h3>
+            <p class="description">{{ course.description }}</p>
+            <div class="card-meta">
+              <span class="modules">{{ course.modules }} modules</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Carousels -->
+  <section class="section carousel-section" *ngFor="let categoryGroup of categorizedCourses; let categoryIndex = index">
+    <h2 class="section-title">{{ categoryGroup.category }} Courses</h2>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="course-card" *ngFor="let course of categoryGroup.courses" (click)="onCourseClick(course)">
+          <div class="card-image">
+            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
+            <!-- Badges for new or popular courses -->
+            <div *ngIf="isNewCourse(course)" class="status-badge new">New</div>
+            <div *ngIf="isPopularCourse(course)" class="status-badge popular">Popular</div>
+            <div *ngIf="course.status" class="status-badge" [class]="'status-badge ' + course.status.toLowerCase()">
+              {{ course.status }}
+            </div>
+            <div class="duration-badge">{{ course.duration }}h</div>
+          </div>
+          <div class="card-info">
+            <h3>{{ course.title }}</h3>
+            <p class="description">{{ course.description }}</p>
+            <div class="card-meta">
+              <span class="modules">{{ course.modules }} modules</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

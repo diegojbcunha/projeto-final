@@ -1,15 +1,15 @@
 .layout-container {
   display: flex;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: #f8f9fa; /* Substituindo --light-background */
 }
 
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
-  padding: 20px 0;
+  background: linear-gradient(135deg, #133A7C 0%, #2A6BAC 100%); /* Substituindo --primary-dark e --secondary-dark */
+  color: #FFFFFF; /* Substituindo --white */
+  padding: 1rem 0; /* Substituindo --spacing-md */
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   position: fixed;
   height: 100vh;
@@ -18,10 +18,9 @@
   z-index: 1000;
 }
 
-
 .sidebar-header {
-  padding: 0 20px;
-  margin-bottom: 20px;
+  padding: 0 1rem; /* Substituindo --spacing-md */
+  margin-bottom: 1rem; /* Substituindo --spacing-md */
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
@@ -37,17 +36,17 @@
 
 .sidebar-menu a {
   display: block;
-  padding: 12px 20px;
-  color: white;
+  padding: 12px 1rem; /* Substituindo --spacing-md */
+  color: #FFFFFF; /* Substituindo --white */
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /* Substituindo --transition-normal */
   border-left: 3px solid transparent;
 }
 
 .sidebar-menu a:hover,
 .sidebar-menu a.active {
   background-color: rgba(255,255,255,0.1);
-  border-left-color: #fff;
+  border-left-color: #FFFFFF; /* Substituindo --white */
 }
 
 /* Main Content Area */
@@ -60,32 +59,76 @@
 }
 
 .header {
-  background: white;
-  padding: 20px;
+  background: #FFFFFF; /* Substituindo --white */
+  padding: 1rem; /* Substituindo --spacing-md */
   border-radius: 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   margin-bottom: 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #dee2e6; /* Substituindo --border-color */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 }
 
 .header h1 {
   margin: 0;
-  color: #1e3c72;
+  color: #133A7C; /* Substituindo --primary-dark */
   font-size: 1.8rem;
+  text-align: left; /* Título sempre à esquerda */
+  position: relative;
+  padding-left: 1rem;
+}
+
+.header h1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.2em;
+  background: #47A8E5; /* Substituindo --light-blue */
+  border-radius: 2px;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 20px; /* Move os botões para a esquerda */
+}
+
+.header-buttons button {
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-buttons button:hover {
+  background: linear-gradient(135deg, #47A8E5 0%, #2A6BAC 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Page Content */
 .page-content {
   flex: 1;
-  padding: 20px;
-  background: #f8f9fa;
+  padding: 1rem; /* Substituindo --spacing-md */
+  background: #f8f9fa; /* Substituindo --light-background */
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Substituindo --transition-normal */
   }
 
   .sidebar.show {
@@ -106,10 +149,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-right: 0;
   }
 
   .page-content {
-    padding: 15px;
+    padding: 0.5rem; /* Substituindo --spacing-sm */
   }
 }
 
@@ -118,7 +162,7 @@
   display: none;
   background: none;
   border: none;
-  color: #1e3c72;
+  color: #133A7C; /* Substituindo --primary-dark */
   font-size: 1.5rem;
   cursor: pointer;
 }

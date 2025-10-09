@@ -1,0 +1,110 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Create Your Account</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Nome -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input id="name" type="text" formControlName="name" class="form-control"
+          [class.is-invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" />
+        <div class="invalid-feedback" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          Full name is required.
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" class="form-control"
+          [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
+        <div class="invalid-feedback" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email.</span>
+        </div>
+      </div>
+
+      <!-- Senha -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" class="form-control"
+          [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Minimum 6 characters.</span>
+        </div>
+      </div>
+
+      <!-- Confirmar Senha -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control"
+          [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" />
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match.</span>
+        </div>
+      </div>
+
+      <!-- Departamento -->
+      <div class="form-group">
+        <label for="department">Department / Role (Optional)</label>
+        <input id="department" type="text" formControlName="department" class="form-control" placeholder="e.g. Engineering, HR" />
+      </div>
+
+      <!-- Checkbox LGPD -->
+      <div class="form-group terms">
+        <label>
+          <input type="checkbox" formControlName="acceptedTerms" />
+          I have read and accept the
+          <a href="#" (click)="openPrivacyPolicy($event)">Privacy Policy (LGPD)</a>.
+        </label>
+        <div class="invalid-feedback" *ngIf="registerForm.get('acceptedTerms')?.invalid && registerForm.get('acceptedTerms')?.touched">
+          You must accept the privacy policy.
+        </div>
+      </div>
+
+      <button type="submit" class="btn-register" [disabled]="registerForm.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">Sign Up</span>
+        <span *ngIf="isSubmitting">Creating account...</span>
+      </button>
+    </form>
+
+    <div class="login-link">
+      <button class="btn btn-secondary" (click)="goToLogin()">← Back to Login</button>
+    </div>
+  </div>
+
+  <!-- MODAL LGPD -->
+  <div class="privacy-modal" *ngIf="showPrivacyModal">
+    <div class="privacy-overlay" (click)="closePrivacyPolicy()"></div>
+    <div class="privacy-content">
+      <h3>Privacy Policy (LGPD)</h3>
+      <div class="privacy-text">
+        <p><strong>1. Introdução</strong><br>
+        O Ford Training Hub valoriza a privacidade e a proteção dos dados pessoais de seus usuários. Esta Política de Privacidade foi elaborada em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD), com o objetivo de informar como coletamos, utilizamos, armazenamos e protegemos as informações dos colaboradores e administradores que utilizam a plataforma.</p>
+
+        <p><strong>2. Dados Coletados</strong><br>
+        Nome completo, E-mail corporativo, Cargo e departamento (quando aplicável), Cursos acessados e concluídos, Progresso em treinamentos, Avaliações e certificados emitidos, Endereço IP e informações de dispositivo.</p>
+
+        <p><strong>3. Finalidade do Tratamento de Dados</strong><br>
+        Gerenciar o acesso, emitir certificados, cumprir obrigações legais e melhorar a experiência do usuário.</p>
+
+        <p><strong>4. Compartilhamento de Dados</strong><br>
+        Não compartilhamos dados pessoais com terceiros, exceto em casos legais ou operacionais necessários ao funcionamento do sistema.</p>
+
+        <p><strong>5. Armazenamento e Segurança</strong><br>
+        Utilizamos criptografia, controle de acesso e servidores protegidos para garantir a segurança das informações.</p>
+
+        <p><strong>6. Direitos do Usuário</strong><br>
+        O usuário pode solicitar acesso, correção, exclusão ou portabilidade de seus dados enviando e-mail para:
+        <strong>📧 privacidade&#64;fordtraininghub.com</strong></p>
+      </div>
+
+      <button class="btn-close" (click)="closePrivacyPolicy()">Close</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<!-- Admin Home Page -->
+
+<div class="admin-home-container">
+  <!-- Overview Cards -->
+  <section class="section overview-section">
+    <h2 class="section-title">Overview</h2>
+    <div class="overview-cards">
+      <div class="overview-card">
+        <div class="card-info">
+          <h3>Total Courses</h3>
+          <p class="card-value">{{ totalCourses }}</p>
+        </div>
+        <button class="card-action" (click)="navigateTo('/trainings')">Manage Courses</button>
+      </div>
+
+      <div class="overview-card">
+        <div class="card-info">
+          <h3>Total Users</h3>
+          <p class="card-value">{{ totalUsers }}</p>
+        </div>
+        <button class="card-action" (click)="navigateTo('/users')">User Management</button>
+      </div>
+
+      <div class="overview-card">
+        <div class="card-info">
+          <h3>Learning Paths</h3>
+          <p class="card-value">{{ activeLearningPaths }}</p>
+        </div>
+        <button class="card-action" (click)="navigateTo('/learning-paths')">Manage Paths</button>
+      </div>
+
+      <div class="overview-card">
+        <div class="card-info">
+          <h3>Avg. Completion</h3>
+          <p class="card-value">{{ completionRate }}%</p>
+        </div>
+        <button class="card-action" (click)="navigateTo('/reports')">View Reports</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Management Shortcuts -->
+  <section class="section shortcuts-section">
+    <h2 class="section-title">Management Shortcuts</h2>
+    <div class="shortcuts-grid">
+      <div class="shortcut-card" (click)="navigateTo('/trainings')">
+        <h3>Manage Trainings</h3>
+        <p>Create, edit, and organize training courses</p>
+      </div>
+
+      <div class="shortcut-card" (click)="navigateTo('/learning-paths')">
+        <h3>Manage Learning Paths</h3>
+        <p>Design and structure learning journeys</p>
+      </div>
+
+      <div class="shortcut-card" (click)="navigateTo('/users')">
+        <h3>User Management</h3>
+        <p>Manage user accounts and permissions</p>
+      </div>
+
+      <div class="shortcut-card" (click)="navigateTo('/reports')">
+        <h3>Compliance Reports</h3>
+        <p>Generate and view training reports</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Stats (Optional) -->
+  <section class="section stats-section">
+    <h2 class="section-title">Quick Stats</h2>
+    <div class="stats-container">
+      <div class="stat-card">
+        <h3>Course Completion Trend</h3>
+        <div class="chart-placeholder">
+          <p>Chart visualization would appear here</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Popular Courses</h3>
+        <div class="chart-placeholder">
+          <p>Top courses visualization would appear here</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

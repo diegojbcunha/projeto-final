@@ -1,0 +1,414 @@
+/* User Home Page - Netflix-Style - Padronizado com base em Trainings */
+
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
+.user-home-container {
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, #0d2a5a 100%);
+  color: var(--ford-white);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden; /* Previne scroll horizontal */
+}
+
+/* Section Styles */
+.section {
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 100%;
+  background: rgba(19, 58, 124, 0.3);
+  border: 1px solid var(--ford-medium-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ford-white);
+  padding-left: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left; /* Título sempre à esquerda */
+  position: relative;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.2em;
+  background: var(--ford-light-blue);
+  border-radius: 2px;
+}
+
+.welcome-title {
+  font-size: 1.25rem;
+}
+
+/* Welcome Section for New Users */
+.welcome-section {
+  text-align: left; /* Conteúdo sempre à esquerda */
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, rgba(19, 58, 124, 0.5) 0%, rgba(42, 107, 172, 0.3) 100%);
+  border-radius: 12px;
+  margin: 1rem;
+  width: calc(100% - 2 * 1rem); /* Ajusta a largura para compensar as margens */
+  box-sizing: border-box;
+  border: 1px solid var(--ford-light-blue);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Onboarding Path Section */
+.onboarding-section {
+  background: rgba(19, 58, 124, 0.3);
+  border: 1px solid var(--ford-medium-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.welcome-section .section-title {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+  color: var(--ford-light-blue);
+  text-align: left; /* Título sempre à esquerda */
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  color: var(--ford-gray);
+  max-width: 600px;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+  text-align: left; /* Texto sempre à esquerda */
+}
+
+/* Recommended Carousel for New Users */
+.recommended-carousel-wrapper {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Carousel Styles */
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.course-card {
+  flex: 0 0 auto;
+  width: 300px;
+  background: var(--ford-dark-blue);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--ford-gray);
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border-color: var(--ford-light-blue);
+}
+
+.card-image {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+/* Badges */
+.status-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.status-badge.new {
+  background: var(--ford-light-blue);
+  color: var(--ford-white);
+}
+
+.status-badge.popular {
+  background: var(--ford-medium-blue);
+  color: var(--ford-white);
+}
+
+.status-badge.active {
+  background: var(--ford-medium-blue);
+  color: var(--ford-white);
+}
+
+.status-badge.upcoming {
+  background: var(--ford-gray);
+  color: var(--ford-dark-blue);
+}
+
+.duration-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--ford-white);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress Overlay */
+.progress-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ford-medium-blue), var(--ford-light-blue));
+  transition: width 0.3s ease;
+}
+
+.play-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.course-card:hover .play-indicator {
+  opacity: 1;
+}
+
+.play-icon {
+  color: var(--ford-white);
+  font-size: 1.2rem;
+  margin-left: 3px;
+}
+
+.card-info {
+  padding: 0.5rem;
+}
+
+.card-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: var(--ford-white);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left; /* Título sempre à esquerda */
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--ford-gray);
+  margin: 0 0 0.5rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left; /* Texto sempre à esquerda */
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--ford-light-blue);
+  font-weight: 500;
+}
+
+.modules {
+  font-size: 0.9rem;
+  color: var(--ford-gray);
+}
+
+.continue-btn, .start-btn {
+  width: 100%;
+  padding: 0.25rem;
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-btn:hover, .start-btn:hover {
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .user-home-container {
+    padding: 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    padding-left: 0.5rem;
+  }
+  
+  .welcome-section {
+    padding: 1.5rem 0.5rem;
+    margin: 0.5rem;
+    width: calc(100% - 2 * 0.5rem);
+  }
+  
+  .welcome-section .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .welcome-text {
+    font-size: 1rem;
+  }
+  
+  .recommended-carousel-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  .carousel-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  .course-card {
+    width: 280px;
+  }
+  
+  .card-image {
+    height: 150px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .user-home-container {
+    padding: 0.25rem;
+  }
+  
+  .section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    padding-left: 0.25rem;
+  }
+  
+  .welcome-section {
+    padding: 1rem 0.25rem;
+    margin: 0.25rem;
+    width: calc(100% - 2 * 0.25rem);
+  }
+  
+  .welcome-section .section-title {
+    font-size: 1.25rem;
+  }
+  
+  .recommended-carousel-wrapper {
+    padding: 0 0.25rem;
+  }
+  
+  .carousel-wrapper {
+    padding: 0 0.25rem;
+  }
+  
+  .course-card {
+    width: 250px;
+  }
+  
+  .card-image {
+    height: 140px;
+  }
+  
+  .card-info {
+    padding: 0.25rem;
+  }
+  
+  .card-info h3 {
+    font-size: 0.9rem;
+  }
+  
+  .description {
+    font-size: 0.75rem;
+  }
+}

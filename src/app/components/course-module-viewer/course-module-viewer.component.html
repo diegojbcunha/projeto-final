@@ -1,1 +1,121 @@
-<p>course-module-viewer works!</p>
+<!-- Udemy-Style Course Modules Viewer for Ford Training Hub -->
+
+<div class="course-modules-container">
+  <!-- Header Section -->
+  <header class="course-header">
+    <div class="course-info">
+      <div class="course-basic">
+        <img [src]="course?.image" [alt]="course?.title" class="course-thumbnail">
+        <div class="course-details">
+          <h1>{{ course?.title }}</h1>
+          <p class="course-description">{{ course?.description }}</p>
+          <div class="course-meta">
+            <span class="duration">{{ getTotalDuration(course) }}h duration</span>
+            <span class="modules-count">{{ course?.modules }} modules</span>
+            <span class="completion">{{ course?.completionRate }}% complete</span>
+          </div>
+        </div>
+      </div>
+      <div class="progress-section">
+        <div class="overall-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="course?.completionRate"></div>
+          </div>
+          <span class="progress-text">Your Progress: {{ course?.completionRate }}%</span>
+        </div>
+      </div>
+    </div>
+    <nav class="course-navigation">
+      <button class="nav-btn back" (click)="goBack()">← Back to Courses</button>
+    </nav>
+  </header>
+
+  <!-- Modules Section -->
+  <main class="modules-content">
+    <h2>Course Modules</h2>
+
+    <!-- Modules Accordion -->
+    <div class="modules-accordion">
+      <div class="module-item" *ngFor="let module of courseModules; trackBy: trackByModuleId">
+        <div class="module-header" (click)="toggleModule(module.id)">
+          <div class="module-info">
+            <div class="module-type" [class]="module.type">
+              <span class="type-icon">
+                {{ module.type === 'video' ? '📹' :
+                   module.type === 'quiz' ? '📝' :
+                   module.type === 'reading' ? '📖' :
+                   module.type === 'assignment' ? '✏️' :
+                   module.type === 'presentation' ? '📊' : '📄' }}
+              </span>
+            </div>
+            <div class="module-title">
+              <h3>{{ module.title }}</h3>
+              <div class="module-meta">
+                <span class="duration">{{ module.duration }} min</span>
+                <span class="type-label">{{ getTypeLabel(module.type) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="module-status">
+            <div class="completion-indicator" [class.completed]="module.isCompleted">
+              <span *ngIf="module.isCompleted">✓</span>
+              <span *ngIf="!module.isCompleted">{{ module.type === 'video' ? '▶' : '→' }}</span>
+            </div>
+            <div class="expand-icon" [class.expanded]="expandedModules.has(module.id)">
+              <span>▼</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-content" *ngIf="expandedModules.has(module.id)">
+          <div class="module-details">
+            <p class="module-description">
+              {{ getModuleDescription(module.type) }}
+            </p>
+
+            <div class="module-actions">
+              <button
+                class="start-btn"
+                (click)="startModule(module)"
+                [disabled]="isModuleDisabled(module)"
+              >
+                {{ module.isCompleted ? 'Review' : 'Start' }} {{ getTypeLabel(module.type) }}
+              </button>
+
+              <button
+                class="complete-btn"
+                *ngIf="!module.isCompleted && canMarkComplete(module)"
+                (click)="markAsComplete(module)"
+              >
+                Mark as Complete
+              </button>
+            </div>
+
+            <div class="module-content-area" *ngIf="module.id === currentModule?.id">
+              <div class="content-placeholder">
+                <div class="content-icon">
+                  {{ module.type === 'video' ? '🎬' :
+                     module.type === 'quiz' ? '🧩' :
+                     module.type === 'reading' ? '📚' :
+                     module.type === 'assignment' ? '📝' :
+                     module.type === 'presentation' ? '📈' : '📄' }}
+                </div>
+                <h4>Content Area</h4>
+                <p>This is where the {{ module.type }} content would load for "{{ module.title }}"</p>
+              </div>
+            </div>
+
+            <!-- Sample content based on type -->
+            <div class="module-resources" *ngIf="module.content">
+              <h4>Additional Resources:</h4>
+              <div class="resource-item">
+                <p>{{ module.content }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

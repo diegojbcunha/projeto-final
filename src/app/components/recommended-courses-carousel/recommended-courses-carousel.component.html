@@ -1,0 +1,45 @@
+<div class="carousel-container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()"
+     (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+
+  <div class="carousel" [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'">
+    <div class="slide" *ngFor="let slide of slides; let i = index">
+      <div class="slide-items">
+        <div class="course-card" 
+             *ngFor="let course of slide; trackBy: trackById"
+             (click)="onCourseClick(course)">
+          <div class="card-image">
+            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
+            <!-- Badges for new or popular courses -->
+            <div *ngIf="course.completionRate === 0" class="status-badge new">New</div>
+            <div *ngIf="course.completionRate > 70" class="status-badge popular">Popular</div>
+            <div class="duration-badge">{{ course.duration }}h</div>
+          </div>
+          <div class="card-info">
+            <h3>{{ course.title }}</h3>
+            <p class="description">{{ course.description }}</p>
+            <div class="card-meta">
+              <span class="modules">{{ course.modules }} modules</span>
+            </div>
+            <button class="start-btn">Start Course</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="nav-btn prev" (click)="prevSlide()" *ngIf="totalSlides > 1">
+    &#10094;
+  </button>
+  <button class="nav-btn next" (click)="nextSlide()" *ngIf="totalSlides > 1">
+    &#10095;
+  </button>
+
+  <!-- Indicators -->
+  <div class="indicators" *ngIf="totalSlides > 1">
+    <button class="indicator" *ngFor="let slide of slides; let i = index"
+            [class.active]="i === currentIndex"
+            (click)="goToSlide(i)">
+    </button>
+  </div>
+</div>

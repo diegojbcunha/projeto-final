@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="login-form">
     <img src="/logo.png" alt="Ford Logo" class="ford-logo">
-    <h2 class="welcome-message">Boas-vindas</h2>
+    <h2 class="welcome-message">Welcome to Ford Training Hub</h2>
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <div class="mb-3">
         <label for="nome" class="visually-hidden">Nome de usuário:</label>
@@ -55,5 +55,11 @@
         {{ isLoading ? 'Entrando...' : 'Entrar' }}
       </button>
     </form>
+    
+    <div class="register-link">
+      <p>Don't have an account? <a (click)="openRegisterModal()" class="register-link-btn">Sign up</a></p>
+    </div>
   </div>
 </div>
+
+<!-- Removido o modal de registro com iframe -->

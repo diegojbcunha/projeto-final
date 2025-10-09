@@ -1,8 +1,10 @@
 <div class="paths-container">
-  <h2 class="title">Learning Paths</h2>
+  <div class="header-section">
+    <h2 class="title">Learning Paths</h2>
 
-  <div class="actions-bar" *ngIf="isAdmin">
-    <button class="add-btn" (click)="addNew()">+ Add New Path</button>
+    <div class="actions-bar" *ngIf="isAdmin">
+      <button class="add-btn" (click)="addNew()">+ Add New Path</button>
+    </div>
   </div>
 
   <!-- Learning Paths Carousel -->

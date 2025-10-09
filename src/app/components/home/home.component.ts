@@ -1,30 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="home-container">
-      <h1>Welcome to Ford Training Hub</h1>
-      <p>Please select a menu option to get started.</p>
-    </div>
-  `,
-  styles: [`
-    .home-container {
-      padding: 2rem;
-      text-align: center;
-      color: var(--primary-dark);
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.1rem;
-      color: var(--secondary-dark);
-    }
-  `]
+  imports: [CommonModule, UserHomeComponent, AdminHomeComponent],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {}
+export class HomeComponent implements OnInit {
+  private authService = inject(AuthService);
+  isAdmin = false;
+
+  ngOnInit() {
+    // Detect user type from AuthService
+    this.isAdmin = this.authService.isAdmin();
+  }
+}

@@ -1,17 +1,28 @@
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
 .path-card {
-  background-color: #fff;
+  background-color: var(--ford-white);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--ford-gray);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%);
 }
 
 .path-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--ford-light-blue);
 }
 
 .path-image {
@@ -30,27 +41,44 @@
 .path-info h3 {
   margin: 0 0 10px 0;
   font-size: 18px;
-  color: #333;
+  color: var(--ford-dark-blue);
+  text-align: left; /* Título sempre à esquerda */
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.path-info h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 1em;
+  background: var(--ford-light-blue);
+  border-radius: 1px;
 }
 
 .path-info .desc {
   margin: 0 0 15px 0;
-  color: #666;
+  color: var(--ford-dark-blue);
   font-size: 14px;
   line-height: 1.4;
   flex: 1;
+  text-align: left; /* Texto sempre à esquerda */
 }
 
 .progress-bar {
-  background-color: #e0e0e0;
+  background-color: var(--ford-gray);
   border-radius: 4px;
   height: 6px;
   margin-bottom: 10px;
   overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, #007bff, #0056b3);
+  background: linear-gradient(90deg, var(--ford-medium-blue), var(--ford-light-blue));
   height: 100%;
   border-radius: 4px;
   transition: width 0.3s ease;
@@ -59,7 +87,7 @@
 .details {
   margin: 10px 0;
   font-size: 12px;
-  color: #888;
+  color: var(--ford-dark-blue);
   font-weight: 500;
 }
 
@@ -68,7 +96,7 @@
   font-size: 13px;
   font-weight: bold;
   text-align: left;
-  color: #007bff;
+  color: var(--ford-medium-blue);
 }
 
 .admin-actions {
@@ -86,22 +114,28 @@
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .edit-btn {
-  background-color: #007bff;
-  color: white;
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
 }
 
 .edit-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .delete-btn {
-  background-color: #dc3545;
-  color: white;
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  color: var(--ford-white);
 }
 
 .delete-btn:hover {
-  background-color: #c82333;
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }

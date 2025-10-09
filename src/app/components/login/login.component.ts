@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
   successMessage: string | null = null;
   isLoading = false;
   showPassword = false; // Add password visibility toggle
+  
+  // Signal para controlar a exibição do modal de registro
+  showRegisterModal = signal(false);
 
   //injetar a auth e as rotas para usar os metodos
   constructor(private authService: AuthService, private router: Router) {}
@@ -30,6 +33,21 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
       return;
+    }
+    
+    // Adicionar listener para mensagens do iframe
+    window.addEventListener('message', this.handleMessage.bind(this));
+  }
+  
+  ngOnDestroy() {
+    // Remover listener quando o componente for destruído
+    window.removeEventListener('message', this.handleMessage.bind(this));
+  }
+  
+  // Handler para mensagens do iframe
+  handleMessage(event: MessageEvent) {
+    if (event.data && event.data.type === 'REGISTER_SUCCESS') {
+      this.onRegisterSuccess();
     }
   }
 
@@ -69,5 +87,30 @@ export class LoginComponent implements OnInit {
         }
       }
     })
+  }
+  
+  // Método para navegar para a página de registro (em vez de abrir modal)
+  openRegisterModal() {
+    // Navegar para a página de registro em vez de abrir o modal
+    this.router.navigate(['/register']);
+  }
+  
+  // Método para fechar o modal de registro
+  closeRegisterModal() {
+    this.showRegisterModal.set(false);
+  }
+  
+  // Método para fechar o modal ao clicar fora
+  onModalClick(event: Event) {
+    if (event.target === event.currentTarget) {
+      this.closeRegisterModal();
+    }
+  }
+  
+  // Método chamado quando o registro é bem-sucedido no iframe
+  onRegisterSuccess() {
+    this.closeRegisterModal();
+    // Atualizar a mensagem de sucesso no login
+    this.successMessage = 'Registration successful! You can now log in with your new account.';
   }
 }

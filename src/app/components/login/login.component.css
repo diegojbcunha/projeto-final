@@ -1,9 +1,17 @@
+:root {
+  --ford-dark-blue: #133A7C;
+  --ford-medium-blue: #2A6BAC;
+  --ford-light-blue: #47A8E5;
+  --ford-white: #FFFFFF;
+  --ford-gray: #C6C6C6;
+}
+
 .login-container {
   display: flex !important;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, #0d2a5a 100%);
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -17,7 +25,6 @@
   transform: translate(-50%, -50%);
   width: 35%;
   height: auto;
-  background-image: url('/img/ranger.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -26,15 +33,16 @@
 }
 
 .login-form {
-  background: white;
+  background: var(--ford-white);
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
   text-align: center;
   position: relative;
   z-index: 2;
+  border: 1px solid var(--ford-light-blue);
 }
 
 .ford-logo {
@@ -43,10 +51,10 @@
 }
 
 .welcome-message {
-  font-size: 1.8em;
-  color: #333;
+  font-size: 1.4em;
+  color: var(--ford-dark-blue);
   margin-bottom: 30px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .form-group label {
@@ -63,7 +71,7 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  color: var(--ford-gray);
   font-size: 1.1em;
   z-index: 3;
   pointer-events: none;
@@ -72,6 +80,19 @@
 .input-with-icon .form-control {
   padding-left: 45px;
   padding-right: 45px;
+  border: 1px solid var(--ford-gray);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.input-with-icon .form-control:focus {
+  border-color: var(--ford-light-blue);
+  box-shadow: 0 0 0 3px rgba(71, 168, 229, 0.2);
+  outline: none;
+}
+
+.input-with-icon .form-control:hover {
+  border-color: var(--ford-medium-blue);
 }
 
 .password-toggle-icon {
@@ -79,7 +100,7 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  color: var(--ford-gray);
   font-size: 1.1em;
   cursor: pointer;
   user-select: none;
@@ -88,7 +109,114 @@
 }
 
 .password-toggle-icon:hover {
-  color: #007bff;
+  color: var(--ford-medium-blue);
+}
+
+/* Register link */
+.register-link {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ford-gray);
+}
+
+.register-link p {
+  margin: 0;
+  color: var(--ford-dark-blue);
+  font-size: 0.95em;
+}
+
+.register-link a {
+  color: var(--ford-medium-blue);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.register-link a:hover {
+  color: var(--ford-white);
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  text-decoration: none;
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Register Modal Styles */
+.register-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+
+.register-modal-content {
+  background: var(--ford-white);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--ford-gray);
+}
+
+.register-modal-header h3 {
+  margin: 0;
+  color: var(--ford-dark-blue);
+  font-size: 1.5rem;
+}
+
+.close-modal {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ford-gray);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: var(--ford-gray);
+  color: var(--ford-dark-blue);
+}
+
+.register-modal-body {
+  padding: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.register-iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
 }
 
 /* Responsive adjustments */
@@ -111,6 +239,11 @@
   .welcome-message {
     font-size: 1.5em;
     margin-bottom: 25px;
+  }
+  
+  .register-modal-content {
+    width: 95%;
+    max-width: 95%;
   }
 }
 
@@ -145,5 +278,9 @@
   .input-with-icon .form-control {
     padding-left: 40px;
     padding-right: 40px;
+  }
+  
+  .register-modal-header h3 {
+    font-size: 1.3rem;
   }
 }

@@ -1,7 +1,11 @@
-/* Global styles for Ford Dashboard Application */
+/* Global styles for Ford Training Hub Application */
 
 /* Import IBM Plex Serif font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Import custom styles */
+@import './app/styles/variables.css';
+@import './app/styles/common-components.css';
 
 /* CSS Variables for consistent color palette */
 :root {
@@ -22,7 +26,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'IBM Plex Serif', serif;
+  font-family: 'Roboto', sans-serif;
   line-height: 1.6;
   color: var(--primary-dark);
   background-color: var(--light-gray);
@@ -44,10 +48,14 @@ button {
 .header {
   background-color: var(--white);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  min-height: 80px; /* Ensure consistent header height */
+  min-height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .header h1 {
@@ -56,9 +64,9 @@ button {
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.2;
-  white-space: nowrap; /* Prevent text wrapping for consistency */
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Handle long text gracefully */
+  text-overflow: ellipsis;
 }
 
 .header .btn {
@@ -77,7 +85,8 @@ button {
 .header-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+  margin-right: 20px; /* Move os botões para a esquerda */
 }
 
 /* Responsive header styles */
@@ -87,17 +96,18 @@ button {
     gap: 15px;
     text-align: center;
     padding: 15px;
-    min-height: 100px; /* Adjusted for mobile layout */
+    min-height: 100px;
   }
 
   .header h1 {
     font-size: 1.8rem;
-    white-space: normal; /* Allow wrapping on small screens */
+    white-space: normal;
   }
 
   .header-buttons {
     flex-direction: column;
     gap: 8px;
+    margin-right: 0;
   }
 
   .header-buttons .btn {

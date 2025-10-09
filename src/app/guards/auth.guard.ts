@@ -23,8 +23,8 @@ export const AdminGuard: CanActivateFn = (route, state) => {
   if (authService.isLoggedIn() && authService.isAdmin()) {
     return true;
   } else {
-    console.log('Admin access denied. Redirecting to dashboard...');
-    router.navigate(['/dashboard']);
+    console.log('Admin access denied. Redirecting to home...');
+    router.navigate(['/home']);
     return false;
   }
 };

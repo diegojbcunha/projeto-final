@@ -6,4 +6,5 @@ export interface Usuario {
   senha: string
   email: string
   perfil: UserRole
+  department?: string // Campo opcional para departamento/cargo
 }
