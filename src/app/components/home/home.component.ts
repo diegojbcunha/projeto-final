@@ -1,32 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
-})
-export class HomeComponent implements OnInit {
-  currentUser: any = null;
-
-  constructor(private router: Router, private authService: AuthService) {}
-
-  ngOnInit() {
-    // Verificar se usuário está logado
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="home-container">
+      <h1>Welcome to Ford Training Hub</h1>
+      <p>Please select a menu option to get started.</p>
+    </div>
+  `,
+  styles: [`
+    .home-container {
+      padding: 2rem;
+      text-align: center;
+      color: var(--primary-dark);
     }
-
-    // Obter dados do usuário atual
-    this.currentUser = this.authService.getCurrentUser();
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-}
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+      color: var(--secondary-dark);
+    }
+  `]
+})
+export class HomeComponent {}

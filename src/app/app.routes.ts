@@ -23,7 +23,8 @@ export const routes: Routes = [
             { path: 'trainings', component: TrainingsComponent },
             { path: 'learning-paths', component: LearningPathsComponent },
             { path: 'schedule', component: ScheduleComponent },
-            { path: 'reports', component: ReportsComponent, canActivate: [AdminGuard] }
+            { path: 'reports', component: ReportsComponent, canActivate: [AdminGuard] },
+            { path: '', redirectTo: '/home', pathMatch: 'full' }
         ]
     }
 ];

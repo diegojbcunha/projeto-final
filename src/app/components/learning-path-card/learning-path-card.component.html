@@ -1,0 +1,27 @@
+<div class="path-card">
+  <img
+    *ngIf="learningPath.image"
+    [src]="learningPath.image"
+    alt="{{ learningPath.title }}"
+    class="path-image" />
+
+  <div class="path-info">
+    <h3>{{ learningPath.title }}</h3>
+    <p class="desc">{{ learningPath.description }}</p>
+
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="learningPath.progress"></div>
+    </div>
+
+    <p class="details">
+      {{ learningPath.courses.length }} cursos • {{ learningPath.estimatedHours }} horas previstas
+    </p>
+
+    <p class="status">{{ learningPath.status }}</p>
+  </div>
+
+  <div class="admin-actions" *ngIf="isAdmin">
+    <button (click)="onEdit()" class="edit-btn">Editar</button>
+    <button (click)="onDelete()" class="delete-btn">Excluir</button>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.path-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.path-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.path-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.path-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.path-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.path-info .desc {
+  margin: 0 0 15px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.details {
+  margin: 10px 0;
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+}
+
+.status {
+  margin: 0;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+  color: #007bff;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.edit-btn, .delete-btn {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

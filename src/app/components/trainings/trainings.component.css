@@ -1,29 +1,29 @@
-/* Ford Training Hub Color Palette */
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
+/* Corporate Training Courses - Alinhado ao padrão do Learning Paths */
 
-/* Container */
 .trainings-container {
   padding: 1.5rem;
-  background-color: var(--ford-white);
-  color: var(--ford-dark-blue);
+  color: var(--primary-dark);
+  background-color: var(--white);
 }
 
-/* Actions Bar */
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* Actions Bar - Admin only */
 .actions-bar {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .add-btn {
-  background: var(--ford-medium-blue);
-  color: var(--ford-white);
+  background: var(--accent-blue);
+  color: var(--white);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -33,16 +33,8 @@
 }
 
 .add-btn:hover {
-  background: var(--ford-dark-blue);
+  background: var(--secondary-dark);
   transform: translateY(-1px);
-}
-
-.title {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--ford-dark-blue);
-  font-weight: 600;
-  text-align: center;
 }
 
 /* Theme Sections */
@@ -52,91 +44,25 @@
 
 .theme-title {
   font-size: 1.25rem;
-  color: var(--ford-medium-blue);
+  color: var(--primary-dark);
   margin-bottom: 1rem;
   text-align: left;
   font-weight: 600;
 }
 
-/* Carousel Wrapper */
-.carousel-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-/* Navigation Buttons */
-.nav-btn {
-  background: var(--ford-medium-blue);
-  color: var(--ford-white);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-  background: var(--ford-dark-blue);
-  transform: translateY(-50%) translateX(-5px);
-}
-
-.nav-btn.left {
-  left: -25px;
-}
-
-.nav-btn.right {
-  right: -25px;
-}
-
-.nav-btn.right:hover {
-  transform: translateY(-50%) translateX(5px);
-}
-
-.nav-btn.disabled {
-  background: var(--ford-gray);
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.nav-btn.disabled:hover {
-  background: var(--ford-gray);
-  transform: translateY(-50%);
-}
-
-/* Carousel Container */
-.carousel-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  padding: 1rem 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.carousel-container::-webkit-scrollbar {
-  display: none;
+/* Courses Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 /* Course Cards */
 .course-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: var(--white);
+  border: 1px solid var(--light-gray);
   border-radius: 12px;
   padding: 1rem;
-  min-width: 280px;
-  max-width: 300px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -154,193 +80,82 @@
   margin-bottom: 0.75rem;
 }
 
+.course-info {
+  padding-top: 0.5rem;
+}
+
 .course-info h4 {
   margin: 0 0 0.5rem 0;
-  color: var(--ford-dark-blue);
+  color: var(--primary-dark);
   font-size: 1.1rem;
-  font-weight: 600;
 }
 
 .description {
-  margin: 0 0 0.75rem 0;
-  color: #666;
+  margin: 0 0 0.5rem 0;
+  color: var(--secondary-dark);
   font-size: 0.9rem;
-  line-height: 1.4;
 }
 
+/* Course Details */
 .course-details {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--secondary-dark);
 }
 
 .course-details span {
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
-  background: #f0f0f0;
+  background: var(--white);
+  border: 1px solid #eee;
 }
 
-.duration, .modules {
-  color: var(--ford-dark-blue);
-}
-
+/* Status */
 .status {
-  font-weight: 500;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: var(--primary-dark);
 }
 
 .status.active {
-  background: #d4edda;
-  color: #155724;
+  background: #d4edda !important;
+  color: #155724 !important;
 }
 
 .status.upcoming {
-  background: #fff3cd;
-  color: #856404;
+  background: #fff3cd !important;
+  color: #856404 !important;
 }
 
+/* Completion Info */
 .completion {
-  margin-bottom: 0.75rem;
+  margin: 0.75rem 0;
 }
 
-.completion span {
-  font-size: 0.85rem;
-  color: var(--ford-medium-blue);
-  font-weight: 500;
-}
-
-.progress-bar {
-  background: #f0f0f0;
-  height: 8px;
-  border-radius: 4px;
-  margin-top: 0.25rem;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--ford-light-blue);
-  transition: width 0.3s ease;
-}
-
+/* Audience */
 .audience {
   margin: 0;
-  font-size: 0.85rem;
   color: #888;
-  font-style: italic;
+  font-size: 0.85rem;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .nav-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-  }
-
-  .nav-btn.left {
-    left: -22px;
-  }
-
-  .nav-btn.right {
-    right: -22px;
-  }
-
-  .course-card {
-    min-width: 250px;
-  }
-}
-
-@media (max-width: 768px) {
-  .trainings-container {
-    padding: 1rem;
-  }
-
-  .title {
-    font-size: 1.25rem;
-  }
-
-  .theme-title {
-    font-size: 1.1rem;
-  }
-
-  .nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .nav-btn.left {
-    left: -20px;
-  }
-
-  .nav-btn.right {
-    right: -20px;
-  }
-
-  .course-card {
-    min-width: 220px;
-    padding: 0.75rem;
-  }
-
-  .course-image {
-    height: 150px;
-  }
-
-  .carousel-container {
-    gap: 0.75rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .carousel-wrapper {
-    margin: 0 0.5rem;
-  }
-
-  .carousel-container {
-    padding: 0.5rem 0;
-  }
-
-  .nav-btn {
-    display: none; /* Hide buttons on mobile, allow native scroll */
-  }
-
-  .theme-title {
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .trainings-container {
-    padding: 0.75rem;
-  }
-
-  .course-card {
-    min-width: 200px;
-  }
-
-  .course-details {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-}
-
-/* Admin Actions in Cards */
+/* Admin Actions - Admin only */
 .admin-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #e0e0e0;
+  margin-top: 0.5rem;
 }
 
 .admin-actions button {
   border: none;
   background: transparent;
   cursor: pointer;
-  color: var(--ford-medium-blue);
+  color: var(--secondary-dark);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   transition: all 0.3s ease;
@@ -348,12 +163,12 @@
 }
 
 .admin-actions button:hover {
-  background: #f0f0f0;
-  color: var(--ford-dark-blue);
+  background: var(--light-gray);
+  color: var(--primary-dark);
 }
 
 .admin-actions .delete {
-  color: #E74C3C;
+  color: #E74C3C; /* Red for delete */
 }
 
 .admin-actions .delete:hover {
@@ -361,19 +176,79 @@
   color: #dc3545;
 }
 
-/* Form Card */
+/* Form Modal - Overlay */
 .form-card {
-  background-color: #F7F9FC;
-  border: 1px solid var(--ford-gray);
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
 }
 
-.form-card h3 {
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: -1;
+}
+
+/* Form Card Content */
+.form-card .form-content {
+  background-color: #F7F9FC;
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.form-card .form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
-  color: var(--ford-dark-blue);
-  font-size: 1.2rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.form-card .form-header h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 1.25rem;
+}
+
+.form-card .close-modal {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--secondary-dark);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.form-card .close-modal:hover {
+  background-color: var(--light-gray);
+  color: var(--primary-dark);
 }
 
 .form-card input,
@@ -382,7 +257,7 @@
   width: 100%;
   margin-bottom: 12px;
   padding: 8px;
-  border: 1px solid var(--ford-gray);
+  border: 1px solid var(--light-gray);
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 14px;
@@ -393,7 +268,7 @@
 .form-card textarea:focus,
 .form-card select:focus {
   outline: none;
-  border-color: var(--ford-light-blue);
+  border-color: var(--accent-blue);
 }
 
 .form-actions {
@@ -404,8 +279,8 @@
 }
 
 .save-btn {
-  background-color: var(--ford-dark-blue);
-  color: var(--ford-white);
+  background-color: var(--secondary-dark);
+  color: var(--white);
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
@@ -415,21 +290,83 @@
 }
 
 .save-btn:hover {
-  background-color: var(--ford-medium-blue);
+  background-color: var(--primary-dark);
   transform: translateY(-1px);
 }
 
 .cancel-btn {
-  background-color: var(--ford-gray);
+  background-color: var(--light-gray);
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--ford-dark-blue);
+  color: var(--primary-dark);
 }
 
 .cancel-btn:hover {
-  background-color: var(--ford-medium-blue);
-  color: var(--ford-white);
+  background-color: var(--secondary-dark);
+  color: var(--white);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .trainings-container {
+    padding: 1rem;
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1rem;
+  }
+
+  .course-card {
+    padding: 0.75rem;
+  }
+
+  .course-image {
+    height: 160px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .course-card {
+    padding: 0.75rem;
+  }
+
+  .form-card {
+    padding: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-btn, .cancel-btn {
+    width: 100%;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trainings-container {
+    padding: 0.75rem;
+  }
+
+  .actions-bar {
+    justify-content: flex-start;
+  }
+
+  .add-btn {
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+  }
 }

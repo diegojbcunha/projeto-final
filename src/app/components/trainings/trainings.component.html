@@ -1,130 +1,131 @@
 <div class="trainings-container">
   <h2 class="title">Corporate Training Courses</h2>
 
-  <!-- Add Course Button -->
   <div class="actions-bar" *ngIf="isAdmin">
     <button class="add-btn" (click)="addNew()">+ Add New Course</button>
   </div>
 
-  <!-- Themes Sections -->
   <div class="themes-section" *ngFor="let theme of themes">
     <h3 class="theme-title">{{ theme }}</h3>
-    <div class="carousel-wrapper">
-      <button class="nav-btn left" (click)="scrollLeft(theme)" [class.disabled]="getCoursesForTheme(theme).length <= 3">&larr;</button>
-      <div class="carousel-container" [ngClass]="theme.replace(' ', '-')">
-        <div class="course-card" *ngFor="let course of getCoursesForTheme(theme); trackBy: trackById">
-          <img [src]="course.image" alt="{{ course.title }}" class="course-image" />
-          <div class="course-info">
-            <h4>{{ course.title }}</h4>
-            <p class="description">{{ course.description }}</p>
-            <div class="course-details">
-              <span class="duration">⏱️ {{ course.duration }}h</span>
-              <span class="modules">📚 {{ course.modules }} modules</span>
-              <span class="status" [class.active]="course.status === 'Active'" [class.upcoming]="course.status === 'Upcoming'">
-                {{ course.status }}
-              </span>
+    <div class="courses-grid">
+      <div class="course-card" *ngFor="let course of getCoursesForTheme(theme); trackBy: trackById">
+        <img [src]="course.image" alt="{{ course.title }}" class="course-image" />
+        <div class="course-info">
+          <h4>{{ course.title }}</h4>
+          <p class="description">{{ course.description }}</p>
+          <div class="course-details">
+            <span class="duration">⏱️ {{ course.duration }}h</span>
+            <span class="modules">📚 {{ course.modules }} modules</span>
+            <span class="status" [class.active]="course.status === 'Active'" [class.upcoming]="course.status === 'Upcoming'">
+              {{ course.status }}
+            </span>
+          </div>
+          <div class="completion" *ngIf="course.completionRate > 0">
+            <span>Progress: {{ course.completionRate }}% completed</span>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="course.completionRate"></div>
             </div>
-            <div class="completion" *ngIf="course.completionRate > 0">
-              <span>Progress: {{ course.completionRate }}% completed</span>
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="course.completionRate"></div>
-              </div>
-            </div>
-            <p class="audience">Audience: {{ course.targetAudience }}</p>
-            <div class="admin-actions" *ngIf="isAdmin">
-              <button (click)="editCourse(course)">Edit</button>
-              <button class="delete" (click)="deleteCourse(course.id)">Delete</button>
-            </div>
+          </div>
+          <p class="audience">Audience: {{ course.targetAudience }}</p>
+          <div class="admin-actions" *ngIf="isAdmin">
+            <button (click)="editCourse(course)">Edit</button>
+            <button class="delete" (click)="deleteCourse(course.id)" *ngIf="isAdmin">Delete</button>
           </div>
         </div>
       </div>
-      <button class="nav-btn right" (click)="scrollRight(theme)" [class.disabled]="getCoursesForTheme(theme).length <= 3">&rarr;</button>
     </div>
   </div>
 
-  <!-- Admin Form -->
-  <div *ngIf="showForm()" class="form-card">
-    <h3>{{ editMode() ? 'Edit Course' : 'Add New Course' }}</h3>
-
-    <form (ngSubmit)="saveCourse()">
-      <input
-        type="text"
-        [(ngModel)]="currentCourse.title"
-        name="title"
-        placeholder="Title"
-        required
-      />
-
-      <textarea
-        [(ngModel)]="currentCourse.description"
-        name="description"
-        placeholder="Description"
-        required></textarea>
-
-      <input
-        type="number"
-        [(ngModel)]="currentCourse.duration"
-        name="duration"
-        placeholder="Duration (hours)"
-        min="0.5"
-        step="0.5"
-        required
-      />
-
-      <input
-        type="number"
-        [(ngModel)]="currentCourse.modules"
-        name="modules"
-        placeholder="Number of modules"
-        min="1"
-        required
-      />
-
-      <input
-        type="text"
-        [(ngModel)]="currentCourse.image"
-        name="image"
-        placeholder="Image URL"
-        required
-      />
-
-      <select
-        [(ngModel)]="currentCourse.status"
-        name="status"
-        required>
-        <option value="Active">Active</option>
-        <option value="Upcoming">Upcoming</option>
-      </select>
-
-      <input
-        type="number"
-        [(ngModel)]="currentCourse.completionRate"
-        name="completionRate"
-        placeholder="Completion Rate (%)"
-        min="0"
-        max="100"
-        required
-      />
-
-      <input
-        type="text"
-        [(ngModel)]="currentCourse.targetAudience"
-        name="targetAudience"
-        placeholder="Target Audience"
-        required
-      />
-
-      <select
-        [(ngModel)]="currentCourse.theme"
-        name="theme"
-        required>
-        <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
-      </select>
-
-      <div class="form-actions">
-        <button type="submit" class="save-btn">Save</button>
-        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+  <div *ngIf="showForm()" class="form-card" (click)="onModalClick($event)">
+    <div class="form-content">
+      <div class="form-header">
+        <h3>{{ editMode() ? 'Edit Course' : 'Add New Course' }}</h3>
+        <button type="button" class="close-modal" (click)="cancel()" aria-label="Close modal">
+          ×
+        </button>
       </div>
-    </form>
+
+      <form #courseForm="ngForm" (ngSubmit)="saveCourse(courseForm)">
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.title"
+          name="title"
+          placeholder="Title"
+          required
+          #title="ngModel"
+          (keydown)="onKeyDown($event)"
+        />
+
+        <textarea
+          [(ngModel)]="currentCourse.description"
+          name="description"
+          placeholder="Description"
+          required
+          #description="ngModel"
+          rows="3">
+        </textarea>
+
+        <input
+          type="number"
+          [(ngModel)]="currentCourse.duration"
+          name="duration"
+          placeholder="Duration (hours)"
+          min="0.5"
+          step="0.5"
+          required
+          #duration="ngModel"
+        />
+
+        <input
+          type="number"
+          [(ngModel)]="currentCourse.modules"
+          name="modules"
+          placeholder="Number of modules"
+          min="1"
+          required
+          #modules="ngModel"
+        />
+
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.image"
+          name="image"
+          placeholder="Image URL"
+          required
+          #image="ngModel"
+        />
+
+        <select
+          [(ngModel)]="currentCourse.status"
+          name="status"
+          required
+          #status="ngModel">
+          <option value="Active">Active</option>
+          <option value="Upcoming">Upcoming</option>
+        </select>
+
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.targetAudience"
+          name="targetAudience"
+          placeholder="Target Audience"
+          required
+          #targetAudience="ngModel"
+        />
+
+        <select
+          [(ngModel)]="currentCourse.theme"
+          name="theme"
+          required
+          #theme="ngModel">
+          <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
+        </select>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="courseForm.invalid" class="save-btn">Save</button>
+          <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
