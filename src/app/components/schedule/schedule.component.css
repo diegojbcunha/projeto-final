@@ -9,14 +9,14 @@
 
 .schedule-container {
   padding: 1.5rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
 }
 
 .title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-weight: 600;
   text-align: left; /* Título sempre à esquerda */
   position: relative;
@@ -246,7 +246,7 @@
     padding: 0.75rem;
   }
 
-  .calendar-wrapper {
+.calendar-wrapper {
     border-radius: 8px;
   }
 }

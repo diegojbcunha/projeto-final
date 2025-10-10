@@ -1,121 +1,335 @@
 <!-- Udemy-Style Course Modules Viewer for Ford Training Hub -->
 
 <div class="course-modules-container">
-  <!-- Header Section -->
-  <header class="course-header">
-    <div class="course-info">
-      <div class="course-basic">
-        <img [src]="course?.image" [alt]="course?.title" class="course-thumbnail">
-        <div class="course-details">
-          <h1>{{ course?.title }}</h1>
-          <p class="course-description">{{ course?.description }}</p>
-          <div class="course-meta">
-            <span class="duration">{{ getTotalDuration(course) }}h duration</span>
-            <span class="modules-count">{{ course?.modules }} modules</span>
-            <span class="completion">{{ course?.completionRate }}% complete</span>
+  <!-- Sidebar with Course Modules List -->
+  <div class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <div class="course-sidebar-info">
+        <img [src]="course?.image" [alt]="course?.title" class="sidebar-course-thumbnail">
+        <div class="sidebar-course-details">
+          <h3>{{ course?.title }}</h3>
+          <div class="course-progress-sidebar">
+            <div class="progress-bar-sidebar">
+              <div class="progress-fill-sidebar" [style.width.%]="course?.completionRate"></div>
+            </div>
+            <span class="progress-text-sidebar">{{ course?.completionRate }}% Complete</span>
           </div>
         </div>
       </div>
-      <div class="progress-section">
-        <div class="overall-progress">
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="course?.completionRate"></div>
+      <button class="sidebar-collapse-btn" (click)="toggleSidebar()">
+        <span>←</span>
+      </button>
+    </div>
+
+    <!-- Modules List -->
+    <div class="modules-list">
+      <div class="modules-header">
+        <h4>{{ course?.modules }} Modules</h4>
+      </div>
+
+      <div class="module-list-item"
+           *ngFor="let module of courseModules; trackBy: trackByModuleId"
+           [class.active]="currentModule?.id === module.id"
+           [class.completed]="module.isCompleted"
+           [class.disabled]="isModuleDisabled(module)"
+           (click)="selectModule(module)">
+
+        <div class="module-list-icon">
+          <span class="type-icon" [class]="module.type">
+            {{ module.type === 'video' ? '🎥' :
+               module.type === 'quiz' ? '📝' :
+               module.type === 'reading' ? '📖' :
+               module.type === 'assignment' ? '✏️' :
+               module.type === 'presentation' ? '📊' : '📄' }}
+          </span>
+        </div>
+
+        <div class="module-list-content">
+          <div class="module-list-title">{{ module.title }}</div>
+          <div class="module-list-meta">
+            <span class="module-type-label">{{ getTypeLabel(module.type) }}</span>
+            <span class="module-duration">{{ module.duration }} min</span>
           </div>
-          <span class="progress-text">Your Progress: {{ course?.completionRate }}%</span>
+        </div>
+
+        <div class="module-list-status">
+          <span *ngIf="module.isCompleted" class="completed-icon">✓</span>
         </div>
       </div>
     </div>
-    <nav class="course-navigation">
-      <button class="nav-btn back" (click)="goBack()">← Back to Courses</button>
-    </nav>
-  </header>
+  </div>
 
-  <!-- Modules Section -->
-  <main class="modules-content">
-    <h2>Course Modules</h2>
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Top Navigation Bar -->
+    <div class="content-header">
+      <div class="breadcrumb">
+        <button class="sidebar-toggle-btn" (click)="toggleSidebar()">
+          <span>☰</span>
+        </button>
+        <span class="bread-crumb-text">Home / Training / {{ course?.title }}</span>
+      </div>
 
-    <!-- Modules Accordion -->
-    <div class="modules-accordion">
-      <div class="module-item" *ngFor="let module of courseModules; trackBy: trackByModuleId">
-        <div class="module-header" (click)="toggleModule(module.id)">
-          <div class="module-info">
-            <div class="module-type" [class]="module.type">
-              <span class="type-icon">
-                {{ module.type === 'video' ? '📹' :
-                   module.type === 'quiz' ? '📝' :
-                   module.type === 'reading' ? '📖' :
-                   module.type === 'assignment' ? '✏️' :
-                   module.type === 'presentation' ? '📊' : '📄' }}
-              </span>
+      <div class="content-actions">
+        <button class="back-btn" (click)="goBack()">← Back to Courses</button>
+      </div>
+    </div>
+
+    <!-- Module Content Area -->
+    <div class="module-content-area">
+      <!-- Module Selected -->
+      <div *ngIf="currentModule" class="module-content-wrapper">
+        <!-- Module Header -->
+        <div class="module-header-content">
+          <div class="module-info-content">
+            <div class="module-icon-large" [class]="currentModule.type">
+              {{ currentModule.type === 'video' ? '🎬' :
+                 currentModule.type === 'quiz' ? '🧩' :
+                 currentModule.type === 'reading' ? '📚' :
+                 currentModule.type === 'assignment' ? '📝' :
+                 currentModule.type === 'presentation' ? '📈' : '📄' }}
             </div>
-            <div class="module-title">
-              <h3>{{ module.title }}</h3>
-              <div class="module-meta">
-                <span class="duration">{{ module.duration }} min</span>
-                <span class="type-label">{{ getTypeLabel(module.type) }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="module-status">
-            <div class="completion-indicator" [class.completed]="module.isCompleted">
-              <span *ngIf="module.isCompleted">✓</span>
-              <span *ngIf="!module.isCompleted">{{ module.type === 'video' ? '▶' : '→' }}</span>
-            </div>
-            <div class="expand-icon" [class.expanded]="expandedModules.has(module.id)">
-              <span>▼</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="module-content" *ngIf="expandedModules.has(module.id)">
-          <div class="module-details">
-            <p class="module-description">
-              {{ getModuleDescription(module.type) }}
-            </p>
-
-            <div class="module-actions">
-              <button
-                class="start-btn"
-                (click)="startModule(module)"
-                [disabled]="isModuleDisabled(module)"
-              >
-                {{ module.isCompleted ? 'Review' : 'Start' }} {{ getTypeLabel(module.type) }}
-              </button>
-
-              <button
-                class="complete-btn"
-                *ngIf="!module.isCompleted && canMarkComplete(module)"
-                (click)="markAsComplete(module)"
-              >
-                Mark as Complete
-              </button>
-            </div>
-
-            <div class="module-content-area" *ngIf="module.id === currentModule?.id">
-              <div class="content-placeholder">
-                <div class="content-icon">
-                  {{ module.type === 'video' ? '🎬' :
-                     module.type === 'quiz' ? '🧩' :
-                     module.type === 'reading' ? '📚' :
-                     module.type === 'assignment' ? '📝' :
-                     module.type === 'presentation' ? '📈' : '📄' }}
+            <div class="module-details-content">
+              <h1>{{ currentModule.title }}</h1>
+              <div class="module-meta-content">
+                <span class="module-type-content">{{ getTypeLabel(currentModule.type) }}</span>
+                <span class="module-duration-content">{{ currentModule.duration }} min</span>
+                <div class="module-status-indicator" [class]="currentModule.isCompleted ? 'completed' : 'in-progress'">
+                  {{ currentModule.isCompleted ? 'Completed ✓' : 'In Progress' }}
                 </div>
-                <h4>Content Area</h4>
-                <p>This is where the {{ module.type }} content would load for "{{ module.title }}"</p>
-              </div>
-            </div>
-
-            <!-- Sample content based on type -->
-            <div class="module-resources" *ngIf="module.content">
-              <h4>Additional Resources:</h4>
-              <div class="resource-item">
-                <p>{{ module.content }}</p>
               </div>
             </div>
           </div>
+
+          <div class="module-actions-content">
+            <button class="complete-btn-content"
+                    *ngIf="!currentModule.isCompleted && canMarkComplete(currentModule)"
+                    (click)="markAsComplete(currentModule)">
+              Mark as Complete
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Display Area -->
+        <div class="content-display">
+          <!-- Video Content -->
+          <div *ngIf="currentModule.type === 'video'" class="video-container">
+            <div class="video-placeholder">
+              <div class="video-icon">▶️</div>
+              <h3>{{ currentModule.title }}</h3>
+              <p>This is where the video player would load for this module.</p>
+              <p>In a real implementation, you would have:</p>
+              <ul>
+                <li>HTML5 video player with controls</li>
+                <li>Progress tracking</li>
+                <li>Resume functionality</li>
+                <li>Full screen option</li>
+              </ul>
+              <button class="watch-video-btn">Watch Video</button>
+            </div>
+          </div>
+
+          <!-- Quiz Content -->
+          <div *ngIf="currentModule.type === 'quiz'" class="quiz-container">
+            <div class="quiz-header">
+              <h3>Test Your Knowledge</h3>
+              <p>Answer the questions below to complete this module.</p>
+            </div>
+            <div class="quiz-placeholder">
+              <div class="quiz-icon">🧩</div>
+              <h4>Sample Questions Would Load Here</h4>
+              <div class="sample-questions">
+                <div class="question-item">
+                  <p><strong>Question 1:</strong> What is the main topic of this module?</p>
+                  <div class="options">
+                    <div class="option">A) Basic concepts</div>
+                    <div class="option">B) Advanced concepts</div>
+                    <div class="option correct">C) Learning the fundamentals</div>
+                    <div class="option">D) Expert level content</div>
+                  </div>
+                </div>
+              </div>
+              <button class="submit-quiz-btn">Submit Quiz</button>
+            </div>
+          </div>
+
+          <!-- Reading Content -->
+          <div *ngIf="currentModule.type === 'reading'" class="reading-container">
+            <div class="reading-header">
+              <h3>{{ currentModule.title }}</h3>
+            </div>
+            <div class="reading-content">
+              <div class="reading-text">
+                <p>Welcome to this comprehensive learning module. Here you'll find detailed information and resources to help you understand the key concepts.</p>
+
+                <h4>Key Learning Objectives</h4>
+                <ul>
+                  <li>Understand fundamental concepts</li>
+                  <li>Apply best practices</li>
+                  <li>Practice through examples</li>
+                  <li>Complete hands-on exercises</li>
+                </ul>
+
+                <h4>Content Overview</h4>
+                <p>This module covers essential knowledge and skills that are foundational to your professional development. The material is structured to build your understanding progressively, from basic concepts to more advanced applications.</p>
+
+                <div class="download-section">
+                  <h5>Download Resources</h5>
+                  <div class="download-items">
+                    <div class="download-item">
+                      <span class="download-icon">📄</span>
+                      <span>Study Guide PDF</span>
+                      <button class="download-btn">Download</button>
+                    </div>
+                    <div class="download-item">
+                      <span class="download-icon">📊</span>
+                      <span>Reference Charts</span>
+                      <button class="download-btn">Download</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignment Content -->
+          <div *ngIf="currentModule.type === 'assignment'" class="assignment-container">
+            <div class="assignment-header">
+              <h3>{{ currentModule.title }} - Hands-on Exercise</h3>
+              <p>Complete the following assignment to demonstrate your understanding of the concepts.</p>
+            </div>
+            <div class="assignment-content">
+              <div class="assignment-instructions">
+                <h4>Instructions:</h4>
+                <ol>
+                  <li>Read through the provided materials</li>
+                  <li>Complete the practical exercise</li>
+                  <li>Submit your work for review</li>
+                  <li>Provide justification for your approach</li>
+                </ol>
+              </div>
+
+              <div class="assignment-submission">
+                <div class="submission-area">
+                  <textarea placeholder="Enter your assignment solution here..." rows="8"></textarea>
+                  <div class="submission-actions">
+                    <label class="upload-btn">
+                      📎 Upload Files
+                      <input type="file" multiple style="display: none;">
+                    </label>
+                    <button class="submit-assignment-btn">Submit Assignment</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Presentation Content -->
+          <div *ngIf="currentModule.type === 'presentation'" class="presentation-container">
+            <div class="presentation-header">
+              <h3>{{ currentModule.title }}</h3>
+              <p>Review the presentation slides below.</p>
+            </div>
+            <div class="presentation-content">
+              <div class="presentation-placeholder">
+                <div class="slides-navigation">
+                  <button class="slide-nav-btn" (click)="previousSlide()" [disabled]="currentSlideIndex === 0">⬅️</button>
+                  <span class="slide-counter">{{ currentSlideIndex + 1 }} / {{ totalSlides }}</span>
+                  <button class="slide-nav-btn" (click)="nextSlide()" [disabled]="currentSlideIndex === totalSlides - 1">➡️</button>
+                </div>
+
+                <div class="slide-content">
+                  <div class="slide-icon">📊</div>
+                  <h4>Slide {{ currentSlideIndex + 1 }}</h4>
+                  <p>This slide would contain charts, data visualizations, or presentation content related to {{ currentModule.title }}</p>
+                  <div class="slide-keypoints">
+                    <strong>Key Points:</strong>
+                    <ul>
+                      <li>Important data points</li>
+                      <li>Visual representations</li>
+                      <li>Data analysis</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="presentation-actions">
+                  <button class="fullscreen-btn">⛶ Fullscreen</button>
+                  <button class="download-presentation-btn">📥 Download Slides</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Default Content -->
+          <div *ngIf="!['video', 'quiz', 'reading', 'assignment', 'presentation'].includes(currentModule.type)" class="default-container">
+            <div class="default-content">
+              <div class="content-icon">📄</div>
+              <h3>{{ currentModule.title }}</h3>
+              <p>{{ getModuleDescription(currentModule.type) }}</p>
+              <button class="access-content-btn">Access Content</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module Navigation -->
+        <div class="module-navigation">
+          <div class="nav-prev">
+            <button *ngIf="getPreviousModule()" class="nav-btn"
+                    (click)="selectModule(getPreviousModule()!)">
+              ← Previous: {{ getPreviousModule()?.title }}
+            </button>
+          </div>
+
+          <div class="module-completion">
+            <button *ngIf="!currentModule.isCompleted && canMarkComplete(currentModule)"
+                    class="mark-complete-btn"
+                    (click)="markAsComplete(currentModule)">
+              Mark as Complete
+            </button>
+            <div *ngIf="currentModule.isCompleted" class="completed-badge">
+              ✓ Module Completed
+            </div>
+          </div>
+
+          <div class="nav-next">
+            <button *ngIf="getNextModule()" class="nav-btn"
+                    (click)="selectModule(getNextModule()!)">
+              Next: {{ getNextModule()?.title }} →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Module Selected -->
+      <div *ngIf="!currentModule" class="no-module-selected">
+        <div class="welcome-message">
+          <div class="welcome-icon">🎯</div>
+          <h2>Welcome to {{ course?.title }}</h2>
+          <p>Select a module from the sidebar to begin your learning journey.</p>
+
+          <div class="course-overview">
+            <div class="overview-stat">
+              <span class="stat-number">{{ course?.modules }}</span>
+              <span class="stat-label">Modules</span>
+            </div>
+            <div class="overview-stat">
+              <span class="stat-number">{{ getTotalDuration(course) }}h</span>
+              <span class="stat-label">Duration</span>
+            </div>
+            <div class="overview-stat">
+              <span class="stat-number">{{ course?.completionRate }}%</span>
+              <span class="stat-label">Complete</span>
+            </div>
+          </div>
+
+          <button *ngIf="courseModules.length > 0"
+                  class="start-course-btn"
+                  (click)="selectModule(courseModules[0])">
+            Start Course
+          </button>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </div>

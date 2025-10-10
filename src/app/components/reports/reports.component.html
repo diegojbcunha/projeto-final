@@ -1,7 +1,12 @@
 <div class="reports-container">
   <h2 class="title">Reports</h2>
 
-  <!-- Filtros -->
+  <!-- Management Link -->
+  <div class="management-link" *ngIf="isAdmin">
+    <a routerLink="/course-management" class="manage-btn">Manage Courses & Paths</a>
+  </div>
+
+  <!-- Filters -->
   <div class="filters">
     <button
       *ngFor="let p of periodOptions"
@@ -28,7 +33,7 @@
     </div>
   </div>
 
-  <!-- Gráficos -->
+  <!-- Charts -->
   <div class="charts-grid">
     <div class="chart-card">
       <h3>Progress by Category</h3>

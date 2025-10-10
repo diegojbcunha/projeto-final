@@ -1,0 +1,170 @@
+<!-- Exemplo de uso dos formulários padronizados -->
+
+<div style="padding: 2rem; background: #f7f9fc; min-height: 100vh;">
+  <h1 style="text-align: center; margin-bottom: 2rem;">Exemplos de Formulários Padronizados</h1>
+
+  <!-- Formulário Básico -->
+  <div class="form-container">
+    <h2 class="form-title">Formulário de Cadastro</h2>
+    <form>
+      <div class="form-group">
+        <label for="name">Nome Completo</label>
+        <input type="text" id="name" class="form-control" placeholder="Digite seu nome completo">
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail">
+        <span class="form-text">Nunca compartilharemos seu e-mail com ninguém.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" class="form-control" placeholder="Digite uma senha segura">
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirme sua senha">
+      </div>
+
+      <div class="form-group">
+        <label for="department">Departamento</label>
+        <select id="department" class="form-select">
+          <option value="">Selecione um departamento</option>
+          <option value="engineering">Engenharia</option>
+          <option value="marketing">Marketing</option>
+          <option value="sales">Vendas</option>
+          <option value="hr">Recursos Humanos</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Biografia</label>
+        <textarea id="bio" class="form-textarea" placeholder="Conte-nos um pouco sobre você..."></textarea>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="terms" class="form-check-input">
+        <label for="terms" class="form-check-label">Concordo com os termos e condições</label>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="newsletter" class="form-check-input">
+        <label for="newsletter" class="form-check-label">Desejo receber newsletter</label>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary">Cancelar</button>
+        <button type="submit" class="btn-primary">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulário com Estados -->
+  <div class="form-container" style="margin-top: 2rem;">
+    <h2 class="form-title">Formulário com Estados</h2>
+    <form>
+      <div class="form-group">
+        <label for="email-success">E-mail (Válido)</label>
+        <input type="email" id="email-success" class="form-control form-control-success" value="usuario@exemplo.com">
+        <span class="form-text form-text-success">E-mail válido!</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email-error">E-mail (Inválido)</label>
+        <input type="email" id="email-error" class="form-control form-control-error" value="usuario@invalido">
+        <span class="form-text form-text-error">Por favor, insira um e-mail válido.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Preferências de Contato</label>
+        <div class="form-check">
+          <input type="checkbox" id="contact-email" class="form-check-input" checked>
+          <label for="contact-email" class="form-check-label">E-mail</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="contact-sms" class="form-check-input">
+          <label for="contact-sms" class="form-check-label">SMS</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="contact-phone" class="form-check-input">
+          <label for="contact-phone" class="form-check-label">Ligação Telefônica</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nível de Experiência</label>
+        <div class="form-check">
+          <input type="radio" id="level-junior" name="experience" class="form-check-input" checked>
+          <label for="level-junior" class="form-check-label">Júnior</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" id="level-pleno" name="experience" class="form-check-input">
+          <label for="level-pleno" class="form-check-label">Pleno</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" id="level-senior" name="experience" class="form-check-input">
+          <label for="level-senior" class="form-check-label">Sênior</label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-outline">Limpar</button>
+        <button type="submit" class="btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulário Inline -->
+  <div class="form-container" style="margin-top: 2rem;">
+    <h2 class="form-title">Formulário Inline</h2>
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="search" class="sr-only">Buscar</label>
+        <input type="text" id="search" class="form-control" placeholder="Buscar cursos...">
+      </div>
+      <div class="form-group">
+        <label for="category" class="sr-only">Categoria</label>
+        <select id="category" class="form-select">
+          <option value="">Todas as categorias</option>
+          <option value="technical">Técnico</option>
+          <option value="leadership">Liderança</option>
+          <option value="soft-skills">Soft Skills</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary">Buscar</button>
+    </form>
+  </div>
+
+  <!-- Formulário Horizontal -->
+  <div class="form-container form-alt" style="margin-top: 2rem;">
+    <h2 class="form-title">Formulário Horizontal</h2>
+    <form>
+      <div class="form-group-horizontal">
+        <label for="first-name">Primeiro Nome</label>
+        <input type="text" id="first-name" class="form-control" placeholder="Primeiro nome">
+      </div>
+
+      <div class="form-group-horizontal">
+        <label for="last-name">Último Nome</label>
+        <input type="text" id="last-name" class="form-control" placeholder="Último nome">
+      </div>
+
+      <div class="form-group-horizontal">
+        <label for="phone">Telefone</label>
+        <input type="tel" id="phone" class="form-control" placeholder="(00) 00000-0000">
+      </div>
+
+      <div class="form-group-horizontal">
+        <label for="birthdate">Data de Nascimento</label>
+        <input type="date" id="birthdate" class="form-control">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary">Voltar</button>
+        <button type="submit" class="btn-primary">Avançar</button>
+      </div>
+    </form>
+  </div>
+</div>

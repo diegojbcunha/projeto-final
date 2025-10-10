@@ -62,7 +62,7 @@ export class TrainingService {
       title: 'Onboarding Path',
       description: 'Introduction for new employees.',
       estimatedHours: '3.5h',
-      image: ImageUtils.generatePlaceholderImage('Onboarding Path', 'Leadership'),
+      image: 'welcome.jpg',
       courses: [], // Will be populated after courses are loaded
       progress: 50,
       status: 'In Progress'
@@ -72,7 +72,7 @@ export class TrainingService {
       title: 'Sales Training',
       description: 'Master the art of sales.',
       estimatedHours: '4.0h',
-      image: ImageUtils.generatePlaceholderImage('Sales Training', 'Soft Skills'),
+      image: 'Sales Training.jpg',
       courses: [],
       progress: 30,
       status: 'In Progress'
@@ -82,7 +82,7 @@ export class TrainingService {
       title: 'Leadership Development',
       description: 'Become a better leader.',
       estimatedHours: '6.0h',
-      image: ImageUtils.generatePlaceholderImage('Leadership Development', 'Leadership'),
+      image: 'Leadership Development.png',
       courses: [],
       progress: 75,
       status: 'In Progress'
@@ -92,7 +92,7 @@ export class TrainingService {
       title: 'Technical Skills',
       description: 'Learn essential technical skills.',
       estimatedHours: '5.5h',
-      image: ImageUtils.generatePlaceholderImage('Technical Skills', 'Technical'),
+      image: 'Technical Skills.png',
       courses: [],
       progress: 90,
       status: 'Completed'
@@ -102,7 +102,7 @@ export class TrainingService {
       title: 'Compliance and Ethics',
       description: 'Understand company policies.',
       estimatedHours: '2.0h',
-      image: ImageUtils.generatePlaceholderImage('Compliance and Ethics', 'Compliance'),
+      image: 'Compliance and Ethics.jpg',
       courses: [],
       progress: 100,
       status: 'Completed'
@@ -112,7 +112,7 @@ export class TrainingService {
       title: 'Project Management',
       description: 'Manage projects effectively.',
       estimatedHours: '5.0h',
-      image: ImageUtils.generatePlaceholderImage('Project Management', 'Technical'),
+      image: 'Project Management.jpg',
       courses: [],
       progress: 20,
       status: 'Not Started'
@@ -122,7 +122,7 @@ export class TrainingService {
       title: 'Customer Service Excellence',
       description: 'Provide outstanding customer service.',
       estimatedHours: '3.0h',
-      image: ImageUtils.generatePlaceholderImage('Customer Service', 'Soft Skills'),
+      image: 'Customer Service Excellence.jpg',
       courses: [],
       progress: 60,
       status: 'In Progress'
@@ -333,7 +333,7 @@ export class TrainingService {
 
   // Métodos para Trainings
   addTraining(training: Training) {
-    this.trainings.update(t => [...t, { ...training, id: Date.now() }]);
+    this.trainings.update(t => [...t, training]);
   }
 
   updateTraining(updated: Training) {
@@ -348,7 +348,7 @@ export class TrainingService {
 
   // Métodos para Learning Paths (novos!)
   addPath(path: LearningPath) {
-    this.paths.update(p => [...p, { ...path, id: Date.now() }]);
+    this.paths.update(p => [...p, path]);
   }
 
   updatePath(updated: LearningPath) {
@@ -361,7 +361,7 @@ export class TrainingService {
 
   // Métodos para Courses
   addCourse(course: Course) {
-    this.courses.update(c => [...c, { ...course, id: Date.now() }]);
+    this.courses.update(c => [...c, course]);
   }
 
   updateCourse(updated: Course) {

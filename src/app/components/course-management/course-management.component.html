@@ -1,0 +1,253 @@
+<div class="management-container">
+  <h2 class="title">Course & Path Management</h2>
+
+  <div class="tabs">
+    <button class="tab-btn active" (click)="showCourseForm.set(false); showPathForm.set(false)">Courses</button>
+    <button class="tab-btn" (click)="showCourseForm.set(false); showPathForm.set(false)">Learning Paths</button>
+  </div>
+
+  <!-- Courses Section -->
+  <div class="section" *ngIf="!showCourseForm() && !showPathForm()">
+    <div class="actions-bar" *ngIf="isAdmin">
+      <button class="add-btn" (click)="addNewCourse()">+ Add New Course</button>
+    </div>
+
+    <div class="themes-section" *ngFor="let theme of themes">
+      <h3 class="theme-title">{{ theme }}</h3>
+      <div class="courses-grid">
+        <div class="course-card" *ngFor="let course of getCoursesForTheme(theme); trackBy: trackById">
+          <img [src]="course.image" alt="{{ course.title }}" class="course-image" />
+          <div class="course-info">
+            <h4>{{ course.title }}</h4>
+            <p class="description">{{ course.description }}</p>
+            <div class="course-details">
+              <span class="duration"> {{ course.duration }}h</span>
+              <span class="modules"> {{ course.modules }} modules</span>
+              <span class="status" [class.active]="course.status === 'Active'" [class.upcoming]="course.status === 'Upcoming'">
+                {{ course.status }}
+              </span>
+            </div>
+            <p class="audience">Audience: {{ course.targetAudience }}</p>
+            <div class="admin-actions" *ngIf="isAdmin">
+              <button (click)="editCourse(course)">Edit</button>
+              <button class="delete" (click)="deleteCourse(course.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Paths Section -->
+  <div class="section" *ngIf="!showCourseForm() && !showPathForm()">
+    <div class="actions-bar" *ngIf="isAdmin">
+      <button class="add-btn" (click)="addNewPath()">+ Add New Path</button>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card" *ngFor="let path of paths(); trackBy: trackById">
+        <div class="path-header">
+          <h3>{{ path.title }}</h3>
+          <div class="path-meta">
+            <span>{{ path.courses.length }} courses</span>
+            <span>{{ path.estimatedHours }} hours</span>
+          </div>
+        </div>
+        <p class="path-description">{{ path.description }}</p>
+        <div class="path-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="path.progress"></div>
+          </div>
+          <span>{{ path.progress }}% complete</span>
+        </div>
+        <div class="admin-actions" *ngIf="isAdmin">
+          <button (click)="editPath(path)">Edit</button>
+          <button class="delete" (click)="deletePath(path.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Form -->
+  <div *ngIf="showCourseForm()" class="form-card" (click)="onModalClick($event)">
+    <div class="form-content">
+      <div class="form-header">
+        <h3>{{ editCourseMode() ? 'Edit Course' : 'Add New Course' }}</h3>
+        <button type="button" class="close-modal" (click)="cancelCourse()" aria-label="Close modal">
+          ×
+        </button>
+      </div>
+
+      <form #courseForm="ngForm" (ngSubmit)="saveCourse()">
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.title"
+          name="title"
+          placeholder="Title"
+          required
+        />
+
+        <textarea
+          [(ngModel)]="currentCourse.description"
+          name="description"
+          placeholder="Description"
+          required
+          rows="3">
+        </textarea>
+
+        <input
+          type="number"
+          [(ngModel)]="currentCourse.duration"
+          name="duration"
+          placeholder="Duration (hours)"
+          min="0.5"
+          step="0.5"
+        />
+
+        <input
+          type="number"
+          [(ngModel)]="currentCourse.modules"
+          name="modules"
+          placeholder="Number of modules"
+          min="1"
+        />
+
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.image"
+          name="image"
+          placeholder="Image URL"
+        />
+
+        <select
+          [(ngModel)]="currentCourse.status"
+          name="status">
+          <option value="Active">Active</option>
+          <option value="Upcoming">Upcoming</option>
+        </select>
+
+        <input
+          type="text"
+          [(ngModel)]="currentCourse.targetAudience"
+          name="targetAudience"
+          placeholder="Target Audience"
+        />
+
+        <select
+          [(ngModel)]="currentCourse.theme"
+          name="theme">
+          <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
+        </select>
+
+        <!-- Modules Management -->
+        <div class="modules-section">
+          <h4>Course Modules</h4>
+
+          <!-- Existing modules -->
+          <div class="existing-modules">
+            <div class="form-module-item" *ngFor="let module of currentCourse.courseModules; let i = index">
+              <input type="text" [(ngModel)]="module.title" name="title{{i}}" placeholder="Module Title" />
+              <select [(ngModel)]="module.type" name="type{{i}}">
+                <option value="video">Video</option>
+                <option value="quiz">Quiz</option>
+                <option value="reading">Reading</option>
+                <option value="assignment">Assignment</option>
+                <option value="presentation">Presentation</option>
+              </select>
+              <input type="number" [(ngModel)]="module.duration" name="duration{{i}}" placeholder="Duration (min)" />
+              <button type="button" class="remove-module-btn" (click)="removeModule(i)">×</button>
+            </div>
+          </div>
+
+          <!-- Add module -->
+          <div class="add-module">
+            <button type="button" class="add-module-btn" (click)="addNewModule()">+ Add Module</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="courseForm.invalid || isSavingCourse()" class="save-btn">
+            <span *ngIf="isSavingCourse()">Saving...</span>
+            <span *ngIf="!isSavingCourse()">Save</span>
+          </button>
+          <button type="button" class="cancel-btn" (click)="cancelCourse()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Path Form -->
+  <div *ngIf="showPathForm()" class="form-card" (click)="onModalClick($event)">
+    <div class="form-content">
+      <div class="form-header">
+        <h3>{{ editPathMode() ? 'Edit Learning Path' : 'Add New Learning Path' }}</h3>
+        <button type="button" class="close-modal" (click)="cancelPath()" aria-label="Close modal">
+          ×
+        </button>
+      </div>
+
+      <form #pathForm="ngForm" (ngSubmit)="savePath()">
+        <input
+          type="text"
+          [(ngModel)]="currentPath.title"
+          name="title"
+          placeholder="Title"
+          required
+        />
+
+        <textarea
+          [(ngModel)]="currentPath.description"
+          name="description"
+          placeholder="Description"
+          rows="3">
+        </textarea>
+
+        <input
+          type="text"
+          [(ngModel)]="currentPath.estimatedHours"
+          name="estimatedHours"
+          placeholder="Estimated Hours"
+        />
+
+        <input
+          type="text"
+          [(ngModel)]="currentPath.image"
+          name="image"
+          placeholder="Image URL"
+        />
+
+        <!-- Select Courses Section -->
+        <div class="select-courses-section">
+          <h4>Select Courses</h4>
+          <div class="courses-selection-list">
+            <div
+              class="course-selection-item"
+              *ngFor="let course of allCourses(); trackBy: trackById">
+              <label>
+                <input
+                  type="checkbox"
+                  [checked]="isCourseSelected(course.id)"
+                  (change)="toggleCourseSelection(course.id)" />
+                <div class="course-info-text">
+                  <div class="course-title">{{ course.title }}</div>
+                  <div class="course-details-text">{{ course.duration }}h, {{ course.theme }}</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="pathForm.invalid || isSavingPath()" class="save-btn">
+            <span *ngIf="isSavingPath()">Saving...</span>
+            <span *ngIf="!isSavingPath()">Save</span>
+          </button>
+          <button type="button" class="cancel-btn" (click)="cancelPath()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div *ngIf="toastMessage()" class="toast">{{ toastMessage() }}</div>
+</div>

@@ -22,29 +22,29 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   showPassword = false; // Add password visibility toggle
   
-  // Signal para controlar a exibição do modal de registro
+  // Signal to control registration modal display
   showRegisterModal = signal(false);
 
-  //injetar a auth e as rotas para usar os metodos
+  // Inject auth and routes to use the methods
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // Se já estiver logado, redirecionar para home
+    // If already logged in, redirect to home
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
       return;
     }
     
-    // Adicionar listener para mensagens do iframe
+    // Add listener for iframe messages
     window.addEventListener('message', this.handleMessage.bind(this));
   }
   
   ngOnDestroy() {
-    // Remover listener quando o componente for destruído
+    // Remove listener when component is destroyed
     window.removeEventListener('message', this.handleMessage.bind(this));
   }
   
-  // Handler para mensagens do iframe
+  // Handler for iframe messages
   handleMessage(event: MessageEvent) {
     if (event.data && event.data.type === 'REGISTER_SUCCESS') {
       this.onRegisterSuccess();
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     if (!this.usuario.nome || !this.usuario.senha) {
-      this.errorMessage = 'Por favor, preencha todos os campos.';
+      this.errorMessage = 'Please fill in all fields.';
       return;
     }
 
@@ -68,9 +68,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.usuario).subscribe({
       next:(response)=> {
-        console.log("Login efetuado com sucesso!", response);
+        console.log("Login successful!", response);
         this.isLoading = false;
-        this.successMessage = 'Login efetuado com sucesso!';
+        this.successMessage = 'Login successful!';
 
         // Navigate immediately after successful login
         setTimeout(() => {
@@ -78,39 +78,39 @@ export class LoginComponent implements OnInit {
         }, 1500);
       },
       error:(err)=>{
-        console.log("Erro ao efetuar o login", err);
+        console.log("Error logging in", err);
         this.isLoading = false;
         if (err.status === 401) {
-          this.errorMessage = 'Credenciais inválidas. Use admin/123456 para fazer login.';
+          this.errorMessage = 'Invalid credentials. Use admin/123456 to log in.';
         } else {
-          this.errorMessage = 'Erro ao conectar com o servidor. Tente novamente.';
+          this.errorMessage = 'Error connecting to server. Please try again.';
         }
       }
     })
   }
   
-  // Método para navegar para a página de registro (em vez de abrir modal)
+  // Method to navigate to registration page (instead of opening modal)
   openRegisterModal() {
-    // Navegar para a página de registro em vez de abrir o modal
+    // Navigate to registration page instead of opening modal
     this.router.navigate(['/register']);
   }
   
-  // Método para fechar o modal de registro
+  // Method to close registration modal
   closeRegisterModal() {
     this.showRegisterModal.set(false);
   }
   
-  // Método para fechar o modal ao clicar fora
+  // Method to close modal when clicking outside
   onModalClick(event: Event) {
     if (event.target === event.currentTarget) {
       this.closeRegisterModal();
     }
   }
   
-  // Método chamado quando o registro é bem-sucedido no iframe
+  // Method called when registration is successful in iframe
   onRegisterSuccess() {
     this.closeRegisterModal();
-    // Atualizar a mensagem de sucesso no login
+    // Update success message in login
     this.successMessage = 'Registration successful! You can now log in with your new account.';
   }
 }

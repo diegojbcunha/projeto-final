@@ -1,109 +1,300 @@
-<!-- User Home Page - Netflix-Style -->
 
-<div class="user-home-container">
-  <!-- Continue Learning Section - Apenas exibir se o usuário já iniciou algum curso -->
-  <section class="section continue-section" *ngIf="hasStartedCourses && continueCourses.length > 0">
-    <h2 class="section-title">Continue Learning</h2>
-    <div class="carousel-wrapper">
-      <div class="carousel-container">
-        <div class="course-card" *ngFor="let course of continueCourses" (click)="onCourseClick(course)">
-          <div class="card-image">
-            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
-            <div class="progress-overlay">
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="course.completionRate"></div>
+  <!-- Recommended Courses by Category -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Recommended Courses by Category</h2>
+      <p>Choose a category to start your learning journey</p>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="carousel-container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()"
+         (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+      <div class="carousel" [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'">
+        <!-- Slide 1: Safety -->
+        <div class="slide">
+          <div class="slide-items">
+            <div class="course-card" (click)="onCourseClick(null)">
+              <img class="course-image" src="/workplace-hazard-identification.jpg" alt="Workplace Hazard Recognition" />
+              <div class="course-info">
+                <h3>Workplace Hazard Recognition</h3>
+                <p class="description">Identify and mitigate workplace hazards.</p>
+                <div class="course-details">
+                  <span class="theme">Safety</span>
+                  <span class="duration">1.0h</span>
+                  <span class="modules">4 modules</span>
+                </div>
+                <div class="audience">All employees</div>
+                <button class="start-btn">Start Course</button>
+
+                <!-- Course Modules Section -->
+                <div class="course-modules-section">
+                  <button class="expand-modules-btn" (click)="toggleCourseModules(1)">
+                    <span>↓</span> Show Course Modules
+                  </button>
+
+                  <div class="modules-list" *ngIf="isCourseModulesExpanded(1)">
+                    <div class="module-preview-item" *ngFor="let module of getCourseModules(1); trackBy: trackByModuleId">
+                      <div class="module-preview-icon" [class]="module.type">
+                        {{ module.type === 'video' ? '🎬' :
+                           module.type === 'quiz' ? '📝' :
+                           module.type === 'reading' ? '📖' :
+                           module.type === 'assignment' ? '✏️' :
+                           module.type === 'presentation' ? '📊' : '📄' }}
+                      </div>
+                      <div class="module-preview-content">
+                        <div class="module-preview-title">{{ module.title }}</div>
+                        <div class="module-preview-meta">
+                          <span class="module-preview-type">{{ getModuleTypeLabel(module.type) }}</span>
+                          <span class="module-preview-duration">{{ module.duration }} min</span>
+                        </div>
+                      </div>
+                      <div class="module-preview-status">
+                        <span class="status-badge"
+                              [class.completed]="module.isCompleted"
+                              [class.locked]="isModuleLocked(1, module)"
+                              [class.available]="!module.isCompleted && !isModuleLocked(1, module)">
+                          {{ module.isCompleted ? '✓' : isModuleLocked(1, module) ? '🔒' : '▶' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="play-indicator">
-              <i class="play-icon">▶</i>
-            </div>
-          </div>
-          <div class="card-info">
-            <h3>{{ course.title }}</h3>
-            <p class="description">{{ course.description }}</p>
-            <div class="card-meta">
-              <span class="progress-text">{{ course.completionRate }}% complete</span>
-            </div>
-            <button class="continue-btn">Continue</button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Onboarding Path Section - Exibir apenas para novos usuários -->
-  <section class="section onboarding-section" *ngIf="!hasStartedCourses && onboardingPath">
-    <h2 class="section-title">Onboarding Path</h2>
-    <div (click)="onPathClick(onboardingPath)">
-      <app-learning-path-card [learningPath]="onboardingPath"></app-learning-path-card>
-    </div>
-  </section>
+        <!-- Slide 2: Leadership -->
+        <div class="slide">
+          <div class="slide-items">
+            <div class="course-card" (click)="onCourseClick(null)">
+              <img class="course-image" src="/Effective Communication Skills.jpeg" alt="Effective Communication Skills" />
+              <div class="course-info">
+                <h3>Effective Communication Skills</h3>
+                <p class="description">Improve team communication and leadership.</p>
+                <div class="course-details">
+                  <span class="theme">Leadership</span>
+                  <span class="duration">4.0h</span>
+                  <span class="modules">6 modules</span>
+                </div>
+                <div class="audience">Managers and supervisors</div>
+                <button class="start-btn">Start Course</button>
 
-  <!-- Welcome Section for New Users - Exibir apenas se o usuário não iniciou nenhum curso -->
-  <section class="section welcome-section" *ngIf="!hasStartedCourses">
-    <h2 class="section-title">Welcome to Ford Training Hub</h2>
-    <p class="welcome-text">Start your learning journey by exploring our recommended courses below.</p>
-    
-    <!-- Recommended Courses Carousel for New Users -->
-    <div class="recommended-carousel-wrapper">
-      <app-recommended-courses-carousel 
-        [courses]="recommendedCourses" 
-        (courseClick)="onCourseClick($event)">
-      </app-recommended-courses-carousel>
-    </div>
-  </section>
+                <!-- Course Modules Section -->
+                <div class="course-modules-section">
+                  <button class="expand-modules-btn" (click)="toggleCourseModules(2)">
+                    <span>↓</span> Show Course Modules
+                  </button>
 
-  <!-- Recommended Courses Section -->
-  <section class="section recommended-section" *ngIf="recommendedCourses.length > 0">
-    <h2 class="section-title">Recommended</h2>
-    <div class="carousel-wrapper">
-      <div class="carousel-container">
-        <div class="course-card" *ngFor="let course of recommendedCourses" (click)="onCourseClick(course)">
-          <div class="card-image">
-            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
-            <!-- Badges for new or popular courses -->
-            <div *ngIf="isNewCourse(course)" class="status-badge new">New</div>
-            <div *ngIf="isPopularCourse(course)" class="status-badge popular">Popular</div>
-            <div class="duration-badge">{{ course.duration }}h</div>
-          </div>
-          <div class="card-info">
-            <h3>{{ course.title }}</h3>
-            <p class="description">{{ course.description }}</p>
-            <div class="card-meta">
-              <span class="modules">{{ course.modules }} modules</span>
+                  <div class="modules-list" *ngIf="isCourseModulesExpanded(2)">
+                    <div class="module-preview-item" *ngFor="let module of getCourseModules(2); trackBy: trackByModuleId">
+                      <div class="module-preview-icon" [class]="module.type">
+                        {{ module.type === 'video' ? '🎬' :
+                           module.type === 'quiz' ? '📝' :
+                           module.type === 'reading' ? '📖' :
+                           module.type === 'assignment' ? '✏️' :
+                           module.type === 'presentation' ? '📊' : '📄' }}
+                      </div>
+                      <div class="module-preview-content">
+                        <div class="module-preview-title">{{ module.title }}</div>
+                        <div class="module-preview-meta">
+                          <span class="module-preview-type">{{ getModuleTypeLabel(module.type) }}</span>
+                          <span class="module-preview-duration">{{ module.duration }} min</span>
+                        </div>
+                      </div>
+                      <div class="module-preview-status">
+                        <span class="status-badge"
+                              [class.completed]="module.isCompleted"
+                              [class.locked]="isModuleLocked(2, module)"
+                              [class.available]="!module.isCompleted && !isModuleLocked(2, module)">
+                          {{ module.isCompleted ? '✓' : isModuleLocked(2, module) ? '🔒' : '▶' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Category Carousels -->
-  <section class="section carousel-section" *ngFor="let categoryGroup of categorizedCourses; let categoryIndex = index">
-    <h2 class="section-title">{{ categoryGroup.category }} Courses</h2>
+        <!-- Slide 3: Compliance -->
+        <div class="slide">
+          <div class="slide-items">
+            <div class="course-card" (click)="onCourseClick(null)">
+              <img class="course-image" src="/anti-Harassment.jpg" alt="Anti-Harassment Training" />
+              <div class="course-info">
+                <h3>Anti-Harassment Training</h3>
+                <p class="description">Understand and prevent workplace harassment.</p>
+                <div class="course-details">
+                  <span class="theme">Compliance</span>
+                  <span class="duration">2.0h</span>
+                  <span class="modules">3 modules</span>
+                </div>
+                <div class="audience">All employees</div>
+                <button class="start-btn">Start Course</button>
 
-    <div class="carousel-wrapper">
-      <div class="carousel-container">
-        <div class="course-card" *ngFor="let course of categoryGroup.courses" (click)="onCourseClick(course)">
-          <div class="card-image">
-            <img [src]="course.image.startsWith('http') ? course.image : 'assets/images/' + course.image" [alt]="course.title" />
-            <!-- Badges for new or popular courses -->
-            <div *ngIf="isNewCourse(course)" class="status-badge new">New</div>
-            <div *ngIf="isPopularCourse(course)" class="status-badge popular">Popular</div>
-            <div *ngIf="course.status" class="status-badge" [class]="'status-badge ' + course.status.toLowerCase()">
-              {{ course.status }}
+                <!-- Course Modules Section -->
+                <div class="course-modules-section">
+                  <button class="expand-modules-btn" (click)="toggleCourseModules(3)">
+                    <span>↓</span> Show Course Modules
+                  </button>
+
+                  <div class="modules-list" *ngIf="isCourseModulesExpanded(3)">
+                    <div class="module-preview-item" *ngFor="let module of getCourseModules(3); trackBy: trackByModuleId">
+                      <div class="module-preview-icon" [class]="module.type">
+                        {{ module.type === 'video' ? '🎬' :
+                           module.type === 'quiz' ? '📝' :
+                           module.type === 'reading' ? '📖' :
+                           module.type === 'assignment' ? '✏️' :
+                           module.type === 'presentation' ? '📊' : '📄' }}
+                      </div>
+                      <div class="module-preview-content">
+                        <div class="module-preview-title">{{ module.title }}</div>
+                        <div class="module-preview-meta">
+                          <span class="module-preview-type">{{ getModuleTypeLabel(module.type) }}</span>
+                          <span class="module-preview-duration">{{ module.duration }} min</span>
+                        </div>
+                      </div>
+                      <div class="module-preview-status">
+                        <span class="status-badge"
+                              [class.completed]="module.isCompleted"
+                              [class.locked]="isModuleLocked(3, module)"
+                              [class.available]="!module.isCompleted && !isModuleLocked(3, module)">
+                          {{ module.isCompleted ? '✓' : isModuleLocked(3, module) ? '🔒' : '▶' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="duration-badge">{{ course.duration }}h</div>
           </div>
-          <div class="card-info">
-            <h3>{{ course.title }}</h3>
-            <p class="description">{{ course.description }}</p>
-            <div class="card-meta">
-              <span class="modules">{{ course.modules }} modules</span>
+        </div>
+
+        <!-- Slide 4: Soft Skills -->
+        <div class="slide">
+          <div class="slide-items">
+            <div class="course-card" (click)="onCourseClick(null)">
+              <img class="course-image" src="/time-management.jpeg" alt="Time Management" />
+              <div class="course-info">
+                <h3>Time Management</h3>
+                <p class="description">Effectively manage time and tasks for better productivity.</p>
+                <div class="course-details">
+                  <span class="theme">Soft Skills</span>
+                  <span class="duration">1.5h</span>
+                  <span class="modules">3 modules</span>
+                </div>
+                <div class="audience">All employees</div>
+                <button class="start-btn">Start Course</button>
+
+                <!-- Course Modules Section -->
+                <div class="course-modules-section">
+                  <button class="expand-modules-btn" (click)="toggleCourseModules(4)">
+                    <span>↓</span> Show Course Modules
+                  </button>
+
+                  <div class="modules-list" *ngIf="isCourseModulesExpanded(4)">
+                    <div class="module-preview-item" *ngFor="let module of getCourseModules(4); trackBy: trackByModuleId">
+                      <div class="module-preview-icon" [class]="module.type">
+                        {{ module.type === 'video' ? '🎬' :
+                           module.type === 'quiz' ? '📝' :
+                           module.type === 'reading' ? '📖' :
+                           module.type === 'assignment' ? '✏️' :
+                           module.type === 'presentation' ? '📊' : '📄' }}
+                      </div>
+                      <div class="module-preview-content">
+                        <div class="module-preview-title">{{ module.title }}</div>
+                        <div class="module-preview-meta">
+                          <span class="module-preview-type">{{ getModuleTypeLabel(module.type) }}</span>
+                          <span class="module-preview-duration">{{ module.duration }} min</span>
+                        </div>
+                      </div>
+                      <div class="module-preview-status">
+                        <span class="status-badge"
+                              [class.completed]="module.isCompleted"
+                              [class.locked]="isModuleLocked(4, module)"
+                              [class.available]="!module.isCompleted && !isModuleLocked(4, module)">
+                          {{ module.isCompleted ? '✓' : isModuleLocked(4, module) ? '🔒' : '▶' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Technical -->
+        <div class="slide">
+          <div class="slide-items">
+            <div class="course-card" (click)="onCourseClick(null)">
+              <img class="course-image" src="/cyber.jpg" alt="Cybersecurity Basics" />
+              <div class="course-info">
+                <h3>Cybersecurity Basics</h3>
+                <p class="description">Protect against cyber threats and secure digital practices.</p>
+                <div class="course-details">
+                  <span class="theme">Technical</span>
+                  <span class="duration">3.0h</span>
+                  <span class="modules">5 modules</span>
+                </div>
+                <div class="audience">All employees</div>
+                <button class="start-btn">Start Course</button>
+
+                <!-- Course Modules Section -->
+                <div class="course-modules-section">
+                  <button class="expand-modules-btn" (click)="toggleCourseModules(5)">
+                    <span>↓</span> Show Course Modules
+                  </button>
+
+                  <div class="modules-list" *ngIf="isCourseModulesExpanded(5)">
+                    <div class="module-preview-item" *ngFor="let module of getCourseModules(5); trackBy: trackByModuleId">
+                      <div class="module-preview-icon" [class]="module.type">
+                        {{ module.type === 'video' ? '🎬' :
+                           module.type === 'quiz' ? '📝' :
+                           module.type === 'reading' ? '📖' :
+                           module.type === 'assignment' ? '✏️' :
+                           module.type === 'presentation' ? '📊' : '📄' }}
+                      </div>
+                      <div class="module-preview-content">
+                        <div class="module-preview-title">{{ module.title }}</div>
+                        <div class="module-preview-meta">
+                          <span class="module-preview-type">{{ getModuleTypeLabel(module.type) }}</span>
+                          <span class="module-preview-duration">{{ module.duration }} min</span>
+                        </div>
+                      </div>
+                      <div class="module-preview-status">
+                        <span class="status-badge"
+                              [class.completed]="module.isCompleted"
+                              [class.locked]="isModuleLocked(5, module)"
+                              [class.available]="!module.isCompleted && !isModuleLocked(5, module)">
+                          {{ module.isCompleted ? '✓' : isModuleLocked(5, module) ? '🔒' : '▶' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Navigation arrows -->
+      <button class="nav-btn prev" (click)="prevSlide()" *ngIf="totalSlides > 1">
+        &#10094;
+      </button>
+      <button class="nav-btn next" (click)="nextSlide()" *ngIf="totalSlides > 1">
+        &#10095;
+      </button>
+
+      <!-- Indicators -->
+      <div class="indicators" *ngIf="totalSlides > 1">
+        <button class="indicator" *ngFor="let slide of slides; let i = index"
+                [class.active]="i === currentIndex"
+                (click)="goToSlide(i)">
+        </button>
+      </div>
     </div>
-  </section>
-</div>
+  </div>

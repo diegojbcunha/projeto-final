@@ -13,7 +13,7 @@ export class AuthService {
   ];
 
   constructor() {
-    // 🔹 Carrega usuários do localStorage e mescla com os mockados
+    // 🔹 Load users from localStorage and merge with mock users
     const storedUsers = localStorage.getItem('users');
     if (storedUsers) {
       const parsed = JSON.parse(storedUsers);
@@ -23,13 +23,13 @@ export class AuthService {
     }
   }
 
-  // 🔹 LOGIN – agora verifica mock + usuários salvos no localStorage
+  // 🔹 LOGIN – now checks mock + users saved in localStorage
   login(usuario: Pick<Usuario, 'nome' | 'senha'>): Observable<Usuario> {
     return new Observable<Usuario>(observer => {
       setTimeout(() => {
         const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-        // Verifica em todos os usuários (mock + local)
+        // Check all users (mock + local)
         const allUsers = [...this.mockUsers, ...users];
         const user = allUsers.find(u =>
           (u.nome === usuario.nome || u.email === usuario.nome) &&
@@ -51,15 +51,15 @@ export class AuthService {
           observer.next(usuarioLogado);
           observer.complete();
         } else {
-          observer.error({ status: 401, message: 'Credenciais inválidas. Verifique o nome e senha.' });
+          observer.error({ status: 401, message: 'Invalid credentials. Check username and password.' });
         }
       }, 500);
     }).pipe(
-      tap((response) => console.log("✅ Login efetuado com sucesso!", response))
+      tap((response) => console.log("✅ Login successful!", response))
     );
   }
 
-  // 🔹 REGISTER – cria usuário e salva corretamente no localStorage
+  // 🔹 REGISTER – creates user and saves correctly in localStorage
   register(userData: { nome: string, email: string, senha: string, department?: string }): Observable<Usuario> {
     return new Observable<Usuario>(observer => {
       setTimeout(() => {
@@ -70,7 +70,7 @@ export class AuthService {
         );
 
         if (existingUser) {
-          observer.error({ status: 409, message: 'Usuário já existe.' });
+          observer.error({ status: 409, message: 'User already exists.' });
           return;
         }
 
@@ -100,22 +100,22 @@ export class AuthService {
         observer.complete();
       }, 500);
     }).pipe(
-      tap((response) => console.log("✅ Registro e login automático concluídos!", response))
+      tap((response) => console.log("✅ Registration and automatic login completed!", response))
     );
   }
 
-  // 🔹 Verifica se o usuário está logado
+  // 🔹 Check if user is logged in
   isLoggedIn(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  // 🔹 Retorna dados do usuário logado
+  // 🔹 Return logged in user data
   getCurrentUser(): Usuario | null {
     const userData = localStorage.getItem('usuario');
     return userData ? JSON.parse(userData) : null;
   }
 
-  // 🔹 Verifica se é admin
+  // 🔹 Check if user is admin
   isAdmin(): boolean {
     const user = this.getCurrentUser();
     return user ? user.perfil === 'admin' : false;

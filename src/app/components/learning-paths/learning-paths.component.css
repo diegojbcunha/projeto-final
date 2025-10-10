@@ -10,7 +10,7 @@
 
 .paths-container {
   padding: 1.5rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
 }
 
@@ -39,7 +39,7 @@
   transform: translateY(-50%);
   width: 4px;
   height: 1.2em;
-  background: var(--ford-light-blue);
+  background: var(--ford-gray);
   border-radius: 2px;
 }
 

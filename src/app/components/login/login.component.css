@@ -64,6 +64,7 @@
 /* Custom input styling for icons */
 .input-with-icon {
   position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .input-with-icon .icon {
@@ -80,19 +81,28 @@
 .input-with-icon .form-control {
   padding-left: 45px;
   padding-right: 45px;
-  border: 1px solid var(--ford-gray);
-  border-radius: 6px;
+  border: 2px solid var(--ford-gray); /* Borda mais visível */
+  border-radius: 8px; /* Bordas mais arredondadas */
   transition: all 0.3s ease;
+  background-color: var(--ford-white);
+  font-size: 1rem;
+  height: 50px; /* Altura aumentada para melhor visibilidade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .input-with-icon .form-control:focus {
-  border-color: var(--ford-light-blue);
-  box-shadow: 0 0 0 3px rgba(71, 168, 229, 0.2);
+  border-color: var(--ford-medium-blue); /* Cor mais visível ao focar */
+  box-shadow: 0 0 0 3px rgba(42, 107, 172, 0.2);
   outline: none;
 }
 
 .input-with-icon .form-control:hover {
   border-color: var(--ford-medium-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-with-icon .form-control.is-invalid {
+  border-color: #dc3545; /* Vermelho para campos inválidos */
 }
 
 .password-toggle-icon {
@@ -245,6 +255,10 @@
     width: 95%;
     max-width: 95%;
   }
+  
+  .input-with-icon .form-control {
+    height: 45px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -278,6 +292,7 @@
   .input-with-icon .form-control {
     padding-left: 40px;
     padding-right: 40px;
+    height: 42px;
   }
   
   .register-modal-header h3 {

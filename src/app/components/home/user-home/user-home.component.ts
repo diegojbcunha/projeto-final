@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { TrainingService } from '../../../services/training.service';
-import { Course, LearningPath } from '../../../services/training.service';
 import { AuthService } from '../../../services/auth.service';
-import { RecommendedCoursesCarouselComponent } from '../../recommended-courses-carousel/recommended-courses-carousel.component';
-import { LearningPathCardComponent } from '../../learning-path-card/learning-path-card.component';
+import { TrainingService, Course } from '../../../services/training.service';
 
 export interface CategorizedCourses {
   category: string;
@@ -15,137 +12,86 @@ export interface CategorizedCourses {
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [CommonModule, RecommendedCoursesCarouselComponent, LearningPathCardComponent],
+  imports: [CommonModule],
   templateUrl: './user-home.component.html',
   styleUrls: ['./user-home.component.css']
 })
-export class UserHomeComponent implements OnInit {
+export class UserHomeComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private trainingService = inject(TrainingService);
+
+  currentUser = this.authService.getCurrentUser();
   continueCourses: Course[] = [];
   recommendedCourses: Course[] = [];
   categorizedCourses: CategorizedCourses[] = [];
-  hasStartedCourses: boolean = false;
-  onboardingPath: LearningPath | undefined;
-
   categories = ['Soft Skills', 'Leadership', 'Safety', 'Compliance', 'Technical'];
 
-  constructor(
-    private trainingService: TrainingService,
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  // Carousel properties
+  currentIndex = 0;
+  totalSlides = 5; // 5 slides (one per category)
+  slides: any[] = [];
+  autoplayInterval: any;
+  isPaused = false;
 
-  ngOnInit() {
-    this.loadCourses();
-    this.loadOnboardingPath();
+  // Touch handling
+  private touchStartX = 0;
+  private touchEndX = 0;
+
+  // Course modules expansion
+  private expandedCourseModules = new Set<number>();
+
+  // Computed property for template
+  get hasRecommendedCourses(): boolean {
+    return this.categorizedCourses.some(cat => cat.courses.length > 0);
   }
 
   /**
    * Load courses for user view
    */
   loadCourses() {
-    const allCourses = this.trainingService.courses();
-    
-    // Verificar se o usuário tem algum progresso registrado
-    this.hasStartedCourses = allCourses.some((course: Course) => course.completionRate > 0);
-    
-    // Filter courses with progress for "Continue Learning" and limit to 3
-    // Apenas mostrar se o usuário já iniciou algum curso
-    if (this.hasStartedCourses) {
-      this.continueCourses = allCourses
-        .filter((course: Course) => course.completionRate > 0 && course.completionRate < 100)
-        .slice(0, 3); // Limit to 3 courses
-    } else {
-      this.continueCourses = [];
-    }
-    
-    // Get recommended courses (not started yet)
-    this.recommendedCourses = allCourses.filter((course: Course) => course.completionRate === 0);
-    
-    // Group courses by category
+    const allCourses = this.trainingService.getCourses();
+
+    // Filter courses with progress for "Continue Learning"
+    this.continueCourses = allCourses.filter(course =>
+      course.completionRate > 0 && course.completionRate < 100
+    );
+
+    // Get recommended courses (not started yet) and select 1 from each category
+    const recommendedCourses = allCourses.filter(course =>
+      course.completionRate === 0
+    );
+
+    // Select only 1 course from each theme
+    this.recommendedCourses = this.categories.map(category => {
+      const coursesInCategory = recommendedCourses.filter(course => course.theme === category);
+      // Return first course from each category, or empty if no courses
+      return coursesInCategory.length > 0 ? coursesInCategory[0] : null;
+    }).filter(course => course !== null) as Course[];
+
+    // Group courses by category (each category will have at most 1 course)
     this.categorizedCourses = this.categories.map(category => ({
       category,
-      courses: this.recommendedCourses.filter((course: Course) => course.theme === category)
+      courses: this.recommendedCourses.filter(course => course.theme === category)
     }));
   }
 
   /**
-   * Load onboarding path for new users
-   */
-  loadOnboardingPath() {
-    const allPaths = this.trainingService.paths();
-    this.onboardingPath = allPaths.find(path => path.title === 'Onboarding Path');
-  }
-
-  /**
-   * Navigate to learning path viewer with selected path
-   */
-  onPathClick(path: LearningPath) {
-    // Navigate to learning paths page
-    this.router.navigate(['/learning-paths']);
-  }
-
-  /**
    * Navigate to course viewer with selected course
-   * Updates course status to started if it's a new course
    */
-  onCourseClick(course: Course) {
-    // If this is a new course (0% completion), mark it as started (1% completion)
-    if (course.completionRate === 0) {
-      course.completionRate = 1;
-      this.trainingService.courses.update(courses => 
-        courses.map(c => c.id === course.id ? course : c)
-      );
-      
-      // Reload courses to update the UI
-      this.loadCourses();
+  onCourseClick(course: Course | null) {
+    if (course) {
+      this.router.navigate(['/course-viewer'], { queryParams: { courseId: course.id } });
     }
-    
-    this.router.navigate(['/course-viewer'], { queryParams: { courseId: course.id } });
+    // For demo cards, just show alert
+    alert('This is a demo course card. In a real app, this would navigate to the course.');
   }
 
   /**
-   * Scroll carousel left
+   * Navigate to specified path
    */
-  scrollLeft(categoryIndex: number): void {
-    const carousel = this.getCarouselContainer(categoryIndex);
-    if (carousel) {
-      carousel.scrollBy({ left: -320, behavior: 'smooth' });
-    }
-  }
-
-  /**
-   * Scroll carousel right
-   */
-  scrollRight(categoryIndex: number): void {
-    const carousel = this.getCarouselContainer(categoryIndex);
-    if (carousel) {
-      carousel.scrollBy({ left: 320, behavior: 'smooth' });
-    }
-  }
-
-  /**
-   * Check if carousel can scroll left
-   */
-  canScrollLeft(categoryIndex: number): boolean {
-    const carousel = this.getCarouselContainer(categoryIndex);
-    return carousel ? carousel.scrollLeft > 0 : false;
-  }
-
-  /**
-   * Check if carousel can scroll right
-   */
-  canScrollRight(categoryIndex: number): boolean {
-    const carousel = this.getCarouselContainer(categoryIndex);
-    if (!carousel) return false;
-    return carousel.scrollLeft < (carousel.scrollWidth - carousel.clientWidth);
-  }
-
-  /**
-   * Get carousel container element
-   */
-  private getCarouselContainer(categoryIndex: number): HTMLElement | null {
-    const section = document.querySelectorAll('.carousel-section')[categoryIndex];
-    return section?.querySelector('.carousel-container') as HTMLElement;
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
   }
 
   /**
@@ -164,5 +110,151 @@ export class UserHomeComponent implements OnInit {
     // In a real app, this would check enrollment or completion data
     // For now, we'll simulate with a simple condition
     return course.completionRate > 70; // Simulate popular courses
+  }
+
+  /**
+   * TrackBy function for ngFor optimization
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id;
+  }
+
+  ngOnInit() {
+    this.startAutoplay();
+  }
+
+  ngOnDestroy() {
+    this.stopAutoplay();
+  }
+
+  // Carousel methods
+  startAutoplay() {
+    this.autoplayInterval = setInterval(() => {
+      if (!this.isPaused) {
+        this.nextSlide();
+      }
+    }, 5000); // Change slide every 5 seconds
+  }
+
+  stopAutoplay() {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+  }
+
+  nextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+  }
+
+  prevSlide() {
+    this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+  }
+
+  goToSlide(index: number) {
+    this.currentIndex = index;
+  }
+
+  onMouseEnter() {
+    this.isPaused = true;
+  }
+
+  onMouseLeave() {
+    this.isPaused = false;
+  }
+
+  // Touch event handlers
+  onTouchStart(event: TouchEvent) {
+    this.touchStartX = event.changedTouches[0].screenX;
+    this.stopAutoplay();
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    this.touchEndX = event.changedTouches[0].screenX;
+    this.handleSwipe();
+    this.startAutoplay(); // Restart autoplay after swipe
+  }
+
+  private handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = this.touchStartX - this.touchEndX;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        this.nextSlide(); // Swipe left - next
+      } else {
+        this.prevSlide(); // Swipe right - prev
+      }
+    }
+  }
+
+  // Course modules methods
+  toggleCourseModules(courseId: number) {
+    if (this.expandedCourseModules.has(courseId)) {
+      this.expandedCourseModules.delete(courseId);
+    } else {
+      this.expandedCourseModules.add(courseId);
+    }
+  }
+
+  isCourseModulesExpanded(courseId: number): boolean {
+    return this.expandedCourseModules.has(courseId);
+  }
+
+  getCourseModules(courseId: number) {
+    // Map course IDs to real course data - using displayed course names
+    const courseIndexMap: { [key: number]: { title: string, theme: string } } = {
+      1: { title: 'Workplace Hazard Recognition', theme: 'Safety' },
+      2: { title: 'Effective Communication Skills', theme: 'Leadership' },
+      3: { title: 'Anti-Harassment Training', theme: 'Compliance' },
+      4: { title: 'Time Management', theme: 'Soft Skills' },
+      5: { title: 'Cybersecurity Basics', theme: 'Technical' }
+    };
+
+    const courseInfo = courseIndexMap[courseId];
+    if (courseInfo) {
+      const allCourses = this.trainingService.getCourses();
+      const course = allCourses.find(c => c.title === courseInfo.title && c.theme === courseInfo.theme);
+      return course?.courseModules || [];
+    }
+    return [];
+  }
+
+  getModuleTypeLabel(type: string): string {
+    const labels: { [key: string]: string } = {
+      'video': 'Video',
+      'quiz': 'Quiz',
+      'reading': 'Reading',
+      'assignment': 'Assignment',
+      'presentation': 'Presentation'
+    };
+    return labels[type] || 'Content';
+  }
+
+  isModuleLocked(courseId: number, module: any): boolean {
+    // Simple logic: modules are locked if previous modules aren't completed
+    const modules = this.getCourseModules(courseId);
+    const moduleIndex = modules.findIndex(m => m.id === module.id);
+
+    for (let i = 0; i < moduleIndex; i++) {
+      if (!modules[i].isCompleted) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * TrackBy function for modules
+   */
+  trackByModuleId(index: number, item: any): number {
+    return item.id;
+  }
+
+  /**
+   * TrackBy function for categories
+   */
+  trackByCategory(index: number, item: CategorizedCourses): string {
+    return item.category;
   }
 }

@@ -6,7 +6,7 @@
     <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- Nome -->
+      <!-- Name -->
       <div class="form-group">
         <label for="name">Full Name</label>
         <input id="name" type="text" formControlName="name" class="form-control"
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <!-- Senha -->
+      <!-- Password -->
       <div class="form-group">
         <label for="password">Password</label>
         <input id="password" type="password" formControlName="password" class="form-control"
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <!-- Confirmar Senha -->
+      <!-- Confirm Password -->
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control"
@@ -49,13 +49,13 @@
         </div>
       </div>
 
-      <!-- Departamento -->
+      <!-- Department -->
       <div class="form-group">
         <label for="department">Department / Role (Optional)</label>
         <input id="department" type="text" formControlName="department" class="form-control" placeholder="e.g. Engineering, HR" />
       </div>
 
-      <!-- Checkbox LGPD -->
+      <!-- LGPD Checkbox -->
       <div class="form-group terms">
         <label>
           <input type="checkbox" formControlName="acceptedTerms" />
@@ -78,30 +78,30 @@
     </div>
   </div>
 
-  <!-- MODAL LGPD -->
+  <!-- LGPD MODAL -->
   <div class="privacy-modal" *ngIf="showPrivacyModal">
     <div class="privacy-overlay" (click)="closePrivacyPolicy()"></div>
     <div class="privacy-content">
       <h3>Privacy Policy (LGPD)</h3>
       <div class="privacy-text">
-        <p><strong>1. Introdução</strong><br>
-        O Ford Training Hub valoriza a privacidade e a proteção dos dados pessoais de seus usuários. Esta Política de Privacidade foi elaborada em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD), com o objetivo de informar como coletamos, utilizamos, armazenamos e protegemos as informações dos colaboradores e administradores que utilizam a plataforma.</p>
+        <p><strong>1. Introduction</strong><br>
+        Ford Training Hub values the privacy and protection of users' personal data. This Privacy Policy was developed in compliance with Law No. 13,709/2018 – General Law for Personal Data Protection (LGPD), with the purpose of informing how we collect, use, store and protect the information of employees and administrators who use the platform.</p>
 
-        <p><strong>2. Dados Coletados</strong><br>
-        Nome completo, E-mail corporativo, Cargo e departamento (quando aplicável), Cursos acessados e concluídos, Progresso em treinamentos, Avaliações e certificados emitidos, Endereço IP e informações de dispositivo.</p>
+        <p><strong>2. Collected Data</strong><br>
+        Full name, Corporate email, Position and department (when applicable), Accessed and completed courses, Training progress, Evaluations and issued certificates, IP address and device information.</p>
 
-        <p><strong>3. Finalidade do Tratamento de Dados</strong><br>
-        Gerenciar o acesso, emitir certificados, cumprir obrigações legais e melhorar a experiência do usuário.</p>
+        <p><strong>3. Purpose of Data Processing</strong><br>
+        Manage access, issue certificates, comply with legal obligations and improve user experience.</p>
 
-        <p><strong>4. Compartilhamento de Dados</strong><br>
-        Não compartilhamos dados pessoais com terceiros, exceto em casos legais ou operacionais necessários ao funcionamento do sistema.</p>
+        <p><strong>4. Data Sharing</strong><br>
+        We do not share personal data with third parties, except in legal or operational cases necessary for system operation.</p>
 
-        <p><strong>5. Armazenamento e Segurança</strong><br>
-        Utilizamos criptografia, controle de acesso e servidores protegidos para garantir a segurança das informações.</p>
+        <p><strong>5. Storage and Security</strong><br>
+        We use encryption, access control and protected servers to ensure information security.</p>
 
-        <p><strong>6. Direitos do Usuário</strong><br>
-        O usuário pode solicitar acesso, correção, exclusão ou portabilidade de seus dados enviando e-mail para:
-        <strong>📧 privacidade&#64;fordtraininghub.com</strong></p>
+        <p><strong>6. User Rights</strong><br>
+        The user may request access, correction, deletion or portability of their data by sending an email to:
+        <strong>📧 privacy&#64;fordtraininghub.com</strong></p>
       </div>
 
       <button class="btn-close" (click)="closePrivacyPolicy()">Close</button>

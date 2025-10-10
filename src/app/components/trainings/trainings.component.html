@@ -14,8 +14,8 @@
           <h4>{{ course.title }}</h4>
           <p class="description">{{ course.description }}</p>
           <div class="course-details">
-            <span class="duration">⏱️ {{ course.duration }}h</span>
-            <span class="modules">📚 {{ course.modules }} modules</span>
+            <span class="duration"> {{ course.duration }}h</span>
+            <span class="modules"> {{ course.modules }} modules</span>
             <span class="status" [class.active]="course.status === 'Active'" [class.upcoming]="course.status === 'Upcoming'">
               {{ course.status }}
             </span>
@@ -32,7 +32,7 @@
             <button class="delete" (click)="deleteCourse(course.id)" *ngIf="isAdmin">Delete</button>
           </div>
           
-          <!-- Botão para abrir o modal de módulos -->
+          <!-- Button to open modules modal -->
           <div class="modules-toggle">
             <button 
               class="toggle-modules-btn" 
@@ -45,8 +45,8 @@
     </div>
   </div>
 
-  <!-- Modal de Módulos -->
-  <div *ngIf="showModulesModal()" class="modules-modal" (click)="onModulesModalClick($event)">
+  <!-- Modules Modal -->
+  <div *ngIf="showModulesModal()" class="modules-modal modules-modal-overlay" (click)="onModulesModalClick($event)">
     <div class="modal-content">
       <div class="modal-header">
         <h3>{{ selectedCourse?.title }} - Modules</h3>
@@ -61,9 +61,9 @@
           <div class="course-details-modal">
             <p class="course-description">{{ selectedCourse?.description }}</p>
             <div class="course-meta">
-              <span class="duration">⏱️ {{ selectedCourse?.duration }}h</span>
-              <span class="modules">📚 {{ selectedCourse?.modules }} modules</span>
-              <span class="completion">📊 {{ selectedCourse?.completionRate }}% complete</span>
+              <span class="duration"> {{ selectedCourse?.duration }}h</span>
+              <span class="modules"> {{ selectedCourse?.modules }} modules</span>
+              <span class="completion">{{ selectedCourse?.completionRate }}% complete</span>
             </div>
           </div>
         </div>
@@ -76,11 +76,12 @@
           <div class="course-module-item" *ngFor="let module of selectedCourseModules; let i = index">
             <div class="module-info">
               <div class="module-icon" [class]="module.type">
-                {{ module.type === 'video' ? '📹' :
-                   module.type === 'quiz' ? '📝' :
-                   module.type === 'reading' ? '📖' :
-                   module.type === 'assignment' ? '✏️' :
-                   module.type === 'presentation' ? '📊' : '📄' }}
+                {{ module.type === 'video' ? '' :
+                   module.type === 'quiz' ? '' :
+                   module.type === 'reading' ? '' :
+                   module.type === 'assignment' ? '' :
+                   module.type === 'presentation' ? '' :
+                   '📄' }}
               </div>
               <div class="module-details">
                 <div class="module-title">{{ module.title }}</div>

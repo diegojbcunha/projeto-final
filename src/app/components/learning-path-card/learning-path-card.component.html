@@ -14,14 +14,14 @@
     </div>
 
     <p class="details">
-      {{ learningPath.courses.length }} cursos • {{ learningPath.estimatedHours }} horas previstas
+      {{ learningPath.courses.length }} courses • {{ learningPath.estimatedHours }} estimated hours
     </p>
 
     <p class="status">{{ learningPath.status }}</p>
   </div>
 
   <div class="admin-actions" *ngIf="isAdmin">
-    <button (click)="onEdit()" class="edit-btn">Editar</button>
-    <button (click)="onDelete()" class="delete-btn">Excluir</button>
+    <button (click)="onEdit()" class="edit-btn">Edit</button>
+    <button (click)="onDelete()" class="delete-btn">Delete</button>
   </div>
 </div>

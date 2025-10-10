@@ -35,6 +35,28 @@
   border-radius: 2px;
 }
 
+.management-link {
+  margin-bottom: 1.5rem;
+}
+
+.manage-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: var(--ford-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.manage-btn:hover {
+  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
 .filters {
   display: flex;
   gap: 0.5rem;

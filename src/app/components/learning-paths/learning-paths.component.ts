@@ -1,4 +1,4 @@
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -16,20 +16,31 @@ export class LearningPathsComponent {
   isAdmin = false;
   showForm = signal(false);
   editMode = signal(false);
+  isSaving = signal(false);
+  toastMessage = signal('');
 
-  paths: LearningPath[] = [];
-  allCourses: Course[] = [];
+  paths = signal<LearningPath[]>([]);
+  allCourses = signal<Course[]>([]);
   currentPath!: LearningPath;
 
   constructor(private service: TrainingService, private authService: AuthService) {
-    this.paths = service.getPaths();
-    this.allCourses = service.getCourses();
+    this.paths.set(this.service.getPaths());
+    this.allCourses.set(this.service.getCourses());
     this.isAdmin = authService.isAdmin();
     this.currentPath = this.createEmptyPath();
   }
 
   createEmptyPath(): LearningPath {
-    return { id: Date.now(), title: '', description: '', courses: [], progress: 0, status: 'Not Started' };
+    return { 
+      id: Date.now(), 
+      title: '', 
+      description: '', 
+      courses: [], 
+      progress: 0, 
+      status: 'Not Started',
+      estimatedHours: '',
+      image: ''
+    };
   }
 
   addNew() {
@@ -47,27 +58,48 @@ export class LearningPathsComponent {
   }
 
   deletePath(id: number) {
+    if (!this.isAdmin) return; // Only admin can delete
+    if (!confirm('Are you sure you want to delete this path?')) {
+      return;
+    }
     this.service.deletePath(id);
-    this.paths = this.service.getPaths();
+    this.paths.set(this.service.getPaths());
+  }
+
+  private showToast(message: string) {
+    this.toastMessage.set(message);
+    setTimeout(() => this.toastMessage.set(''), 3000);
   }
 
   savePath(form: NgForm) {
-    if (!form.valid) {
-      alert('Please fill in all required fields.');
+    // Validate required fields
+    if (!this.currentPath.title) {
+      this.showToast('Title is required.');
       return;
     }
 
+    this.isSaving.set(true);
     try {
+      console.log('Saving path:', this.currentPath);
+      // Set the selected courses before saving
+      this.currentPath.courses = this.allCourses().filter(course =>
+        this.currentPath.courses.some(selected => selected.id === course.id)
+      );
+
       if (this.editMode()) {
         this.service.updatePath(this.currentPath);
       } else {
-        this.service.addPath(this.currentPath);
+        // Add new path with a unique ID
+        const newPath = { ...this.currentPath, id: Date.now() };
+        this.service.addPath(newPath);
       }
-      this.paths = this.service.getPaths();
-      alert('Path saved successfully!');
+      this.showToast('Path saved successfully!');
       this.cancel();
     } catch (error) {
-      alert('Error saving path. Please try again.');
+      console.error('Error saving path:', error);
+      this.showToast('Error saving path. Please try again.');
+    } finally {
+      this.isSaving.set(false);
     }
   }
 
@@ -81,7 +113,7 @@ export class LearningPathsComponent {
     if (selected.includes(id)) {
       this.currentPath.courses = this.currentPath.courses.filter(c => c.id !== id);
     } else {
-      const course = this.allCourses.find(c => c.id === id);
+      const course = this.allCourses().find(c => c.id === id);
       if (course) this.currentPath.courses.push(course);
     }
   }
@@ -92,15 +124,6 @@ export class LearningPathsComponent {
 
   trackById(index: number, item: any): number {
     return item.id;
-  }
-
-  scrollCarousel(event: Event, direction: 'left' | 'right') {
-    const button = event.target as HTMLElement;
-    const carousel = button.closest('.courses-carousel')?.querySelector('.carousel-container') as HTMLElement;
-    if (carousel) {
-      const scrollAmount = carousel.clientWidth * 0.8;
-      carousel.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
   }
 
   @HostListener('document:keydown.escape', ['$event'])

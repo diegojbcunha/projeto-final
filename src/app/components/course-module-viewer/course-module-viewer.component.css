@@ -5,7 +5,15 @@
   --ford-medium-blue: #2A6BAC;
   --ford-light-blue: #47A8E5;
   --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
+  --ford-gray: #C6C6C6; :root {
+    
+  --primary-dark: #133A7C;
+  --secondary-dark: #2A6BAC;
+  --accent-blue: #47A8E5;
+  --white: #FFFFFF;
+  --light-gray: #C6C6C6;
+  --background-light: #F7F9FC;
+}
 }
 
 * {
@@ -111,7 +119,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--ford-medium-blue), var(--ford-light-blue));
+  background: var(--ford-medium-blue);
   border-radius: 4px;
   transition: width 0.5s ease;
 }

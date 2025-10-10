@@ -24,6 +24,11 @@ export class CourseModuleViewerComponent implements OnInit {
   expandedModules = new Set<number>();
   currentModule: CourseModule | null = null;
 
+  // New Udemy-style properties
+  sidebarCollapsed = false;
+  currentSlideIndex = 0;
+  totalSlides = 1;
+
   ngOnInit() {
     this.loadCourse();
   }
@@ -138,6 +143,55 @@ export class CourseModuleViewerComponent implements OnInit {
 
   trackByModuleId(index: number, module: CourseModule): number {
     return module.id;
+  }
+
+  // Udemy-style methods
+  selectModule(module: CourseModule) {
+    // Allow selection only if not disabled
+    if (!this.isModuleDisabled(module)) {
+      this.currentModule = module;
+      this.expandedModules.add(module.id);
+
+      // Reset slide navigation for presentations
+      if (module.type === 'presentation') {
+        this.currentSlideIndex = 0;
+        this.totalSlides = 10; // Mock number of slides
+      }
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  getPreviousModule(): CourseModule | null {
+    if (!this.currentModule) return null;
+    const currentIndex = this.courseModules.findIndex(m => m.id === this.currentModule!.id);
+    if (currentIndex > 0) {
+      return this.courseModules[currentIndex - 1];
+    }
+    return null;
+  }
+
+  getNextModule(): CourseModule | null {
+    if (!this.currentModule) return null;
+    const currentIndex = this.courseModules.findIndex(m => m.id === this.currentModule!.id);
+    if (currentIndex < this.courseModules.length - 1) {
+      return this.courseModules[currentIndex + 1];
+    }
+    return null;
+  }
+
+  previousSlide() {
+    if (this.currentSlideIndex > 0) {
+      this.currentSlideIndex--;
+    }
+  }
+
+  nextSlide() {
+    if (this.currentSlideIndex < this.totalSlides - 1) {
+      this.currentSlideIndex++;
+    }
   }
 
   goBack() {

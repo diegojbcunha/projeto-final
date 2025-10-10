@@ -1,4 +1,4 @@
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, signal, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +12,7 @@ import { Course, Training, TrainingService, CourseModule } from '../../services/
   templateUrl: './trainings.component.html',
   styleUrls: ['./trainings.component.css']
 })
-export class TrainingsComponent {
+export class TrainingsComponent implements OnInit {
   currentUser: any = null;
   isAdmin = false;
   themes: string[] = [];
@@ -21,22 +21,25 @@ export class TrainingsComponent {
   editMode = signal(false);
   currentCourse!: Course;
   
-  // Nova propriedade para controle do modal de módulos
+  // New property for modules modal control
   showModulesModal = signal(false);
   selectedCourse: Course | null = null;
   selectedCourseModules: CourseModule[] = [];
 
   constructor(private router: Router, private authService: AuthService, private service: TrainingService) {
-    // Verificar se usuário está logado
+    // Check if user is logged in
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
       return;
     }
 
-    // Obter dados do usuário atual
+    // Get current user data
     this.currentUser = this.authService.getCurrentUser();
     this.isAdmin = this.authService.isAdmin();
     this.themes = this.service.themes;
+  }
+
+  ngOnInit() {
     this.updateCourses();
     this.currentCourse = this.createEmptyCourse();
   }
@@ -56,7 +59,7 @@ export class TrainingsComponent {
   }
 
   createEmptyCourse(): Course {
-    return {
+    const course: Course = {
       id: Date.now(),
       title: '',
       description: '',
@@ -69,6 +72,7 @@ export class TrainingsComponent {
       theme: 'Safety',
       courseModules: []
     };
+    return course;
   }
 
   addNew() {
@@ -92,7 +96,6 @@ export class TrainingsComponent {
     }
     this.service.deleteCourse(id);
     this.updateCourses();
-    // Show success message if needed
   }
 
   saveCourse() {
@@ -104,15 +107,19 @@ export class TrainingsComponent {
     }
 
     try {
+      console.log('Saving course:', this.currentCourse);
       if (this.editMode()) {
         this.service.updateCourse(this.currentCourse);
       } else {
-        this.service.addCourse(this.currentCourse);
+        // Add new course with a unique ID
+        const newCourse = { ...this.currentCourse, id: Date.now() };
+        this.service.addCourse(newCourse);
       }
       this.updateCourses();
       alert('Course saved successfully!');
       this.cancel();
     } catch (error) {
+      console.error('Error saving course:', error);
       alert('Error saving course. Please try again.');
     }
   }
@@ -127,7 +134,7 @@ export class TrainingsComponent {
     if (this.showForm()) {
       this.cancel();
     }
-    // Fechar modal de módulos com ESC também
+    // Close modules modal with ESC too
     if (this.showModulesModal()) {
       this.closeModulesModal();
     }
@@ -149,36 +156,7 @@ export class TrainingsComponent {
     }
   }
 
-  // Novo método para fechar o modal de módulos ao clicar fora
-  onModulesModalClick(event: Event) {
-    if (event.target === event.currentTarget) {
-      this.closeModulesModal();
-    }
-  }
-
-  addNewModule() {
-    const newModule: CourseModule = {
-      id: Date.now(),
-      title: '',
-      type: 'video',
-      duration: 30,
-      isCompleted: false,
-      order: this.currentCourse.courseModules.length + 1
-    };
-    this.currentCourse.courseModules.push(newModule);
-  }
-
-  removeModule(index: number) {
-    if (confirm('Are you sure you want to remove this module?')) {
-      this.currentCourse.courseModules.splice(index, 1);
-      // Re-order remaining modules
-      this.currentCourse.courseModules.forEach((module, i) => {
-        module.order = i + 1;
-      });
-    }
-  }
-  
-  // Novos métodos para gerenciar o modal de módulos
+  // New methods for managing modules modal
   openModulesModal(course: Course) {
     this.selectedCourse = course;
     this.selectedCourseModules = [...course.courseModules].sort((a, b) => a.order - b.order);
@@ -196,7 +174,7 @@ export class TrainingsComponent {
       return 'Completed';
     }
     
-    // Verificar se o módulo está bloqueado (se módulos anteriores não foram concluídos)
+    // Check if module is locked (if previous modules are not completed)
     const moduleIndex = this.selectedCourseModules.findIndex(m => m.id === module.id);
     for (let i = 0; i < moduleIndex; i++) {
       if (!this.selectedCourseModules[i].isCompleted) {
@@ -222,10 +200,41 @@ export class TrainingsComponent {
     };
     return labels[type] || 'Content';
   }
-  
+
+
+
+  addNewModule() {
+    const newModule: CourseModule = {
+      id: Date.now(),
+      title: '',
+      type: 'video',
+      duration: 30,
+      isCompleted: false,
+      order: this.currentCourse.courseModules.length + 1
+    };
+    this.currentCourse.courseModules.push(newModule);
+  }
+
+  removeModule(index: number) {
+    if (confirm('Are you sure you want to remove this module?')) {
+      this.currentCourse.courseModules.splice(index, 1);
+      // Re-order remaining modules
+      this.currentCourse.courseModules.forEach((module, i) => {
+        module.order = i + 1;
+      });
+    }
+  }
+
   startModule(module: CourseModule) {
-    // Navegar para o visualizador de módulos do curso
+    // Navigate to course modules viewer
     this.closeModulesModal();
     this.router.navigate(['/course-viewer'], { queryParams: { courseId: this.selectedCourse?.id } });
+  }
+
+  // New method to close modules modal when clicking outside
+  onModulesModalClick(event: Event) {
+    if (event.target === event.currentTarget) {
+      this.closeModulesModal();
+    }
   }
 }

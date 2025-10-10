@@ -10,7 +10,7 @@
   <!-- Learning Paths Carousel -->
   <div class="carousel-section">
     <app-learning-paths-carousel
-      [learningPaths]="paths"
+      [learningPaths]="paths()"
       [isAdmin]="isAdmin"
       (editPathEvent)="editPath($event)"
       (deletePathEvent)="deletePath($event)">
@@ -58,26 +58,38 @@
           placeholder="Image URL"
         />
 
-        <div class="courses-list">
+        <!-- Select Courses Section -->
+        <div class="select-courses-section">
           <h4>Select Courses</h4>
-          <div
-            class="course-item"
-            *ngFor="let c of allCourses; trackBy: trackById">
-            <label>
-              <input
-                type="checkbox"
-                [checked]="isCourseSelected(c.id)"
-                (change)="toggleCourseSelection(c.id)" />
-              {{ c.title }} ({{ c.duration }}h, {{ c.theme }})
-            </label>
+          <div class="courses-selection-list">
+            <div
+              class="course-selection-item"
+              *ngFor="let c of allCourses(); trackBy: trackById">
+              <label>
+                <input
+                  type="checkbox"
+                  [checked]="isCourseSelected(c.id)"
+                  (change)="toggleCourseSelection(c.id)" />
+                <div class="course-info-text">
+                  <div class="course-title">{{ c.title }}</div>
+                  <div class="course-details-text">{{ c.duration }}h, {{ c.theme }}</div>
+                </div>
+              </label>
+            </div>
           </div>
         </div>
 
         <div class="form-actions">
-          <button type="submit" [disabled]="pathForm.invalid" class="save-btn">Save</button>
+          <button type="submit" [disabled]="pathForm.invalid || isSaving()" class="save-btn">
+            <span *ngIf="isSaving()">Saving...</span>
+            <span *ngIf="!isSaving()">Save</span>
+          </button>
           <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
         </div>
       </form>
     </div>
   </div>
+
+  <!-- Toast Notification -->
+  <div *ngIf="toastMessage()" class="toast">{{ toastMessage() }}</div>
 </div>

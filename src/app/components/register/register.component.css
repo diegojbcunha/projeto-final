@@ -38,49 +38,65 @@ h2 {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--ford-dark-blue);
+  font-weight: 500;
+  text-align: left;
 }
 
 .form-control {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--ford-gray);
-  border-radius: 6px;
+  padding: 0.85rem; /* Padding aumentado para melhor visibilidade */
+  border: 2px solid var(--ford-gray); /* Borda mais visível */
+  border-radius: 8px; /* Bordas mais arredondadas */
   transition: all 0.3s ease;
+  background-color: var(--ford-white);
+  font-size: 1rem;
+  height: 50px; /* Altura aumentada para melhor visibilidade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .form-control:focus {
-  border-color: var(--ford-light-blue);
-  box-shadow: 0 0 0 3px rgba(71, 168, 229, 0.2);
+  border-color: var(--ford-medium-blue); /* Cor mais visível ao focar */
+  box-shadow: 0 0 0 3px rgba(42, 107, 172, 0.2);
   outline: none;
 }
 
 .form-control:hover {
   border-color: var(--ford-medium-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-control.is-invalid {
-  border-color: var(--ford-light-blue);
+  border-color: #dc3545; /* Vermelho para campos inválidos */
 }
 
 .invalid-feedback {
-  color: var(--ford-light-blue);
+  color: #dc3545; /* Vermelho para mensagens de erro */
   font-size: 0.85rem;
   margin-top: 0.25rem;
+  text-align: left;
 }
 
 .btn-register {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.85rem; /* Padding aumentado para melhor visibilidade */
   background: linear-gradient(135deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
   color: var(--ford-white);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px; /* Bordas mais arredondadas */
   font-weight: 600;
   margin-top: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-size: 1rem;
+  height: 50px; /* Altura consistente com inputs */
 }
 
 .btn-register:hover:not(:disabled) {
@@ -104,13 +120,15 @@ h2 {
   background: linear-gradient(135deg, var(--ford-gray) 0%, #a8a8a8 100%);
   color: var(--ford-dark-blue);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.25rem; /* Padding aumentado para melhor visibilidade */
+  border-radius: 8px; /* Bordas mais arredondadas */
   cursor: pointer;
   font-weight: 500;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  height: 50px; /* Altura consistente */
 }
 
 .login-link .btn-secondary:hover {
@@ -118,6 +136,32 @@ h2 {
   color: var(--ford-white);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Estilo para checkbox */
+.terms label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.terms input[type="checkbox"] {
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ford-gray);
+  border-radius: 4px;
+}
+
+.terms a {
+  color: var(--ford-medium-blue);
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
 }
 
 /* ✅ MODAL LGPD */
@@ -152,9 +196,11 @@ h2 {
   margin: 1rem auto 0;
   background: var(--ford-dark-blue);
   color: var(--ford-white);
-  padding: 0.5rem 1.2rem;
+  padding: 0.75rem 1.5rem; /* Padding aumentado para melhor visibilidade */
   border: none;
-  border-radius: 6px;
+  border-radius: 8px; /* Bordas mais arredondadas */
   cursor: pointer;
   font-weight: 600;
+  font-size: 1rem;
+  height: 50px; /* Altura consistente */
 }

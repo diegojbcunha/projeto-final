@@ -1,3 +1,3 @@
 <!-- Dynamic Home Page - Role-Based Rendering -->
-<app-admin-home *ngIf="isAdmin"></app-admin-home>
-<app-user-home *ngIf="!isAdmin"></app-user-home>
+<app-admin-home *ngIf="isAdminView"></app-admin-home>
+<app-user-home *ngIf="!isAdminView"></app-user-home>

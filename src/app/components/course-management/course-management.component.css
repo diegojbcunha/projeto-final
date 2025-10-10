@@ -1,0 +1,480 @@
+.management-container {
+  padding: 2rem;
+  color: var(--ford-white);
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--ford-white);
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--ford-light-blue);
+}
+
+.tab-btn {
+  background: transparent;
+  color: var(--ford-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn.active {
+  border-bottom: 3px solid var(--ford-light-blue);
+  color: var(--ford-light-blue);
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.add-btn {
+  background: var(--ford-medium-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.add-btn:hover {
+  background: var(--ford-dark-blue);
+}
+
+/* Courses Grid */
+.themes-section {
+  margin-bottom: 3rem;
+}
+
+.theme-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--ford-white);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.course-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.course-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.course-info {
+  padding: 1.5rem;
+}
+
+.course-info h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--ford-white);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.course-details {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.duration, .modules, .status {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.status.active {
+  background: #28a745;
+}
+
+.status.upcoming {
+  background: #ffc107;
+  color: #000;
+}
+
+.audience {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-actions button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+}
+
+.admin-actions button:first-child {
+  background: var(--ford-medium-blue);
+  color: white;
+}
+
+.admin-actions button:first-child:hover {
+  background: var(--ford-dark-blue);
+}
+
+.admin-actions .delete {
+  background: #dc3545;
+  color: white;
+}
+
+.admin-actions .delete:hover {
+  background: #c82333;
+}
+
+/* Learning Paths */
+.paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.path-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.path-card:hover {
+  transform: translateY(-3px);
+}
+
+.path-header {
+  margin-bottom: 1rem;
+}
+
+.path-header h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--ford-white);
+}
+
+.path-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.path-description {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.path-progress {
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--ford-light-blue);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Form Styles */
+.form-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-content {
+  background: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-header h3 {
+  margin: 0;
+  color: var(--ford-white);
+}
+
+.close-modal {
+  background: transparent;
+  border: none;
+  color: var(--ford-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+form {
+  padding: 1.5rem;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--ford-white);
+  font-size: 1rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--ford-light-blue);
+}
+
+.modules-section {
+  margin: 2rem 0;
+}
+
+.modules-section h4 {
+  margin-bottom: 1rem;
+  color: var(--ford-white);
+}
+
+.form-module-item {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.form-module-item input, .form-module-item select {
+  margin-bottom: 0;
+}
+
+.form-module-item input[type="text"] {
+  flex: 2;
+}
+
+.form-module-item select {
+  flex: 1;
+}
+
+.remove-module-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-module-btn:hover {
+  background: #c82333;
+}
+
+.add-module-btn {
+  background: var(--ford-medium-blue);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.add-module-btn:hover {
+  background: var(--ford-dark-blue);
+}
+
+.select-courses-section {
+  margin: 2rem 0;
+}
+
+.select-courses-section h4 {
+  margin-bottom: 1rem;
+  color: var(--ford-white);
+}
+
+.courses-selection-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.course-selection-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.course-selection-item:last-child {
+  border-bottom: none;
+}
+
+.course-selection-item label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.course-info-text {
+  flex: 1;
+}
+
+.course-title {
+  font-weight: 500;
+  color: var(--ford-white);
+  margin-bottom: 0.25rem;
+}
+
+.course-details-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.save-btn, .cancel-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+}
+
+.save-btn {
+  background: var(--ford-medium-blue);
+  color: white;
+}
+
+.save-btn:hover {
+  background: var(--ford-dark-blue);
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ford-white);
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .management-container {
+    padding: 1rem;
+  }
+  
+  .courses-grid, .paths-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .form-module-item {
+    flex-wrap: wrap;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}

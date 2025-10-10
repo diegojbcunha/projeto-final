@@ -64,9 +64,9 @@ export class RegisterComponent implements OnInit {
     this.authService.register({ nome: name, email, senha: password, department }).subscribe({
       next: (user) => {
         this.successMessage = `Welcome, ${user.nome}! Registration successful.`;
-        // Redirecionar para a página inicial após 2 segundos
+        // Redirect to home page after 2 seconds
         setTimeout(() => {
-          // Navegar para a página inicial do usuário
+          // Navigate to user home page
           this.router.navigate(['/home']);
         }, 2000);
       },
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
   openPrivacyPolicy(event: Event) {
     event.preventDefault();
     this.showPrivacyModal = true;
-    document.body.classList.add('no-scroll'); // ✅ evita scroll duplo
+    document.body.classList.add('no-scroll'); // ✅ prevents double scroll
   }
 
   closePrivacyPolicy() {
@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
     if (this.showPrivacyModal) this.closePrivacyPolicy();
   }
   
-  // Método para navegar de volta para a página de login
+  // Method to navigate back to login page
   goToLogin() {
     this.router.navigate(['/login']);
   }

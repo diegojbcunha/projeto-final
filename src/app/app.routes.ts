@@ -10,6 +10,7 @@ import { LearningPathsComponent } from './components/learning-paths/learning-pat
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { CourseModuleViewerComponent } from './components/course-module-viewer/course-module-viewer.component';
+import { CourseManagementComponent } from './components/course-management/course-management.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,6 +27,7 @@ export const routes: Routes = [
             { path: 'schedule', component: ScheduleComponent },
             { path: 'reports', component: ReportsComponent, canActivate: [AdminGuard] },
             { path: 'course-viewer', component: CourseModuleViewerComponent },
+            { path: 'course-management', component: CourseManagementComponent, canActivate: [AdminGuard] },
             { path: '', redirectTo: '/home', pathMatch: 'full' }
         ]
     }

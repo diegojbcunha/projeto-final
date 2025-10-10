@@ -4,19 +4,19 @@
     <h2 class="welcome-message">Welcome to Ford Training Hub</h2>
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <div class="mb-3">
-        <label for="nome" class="visually-hidden">Nome de usuário:</label>
+        <label for="nome" class="visually-hidden">Username:</label>
         <div class="input-with-icon">
           <i class="icon fas fa-user"></i>
           <input type="text" id="nome" name="nome" [(ngModel)]="usuario.nome" required #nome="ngModel"
-            class="form-control" [class.is-invalid]="nome.invalid && nome.touched" placeholder="Insira seu usuário ou e-mail">
+            class="form-control" [class.is-invalid]="nome.invalid && nome.touched" placeholder="Enter your username or email">
         </div>
         <div *ngIf="nome.invalid && nome.touched" class="invalid-feedback d-block">
-          Nome de usuário é obrigatório
+          Username is required
         </div>
       </div>
 
       <div class="mb-3">
-        <label for="senha" class="visually-hidden">Senha:</label>
+        <label for="senha" class="visually-hidden">Password:</label>
         <div class="input-with-icon">
           <i class="icon fas fa-lock"></i>
           <input 
@@ -28,17 +28,17 @@
             #senha="ngModel"
             class="form-control" 
             [class.is-invalid]="senha.invalid && senha.touched" 
-            placeholder="Insira sua senha">
+            placeholder="Enter your password">
           <i 
             class="password-toggle-icon fas" 
             [class.fa-eye]="!showPassword"
             [class.fa-eye-slash]="showPassword"
             (click)="togglePasswordVisibility()" 
-            title="{{ showPassword ? 'Ocultar senha' : 'Mostrar senha' }}">
+            title="{{ showPassword ? 'Hide password' : 'Show password' }}">
           </i>
         </div>
         <div *ngIf="senha.invalid && senha.touched" class="invalid-feedback d-block">
-          Senha é obrigatória
+          Password is required
         </div>
       </div>
 
@@ -52,7 +52,7 @@
 
       <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.form.invalid || isLoading">
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-        {{ isLoading ? 'Entrando...' : 'Entrar' }}
+        {{ isLoading ? 'Logging in...' : 'Login' }}
       </button>
     </form>
     
@@ -62,4 +62,4 @@
   </div>
 </div>
 
-<!-- Removido o modal de registro com iframe -->
+<!-- Removed registration modal with iframe -->

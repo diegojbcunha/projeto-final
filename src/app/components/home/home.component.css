@@ -300,10 +300,10 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--ford-light-blue);
+  background: var(--ford-medium-blue);
   border-radius: 2px;
   transition: width 0.5s ease;
-  box-shadow: 0 0 4px var(--ford-light-blue);
+  box-shadow: 0 0 4px var(--ford-medium-blue);
 }
 
 /* Play Indicator */

@@ -1,6 +1,6 @@
 <div class="layout-container">
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar" [class.show]="isSidebarOpen">
     <div class="sidebar-logo text-center mb-4">
       <img src="logo.png" alt="Ford Logo" class="img-fluid" style="max-width: 80px;">
     </div>
@@ -20,10 +20,13 @@
   <div class="main-area">
     <!-- Header -->
     <div class="header">
-      <h1>Sistema FORD</h1>
+      <button class="mobile-menu-toggle" (click)="toggleSidebar()" *ngIf="isMobile">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1>FORD System</h1>
       <div class="header-buttons">
         <div class="user-info" *ngIf="currentUser">
-          <span class="text-muted">Olá, {{ currentUser.nome }}</span>
+          <span class="text-muted">Hello, {{ currentUser.nome }}</span>
         </div>
         <button class="btn btn-outline-danger" (click)="logout()">
           <i class="fas fa-sign-out-alt me-2"></i>Logout
