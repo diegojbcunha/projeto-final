@@ -1,13 +1,7 @@
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
+/* Componente de Cards de Caminho - Ford Training Hub */
 
 .path-card {
-  background-color: var(--ford-white);
+  background-color: #FFFFFF;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -15,14 +9,14 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--ford-gray);
+  border: 1px solid #C6C6C6;
   background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%);
 }
 
 .path-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  border-color: var(--ford-light-blue);
+  border-color: #47A8E5;
 }
 
 .path-image {
@@ -41,7 +35,7 @@
 .path-info h3 {
   margin: 0 0 10px 0;
   font-size: 18px;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   text-align: left; /* Título sempre à esquerda */
   position: relative;
   padding-left: 0.5rem;
@@ -55,13 +49,13 @@
   transform: translateY(-50%);
   width: 3px;
   height: 1em;
-  background: var(--ford-light-blue);
+  background: #47A8E5;
   border-radius: 1px;
 }
 
 .path-info .desc {
   margin: 0 0 15px 0;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 14px;
   line-height: 1.4;
   flex: 1;
@@ -69,7 +63,7 @@
 }
 
 .progress-bar {
-  background-color: var(--ford-gray);
+  background-color: #C6C6C6;
   border-radius: 4px;
   height: 6px;
   margin-bottom: 10px;
@@ -78,7 +72,7 @@
 }
 
 .progress-fill {
-  background: var(--ford-medium-blue);
+  background: linear-gradient(90deg, #2A6BAC, #47A8E5);
   height: 100%;
   border-radius: 4px;
   transition: width 0.3s ease;
@@ -87,7 +81,7 @@
 .details {
   margin: 10px 0;
   font-size: 12px;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-weight: 500;
 }
 
@@ -96,7 +90,7 @@
   font-size: 13px;
   font-weight: bold;
   text-align: left;
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
 }
 
 .admin-actions {
@@ -119,23 +113,23 @@
 }
 
 .edit-btn {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
+  color: #FFFFFF;
 }
 
 .edit-btn:hover {
-  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  background: linear-gradient(135deg, #47A8E5 0%, #2A6BAC 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .delete-btn {
-  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(135deg, #47A8E5 0%, #2A6BAC 100%);
+  color: #FFFFFF;
 }
 
 .delete-btn:hover {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }

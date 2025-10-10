@@ -29,7 +29,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   // Carousel properties
   currentIndex = 0;
-  totalSlides = 5; // 5 slides (one per category)
+  totalSlides = 2; // 2 slides with 3 courses each
   slides: any[] = [];
   autoplayInterval: any;
   isPaused = false;
@@ -83,8 +83,6 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     if (course) {
       this.router.navigate(['/course-viewer'], { queryParams: { courseId: course.id } });
     }
-    // For demo cards, just show alert
-    alert('This is a demo course card. In a real app, this would navigate to the course.');
   }
 
   /**
@@ -190,9 +188,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   // Course modules methods
   toggleCourseModules(courseId: number) {
+    // Allow only one card to be expanded at a time
     if (this.expandedCourseModules.has(courseId)) {
+      // If clicking on the same card, close it
       this.expandedCourseModules.delete(courseId);
     } else {
+      // Close any currently expanded card and open the clicked one
+      this.expandedCourseModules.clear();
       this.expandedCourseModules.add(courseId);
     }
   }

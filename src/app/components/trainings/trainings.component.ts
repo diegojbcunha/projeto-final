@@ -78,7 +78,7 @@ export class TrainingsComponent implements OnInit {
   addNew() {
     if (!this.isAdmin) return; // Only admin can add new courses
     this.showForm.set(true);
-    this.editMode.set(false);
+    this.editMode.set(false); // Corrigido: deve ser false para adicionar novo
     this.currentCourse = this.createEmptyCourse();
   }
 
@@ -99,28 +99,89 @@ export class TrainingsComponent implements OnInit {
   }
 
   saveCourse() {
-    // Validate required fields
-    if (!this.currentCourse.title || !this.currentCourse.description ||
-        !this.currentCourse.image || !this.currentCourse.targetAudience) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
     try {
-      console.log('Saving course:', this.currentCourse);
-      if (this.editMode()) {
-        this.service.updateCourse(this.currentCourse);
-      } else {
-        // Add new course with a unique ID
-        const newCourse = { ...this.currentCourse, id: Date.now() };
-        this.service.addCourse(newCourse);
+      console.log('Attempting to save course:', this.currentCourse);
+
+      // Comprehensive validation of required fields
+      if (!this.currentCourse.title?.trim()) {
+        alert('Course title is required.');
+        return;
       }
+
+      if (!this.currentCourse.description?.trim()) {
+        alert('Course description is required.');
+        return;
+      }
+
+      if (!this.currentCourse.image?.trim()) {
+        alert('Course image URL is required.');
+        return;
+      }
+
+      if (!this.currentCourse.targetAudience?.trim()) {
+        alert('Target audience is required.');
+        return;
+      }
+
+      if (!this.currentCourse.theme) {
+        alert('Please select a course theme.');
+        return;
+      }
+
+      // Validate duration and modules
+      if (!this.currentCourse.duration || this.currentCourse.duration <= 0) {
+        alert('Valid course duration is required.');
+        return;
+      }
+
+      if (!this.currentCourse.modules || this.currentCourse.modules <= 0) {
+        alert('Valid number of modules is required.');
+        return;
+      }
+
+      console.log('Validation passed, proceeding with save...');
+
+      let savedCourse: any;
+
+      if (this.editMode()) {
+        // Update existing course
+        console.log('Updating existing course with ID:', this.currentCourse.id);
+        this.service.updateCourse(this.currentCourse);
+        savedCourse = this.currentCourse;
+        console.log('Course updated successfully');
+      } else {
+        // Add new course with unique ID
+        const newCourse = {
+          ...this.currentCourse,
+          id: Date.now(),
+          completionRate: 0,
+          courseModules: this.currentCourse.courseModules || []
+        };
+        console.log('Adding new course:', newCourse);
+        this.service.addCourse(newCourse);
+        savedCourse = newCourse;
+        console.log('New course added successfully with ID:', savedCourse.id);
+      }
+
+      // Update the UI to reflect changes
+      console.log('Updating courses list...');
       this.updateCourses();
-      alert('Course saved successfully!');
+
+      // Success feedback
+      alert(`${this.editMode() ? 'Course updated' : 'New course added'} successfully!`);
+
+      // Reset form and close modal
+      console.log('Closing form and resetting state...');
       this.cancel();
-    } catch (error) {
+
+    } catch (error: any) {
       console.error('Error saving course:', error);
-      alert('Error saving course. Please try again.');
+
+      // More detailed error message
+      const errorMessage = error?.message ? `Error: ${error.message}` : 'An unexpected error occurred while saving the course.';
+      alert(`Save failed. ${errorMessage} Please try again.`);
+
+      // Don't close the form on error so user can fix issues
     }
   }
 

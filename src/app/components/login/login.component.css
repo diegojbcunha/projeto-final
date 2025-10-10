@@ -1,17 +1,10 @@
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
 
 .login-container {
   display: flex !important;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, #0d2a5a 100%);
+  background: linear-gradient(135deg, #133A7C 0%, #0d2a5a 100%);
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -33,7 +26,7 @@
 }
 
 .login-form {
-  background: var(--ford-white);
+  background: #FFFFFF;
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -42,7 +35,7 @@
   text-align: center;
   position: relative;
   z-index: 2;
-  border: 1px solid var(--ford-light-blue);
+  border: 1px solid #47A8E5;
 }
 
 .ford-logo {
@@ -52,7 +45,7 @@
 
 .welcome-message {
   font-size: 1.4em;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   margin-bottom: 30px;
   font-weight: 600;
 }
@@ -72,7 +65,7 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-size: 1.1em;
   z-index: 3;
   pointer-events: none;
@@ -81,23 +74,23 @@
 .input-with-icon .form-control {
   padding-left: 45px;
   padding-right: 45px;
-  border: 2px solid var(--ford-gray); /* Borda mais visível */
+  border: 2px solid #C6C6C6; /* Borda mais visível */
   border-radius: 8px; /* Bordas mais arredondadas */
   transition: all 0.3s ease;
-  background-color: var(--ford-white);
+  background-color: #FFFFFF;
   font-size: 1rem;
   height: 50px; /* Altura aumentada para melhor visibilidade */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .input-with-icon .form-control:focus {
-  border-color: var(--ford-medium-blue); /* Cor mais visível ao focar */
+  border-color: #2A6BAC; /* Cor mais visível ao focar */
   box-shadow: 0 0 0 3px rgba(42, 107, 172, 0.2);
   outline: none;
 }
 
 .input-with-icon .form-control:hover {
-  border-color: var(--ford-medium-blue);
+  border-color: #2A6BAC;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -110,7 +103,7 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-size: 1.1em;
   cursor: pointer;
   user-select: none;
@@ -119,24 +112,24 @@
 }
 
 .password-toggle-icon:hover {
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
 }
 
 /* Register link */
 .register-link {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid var(--ford-gray);
+  border-top: 1px solid #C6C6C6;
 }
 
 .register-link p {
   margin: 0;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 0.95em;
 }
 
 .register-link a {
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s;
@@ -146,8 +139,8 @@
 }
 
 .register-link a:hover {
-  color: var(--ford-white);
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
   text-decoration: none;
   cursor: pointer;
   transform: translateY(-2px);
@@ -170,7 +163,7 @@
 }
 
 .register-modal-content {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 90%;
@@ -186,12 +179,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid var(--ford-gray);
+  border-bottom: 1px solid #C6C6C6;
 }
 
 .register-modal-header h3 {
   margin: 0;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.5rem;
 }
 
@@ -200,7 +193,7 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: var(--ford-gray);
+  color: #C6C6C6;
   padding: 0;
   width: 30px;
   height: 30px;
@@ -212,8 +205,8 @@
 }
 
 .close-modal:hover {
-  background-color: var(--ford-gray);
-  color: var(--ford-dark-blue);
+  background-color: #C6C6C6;
+  color: #133A7C;
 }
 
 .register-modal-body {

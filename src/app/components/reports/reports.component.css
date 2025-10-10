@@ -1,24 +1,23 @@
-/* Reports Container - Alinhado ao padrão Home */
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
+/* Reports Container - Ford Training Hub */
 
 .reports-container {
-  padding: 1.5rem;
-  color: var(--ford-dark-blue);
+  padding: 1rem;
+  color: #133A7C;
   background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.section {
+  margin-bottom: 1.5rem;
 }
 
 .title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-weight: 600;
-  text-align: left; /* Título sempre à esquerda */
+  text-align: left;
   position: relative;
   padding-left: 1rem;
 }
@@ -31,28 +30,34 @@
   transform: translateY(-50%);
   width: 4px;
   height: 1.2em;
-  background: var(--ford-light-blue);
+  background: #2A6BAC;
   border-radius: 2px;
 }
 
-.management-link {
+.actions-bar {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.manage-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
-  color: var(--ford-white);
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
+.card-action {
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 200px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.manage-btn:hover {
-  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+.card-action:hover {
+  background: linear-gradient(135deg, #47A8E5 0%, #2A6BAC 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -67,152 +72,163 @@
 .filters button {
   padding: 0.5rem 1rem;
   border: none;
-  background: var(--ford-gray);
-  color: var(--ford-dark-blue);
-  border-radius: 8px;
+  background: #C6C6C6;
+  color: #133A7C;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 14px;
-}
-
-.filters button:hover {
-  background: var(--ford-medium-blue);
-  color: var(--ford-white);
-  transform: translateY(-1px);
-}
-
-.filters button.active {
-  background: var(--ford-dark-blue);
-  color: var(--ford-white);
-}
-
-.export-btn {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
-  color: var(--ford-white);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: auto;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.export-btn:hover {
-  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
-  transform: translateY(-2px);
+.filters button:hover {
+  background: #2A6BAC;
+  color: #FFFFFF;
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.filters button.active {
+  background: #133A7C;
+  color: #FFFFFF;
 }
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
 .kpi-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  text-align: left; /* Conteúdo sempre à esquerda */
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
   background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%);
 }
 
 .kpi-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transform: translateY(-4px);
-  border-color: var(--ford-light-blue);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #2A6BAC, #47A8E5);
 }
 
 .kpi-card h3 {
   margin: 0 0 0.5rem 0;
-  color: var(--ford-dark-blue);
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left; /* Título sempre à esquerda */
+  color: #133A7C;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
 }
 
 .kpi-value {
   font-size: 2rem;
-  font-weight: bold;
-  color: var(--ford-dark-blue);
-  margin: 0;
-  text-align: left; /* Valor sempre à esquerda */
+  font-weight: 700;
+  color: #133A7C;
+  margin: 0 0 1rem 0;
+  text-align: left;
 }
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
 .chart-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%);
 }
 
 .chart-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transform: translateY(-4px);
-  border-color: var(--ford-light-blue);
+}
+
+.chart-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #2A6BAC, #47A8E5);
 }
 
 .chart-card h3 {
   margin: 0 0 1rem 0;
-  color: var(--ford-dark-blue);
-  font-size: 1.1rem;
+  color: #133A7C;
+  font-size: 1.2rem;
   font-weight: 600;
-  text-align: left; /* Título sempre à esquerda */
+  text-align: left;
 }
 
-/* ngx-charts customização Ford - Alinhada ao padrão */
+/* ngx-charts customização Ford */
 :host ::ng-deep .ngx-charts {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 :host ::ng-deep .bar-chart .bar {
-  fill: var(--ford-medium-blue);
+  fill: #2A6BAC;
   transition: all 0.3s ease;
 }
 
 :host ::ng-deep .bar-chart .bar:hover {
-  fill: var(--ford-dark-blue);
+  fill: #133A7C;
   transform: scale(1.05);
 }
 
 :host ::ng-deep .pie-chart .arc {
-  stroke: var(--ford-dark-blue);
+  stroke: #133A7C;
   transition: all 0.3s ease;
   stroke-width: 2px;
 }
 
 :host ::ng-deep .pie-chart .arc:hover {
-  stroke: var(--ford-medium-blue);
+  stroke: #2A6BAC;
   stroke-width: 3px;
   transform: scale(1.05);
 }
 
 :host ::ng-deep .ngx-charts text {
-  fill: var(--ford-dark-blue) !important;
+  fill: #133A7C !important;
   font-weight: 500 !important;
 }
 
-/* Responsive adjustments alinhadas ao padrão */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .reports-container {
+    padding: 0.75rem;
+    height: calc(100vh - 120px);
+  }
+
+  .section {
     padding: 1rem;
   }
 
@@ -220,14 +236,14 @@
     flex-direction: column;
   }
 
-  .export-btn {
-    margin-left: 0;
+  .card-action {
     width: 100%;
+    max-width: none;
   }
 
   .kpi-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
   }
 
   .charts-grid {
@@ -236,12 +252,12 @@
   }
 
   .chart-card {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 576px) {
-  .title {
+  .section-title {
     font-size: 1.25rem;
   }
 
@@ -250,7 +266,7 @@
   }
 
   .filters button {
-    font-size: 12px;
+    font-size: 0.875rem;
     padding: 0.4rem 0.8rem;
   }
 
@@ -262,6 +278,7 @@
 @media (max-width: 480px) {
   .reports-container {
     padding: 0.75rem;
+    height: calc(100vh - 140px);
   }
 
   .kpi-grid {

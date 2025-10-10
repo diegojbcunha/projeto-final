@@ -1,12 +1,3 @@
-/* Adicionado no-body pois será útil pra abrir os modal quando os componentes abrigar elementos <main></main>*/
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
-
 .no-scroll {
   overflow: hidden !important;
 }
@@ -16,25 +7,25 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, #0d2a5a 100%);
+  background: linear-gradient(135deg, #133A7C 0%, #0d2a5a 100%);
   padding: 20px;
   overflow: hidden;
 }
 
 .register-card {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 12px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
   padding: 2rem;
   width: 100%;
   max-width: 450px;
-  border: 1px solid var(--ford-light-blue);
+  border: 1px solid #47A8E5;
 }
 
 h2 {
   text-align: left; /* Título sempre à esquerda */
   margin-bottom: 1.5rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
 }
 
 .form-group {
@@ -44,7 +35,7 @@ h2 {
 label {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-weight: 500;
   text-align: left;
 }
@@ -52,23 +43,23 @@ label {
 .form-control {
   width: 100%;
   padding: 0.85rem; /* Padding aumentado para melhor visibilidade */
-  border: 2px solid var(--ford-gray); /* Borda mais visível */
+  border: 2px solid #C6C6C6; /* Borda mais visível */
   border-radius: 8px; /* Bordas mais arredondadas */
   transition: all 0.3s ease;
-  background-color: var(--ford-white);
+  background-color: #FFFFFF;
   font-size: 1rem;
   height: 50px; /* Altura aumentada para melhor visibilidade */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .form-control:focus {
-  border-color: var(--ford-medium-blue); /* Cor mais visível ao focar */
+  border-color: #2A6BAC; /* Cor mais visível ao focar */
   box-shadow: 0 0 0 3px rgba(42, 107, 172, 0.2);
   outline: none;
 }
 
 .form-control:hover {
-  border-color: var(--ford-medium-blue);
+  border-color: #2A6BAC;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -86,8 +77,8 @@ label {
 .btn-register {
   width: 100%;
   padding: 0.85rem; /* Padding aumentado para melhor visibilidade */
-  background: linear-gradient(135deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(135deg, #133A7C 0%, #2A6BAC 100%);
+  color: #FFFFFF;
   border: none;
   border-radius: 8px; /* Bordas mais arredondadas */
   font-weight: 600;
@@ -100,7 +91,7 @@ label {
 }
 
 .btn-register:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-light-blue) 100%);
+  background: linear-gradient(135deg, #2A6BAC 0%, #47A8E5 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
@@ -117,8 +108,8 @@ label {
 }
 
 .login-link .btn-secondary {
-  background: linear-gradient(135deg, var(--ford-gray) 0%, #a8a8a8 100%);
-  color: var(--ford-dark-blue);
+  background: linear-gradient(135deg, #C6C6C6 0%, #a8a8a8 100%);
+  color: #133A7C;
   border: none;
   padding: 0.75rem 1.25rem; /* Padding aumentado para melhor visibilidade */
   border-radius: 8px; /* Bordas mais arredondadas */
@@ -132,8 +123,8 @@ label {
 }
 
 .login-link .btn-secondary:hover {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
+  color: #FFFFFF;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -151,12 +142,12 @@ label {
   margin-top: 0.25rem;
   width: 18px;
   height: 18px;
-  border: 2px solid var(--ford-gray);
+  border: 2px solid #C6C6C6;
   border-radius: 4px;
 }
 
 .terms a {
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
   text-decoration: none;
 }
 
@@ -182,7 +173,7 @@ label {
 
 .privacy-content {
   position: relative;
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 10px;
   max-width: 700px;
   max-height: 80vh;
@@ -194,8 +185,8 @@ label {
 .btn-close {
   display: block;
   margin: 1rem auto 0;
-  background: var(--ford-dark-blue);
-  color: var(--ford-white);
+  background: #133A7C;
+  color: #FFFFFF;
   padding: 0.75rem 1.5rem; /* Padding aumentado para melhor visibilidade */
   border: none;
   border-radius: 8px; /* Bordas mais arredondadas */

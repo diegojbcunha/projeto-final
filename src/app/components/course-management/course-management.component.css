@@ -1,25 +1,25 @@
 .management-container {
   padding: 2rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
   min-height: 100vh;
 }
 
 .title {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .tabs {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
-  border-bottom: 1px solid var(--ford-light-blue);
+  border-bottom: 1px solid #47A8E5;
 }
 
 .tab-btn {
   background: transparent;
-  color: var(--ford-white);
+  color: #FFFFFF;
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
@@ -33,8 +33,8 @@
 }
 
 .tab-btn.active {
-  border-bottom: 3px solid var(--ford-light-blue);
-  color: var(--ford-light-blue);
+  border-bottom: 3px solid #47A8E5;
+  color: #47A8E5;
 }
 
 .section {
@@ -48,7 +48,7 @@
 }
 
 .add-btn {
-  background: var(--ford-medium-blue);
+  background: #2A6BAC;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -59,7 +59,7 @@
 }
 
 .add-btn:hover {
-  background: var(--ford-dark-blue);
+  background: #133A7C;
 }
 
 /* Courses Grid */
@@ -70,7 +70,7 @@
 .theme-title {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -107,7 +107,7 @@
 .course-info h4 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .description {
@@ -159,12 +159,12 @@
 }
 
 .admin-actions button:first-child {
-  background: var(--ford-medium-blue);
+  background: #2A6BAC;
   color: white;
 }
 
 .admin-actions button:first-child:hover {
-  background: var(--ford-dark-blue);
+  background: #133A7C;
 }
 
 .admin-actions .delete {
@@ -202,7 +202,7 @@
 .path-header h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .path-meta {
@@ -233,7 +233,7 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--ford-light-blue);
+  background: #47A8E5;
   border-radius: 4px;
   transition: width 0.5s ease;
 }
@@ -272,13 +272,13 @@
 
 .form-header h3 {
   margin: 0;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .close-modal {
   background: transparent;
   border: none;
-  color: var(--ford-white);
+  color: #FFFFFF;
   font-size: 1.5rem;
   cursor: pointer;
   width: 30px;
@@ -305,13 +305,13 @@ input, textarea, select {
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.3);
-  color: var(--ford-white);
+  color: #FFFFFF;
   font-size: 1rem;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--ford-light-blue);
+  border-color: #47A8E5;
 }
 
 .modules-section {
@@ -320,7 +320,7 @@ input:focus, textarea:focus, select:focus {
 
 .modules-section h4 {
   margin-bottom: 1rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .form-module-item {
@@ -360,7 +360,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .add-module-btn {
-  background: var(--ford-medium-blue);
+  background: #2A6BAC;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -370,7 +370,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .add-module-btn:hover {
-  background: var(--ford-dark-blue);
+  background: #133A7C;
 }
 
 .select-courses-section {
@@ -379,7 +379,7 @@ input:focus, textarea:focus, select:focus {
 
 .select-courses-section h4 {
   margin-bottom: 1rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .courses-selection-list {
@@ -412,7 +412,7 @@ input:focus, textarea:focus, select:focus {
 
 .course-title {
   font-weight: 500;
-  color: var(--ford-white);
+  color: #FFFFFF;
   margin-bottom: 0.25rem;
 }
 
@@ -438,17 +438,17 @@ input:focus, textarea:focus, select:focus {
 }
 
 .save-btn {
-  background: var(--ford-medium-blue);
+  background: #2A6BAC;
   color: white;
 }
 
 .save-btn:hover {
-  background: var(--ford-dark-blue);
+  background: #133A7C;
 }
 
 .cancel-btn {
   background: rgba(255, 255, 255, 0.1);
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 .cancel-btn:hover {

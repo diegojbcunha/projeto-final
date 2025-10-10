@@ -1,18 +1,9 @@
 /* Componente de Botões Padronizado - Ford Training Hub */
 
-:root {
-  --primary-dark: #133A7C;
-  --secondary-dark: #2A6BAC;
-  --accent-blue: #47A8E5;
-  --white: #FFFFFF;
-  --light-gray: #C6C6C6;
-  --background-light: #F7F9FC;
-}
-
 /* Botão Primário */
 .btn-primary {
-  background: var(--accent-blue);
-  color: var(--white);
+  background: #47A8E5;
+  color: #FFFFFF;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
@@ -24,7 +15,7 @@
 }
 
 .btn-primary:hover {
-  background: var(--secondary-dark);
+  background: #2A6BAC;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(71, 168, 229, 0.2);
 }
@@ -34,7 +25,7 @@
 }
 
 .btn-primary:disabled {
-  background: var(--light-gray);
+  background: #C6C6C6;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -42,8 +33,8 @@
 
 /* Botão Secundário */
 .btn-secondary {
-  background: var(--light-gray);
-  color: var(--primary-dark);
+  background: #C6C6C6;
+  color: #133A7C;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
@@ -55,8 +46,8 @@
 }
 
 .btn-secondary:hover {
-  background: var(--secondary-dark);
-  color: var(--white);
+  background: #2A6BAC;
+  color: #FFFFFF;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -68,8 +59,8 @@
 /* Botão com Borda */
 .btn-outline {
   background: transparent;
-  color: var(--accent-blue);
-  border: 2px solid var(--accent-blue);
+  color: #47A8E5;
+  border: 2px solid #47A8E5;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-size: 1rem;
@@ -79,8 +70,8 @@
 }
 
 .btn-outline:hover {
-  background: var(--accent-blue);
-  color: var(--white);
+  background: #47A8E5;
+  color: #FFFFFF;
   transform: translateY(-1px);
 }
 
@@ -119,7 +110,7 @@
 /* Estados de Botão */
 .btn-success {
   background: #28a745;
-  color: var(--white);
+  color: #FFFFFF;
 }
 
 .btn-success:hover {
@@ -128,7 +119,7 @@
 
 .btn-danger {
   background: #dc3545;
-  color: var(--white);
+  color: #FFFFFF;
 }
 
 .btn-danger:hover {

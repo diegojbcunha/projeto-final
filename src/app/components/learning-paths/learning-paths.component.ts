@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LearningPath, Course, Training, TrainingService } from '../../services/training.service';
-import { LearningPathsCarouselComponent } from '../learning-paths-carousel/learning-paths-carousel.component';
+import { LearningPathCardComponent } from '../learning-path-card/learning-path-card.component';
 
 @Component({
   selector: 'app-learning-paths',
   standalone: true,
-  imports: [CommonModule, FormsModule, LearningPathsCarouselComponent],
+  imports: [CommonModule, FormsModule, LearningPathCardComponent],
   templateUrl: './learning-paths.component.html',
   styleUrls: ['./learning-paths.component.css']
 })
@@ -72,32 +72,93 @@ export class LearningPathsComponent {
   }
 
   savePath(form: NgForm) {
-    // Validate required fields
-    if (!this.currentPath.title) {
-      this.showToast('Title is required.');
-      return;
-    }
-
-    this.isSaving.set(true);
     try {
-      console.log('Saving path:', this.currentPath);
-      // Set the selected courses before saving
-      this.currentPath.courses = this.allCourses().filter(course =>
-        this.currentPath.courses.some(selected => selected.id === course.id)
-      );
+      console.log('Attempting to save path:', this.currentPath);
+
+      // Comprehensive validation
+      if (!this.currentPath.title?.trim()) {
+        this.showToast('Learning path title is required.');
+        return;
+      }
+
+      if (!this.currentPath.description?.trim()) {
+        this.showToast('Learning path description is required.');
+        return;
+      }
+
+      if (!this.currentPath.image?.trim()) {
+        this.showToast('Learning path image URL is required.');
+        return;
+      }
+
+      // Check if at least one course is selected
+      if (!this.currentPath.courses || this.currentPath.courses.length === 0) {
+        this.showToast('Please select at least one course for this learning path.');
+        return;
+      }
+
+      // Validate estimated hours
+      if (!this.currentPath.estimatedHours || parseFloat(this.currentPath.estimatedHours) <= 0) {
+        this.showToast('Valid estimated hours are required.');
+        return;
+      }
+
+      console.log('Validation passed, proceeding with save...');
+
+      this.isSaving.set(true);
+
+      // Ensure the selected courses are full objects, not just IDs
+      const selectedCourseIds = this.currentPath.courses.map(c => c.id);
+      const fullCourses = this.allCourses().filter(course => selectedCourseIds.includes(course.id));
+
+      // Create path data with validated courses
+      const pathData = {
+        ...this.currentPath,
+        courses: fullCourses
+      };
+
+      let savedPath: any;
 
       if (this.editMode()) {
-        this.service.updatePath(this.currentPath);
+        // Update existing path
+        console.log('Updating existing path with ID:', this.currentPath.id);
+        this.service.updatePath(pathData);
+        savedPath = pathData;
+        console.log('Path updated successfully');
       } else {
-        // Add new path with a unique ID
-        const newPath = { ...this.currentPath, id: Date.now() };
+        // Add new path with unique ID
+        const newPath = {
+          ...pathData,
+          id: Date.now(),
+          progress: 0,
+          status: 'Not Started' as const
+        };
+        console.log('Adding new learning path:', newPath);
         this.service.addPath(newPath);
+        savedPath = newPath;
+        console.log('New path added successfully with ID:', savedPath.id);
       }
-      this.showToast('Path saved successfully!');
+
+      // Update UI with latest paths
+      console.log('Updating paths list...');
+      this.paths.set(this.service.getPaths());
+
+      // Success feedback
+      const operation = this.editMode() ? 'updated' : 'created';
+      this.showToast(`Learning path ${operation} successfully!`);
+
+      // Reset form and close modal
+      console.log('Closing form and resetting state...');
       this.cancel();
-    } catch (error) {
-      console.error('Error saving path:', error);
-      this.showToast('Error saving path. Please try again.');
+
+    } catch (error: any) {
+      console.error('Error saving learning path:', error);
+
+      // More detailed error message
+      const errorMessage = error?.message ? `Error: ${error.message}` : 'An unexpected error occurred.';
+      this.showToast(`Save failed. ${errorMessage} Please try again.`);
+
+      // Don't close the form on error
     } finally {
       this.isSaving.set(false);
     }

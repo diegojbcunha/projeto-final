@@ -1,16 +1,8 @@
 /* Admin Home Page - Padronizado com base em Trainings */
 
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
-
 .admin-home-container {
   padding: 1rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
   height: 100%;
   overflow-y: auto;
@@ -23,7 +15,7 @@
 .section-title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-weight: 600;
   text-align: left; /* Título sempre à esquerda */
   position: relative;
@@ -45,7 +37,7 @@
 /* Overview Section */
 .overview-section {
   background: #FFFFFF;
-  border: 1px solid var(--ford-medium-blue);
+  border: 1px solid #2A6BAC;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -60,8 +52,8 @@
 }
 
 .overview-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -84,17 +76,17 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--ford-medium-blue), var(--ford-light-blue));
+  background: linear-gradient(90deg, #2A6BAC, #47A8E5);
 }
 
 .card-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
 }
 
 .card-info h3 {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.1rem;
   margin: 0 0 0.25rem 0;
   font-weight: 600;
@@ -104,14 +96,14 @@
 .card-value {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   margin: 0 0 1rem 0;
   text-align: left; /* Valor sempre à esquerda */
 }
 
 .card-action {
-  background: linear-gradient(135deg, var(--ford-medium-blue) 0%, var(--ford-dark-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(135deg, #2A6BAC 0%, #133A7C 100%);
+  color: #FFFFFF;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
@@ -124,7 +116,7 @@
 }
 
 .card-action:hover {
-  background: linear-gradient(135deg, var(--ford-light-blue) 0%, var(--ford-medium-blue) 100%);
+  background: linear-gradient(135deg, #47A8E5 0%, #2A6BAC 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -137,8 +129,8 @@
 }
 
 .shortcut-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -151,17 +143,17 @@
 .shortcut-card:hover {
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transform: translateY(-4px);
-  border-color: var(--ford-light-blue);
+  border-color: #47A8E5;
 }
 
 .shortcut-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
 }
 
 .shortcut-card h3 {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.2rem;
   margin: 0 0 0.25rem 0;
   font-weight: 600;
@@ -169,7 +161,7 @@
 }
 
 .shortcut-card p {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
@@ -184,8 +176,8 @@
 }
 
 .stat-card {
-  background: var(--ford-white);
-  border: 1px solid var(--ford-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -198,7 +190,7 @@
 }
 
 .stat-card h3 {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.2rem;
   margin: 0 0 1rem 0;
   font-weight: 600;
@@ -210,13 +202,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 8px;
-  border: 1px dashed var(--ford-gray);
+  border: 1px dashed #C6C6C6;
 }
 
 .chart-placeholder p {
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-style: italic;
 }
 

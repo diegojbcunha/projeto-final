@@ -1,5 +1,10 @@
 /* Common Component Styles - Based on Trainings Component */
 
+/* Base Typography */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 /* Card Styles */
 .card {
   background: var(--white);

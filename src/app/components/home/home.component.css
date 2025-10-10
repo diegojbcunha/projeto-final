@@ -1,27 +1,16 @@
 /* Netflix-Style Home Page - Ford Training Hub */
 
-/* Ford Design Tokens */
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
-
-/* Main Home Component - Role-Based Container */
-
 /* Main Container */
 .home-content {
-  background: var(--ford-dark-blue);
+  background: #133A7C;
   min-height: 100vh;
   padding: 0;
 }
 
 /* Header Section */
 .home-header {
-  background: linear-gradient(90deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(90deg, #133A7C 0%, #2A6BAC 100%);
+  color: #FFFFFF;
   padding: 2rem;
   box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
@@ -60,14 +49,14 @@
   border: 2px solid rgba(255,255,255,0.2);
   border-radius: 25px;
   background: rgba(255,255,255,0.1);
-  color: var(--ford-white);
+  color: #FFFFFF;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .search-container input:focus {
   outline: none;
-  border-color: var(--ford-light-blue);
+  border-color: #47A8E5;
   background: rgba(255,255,255,0.15);
 }
 
@@ -91,7 +80,7 @@
 }
 
 .section-title {
-  color: var(--ford-white);
+  color: #FFFFFF;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -108,13 +97,13 @@
   transform: translateY(-50%);
   width: 4px;
   height: 1.2em;
-  background: var(--ford-light-blue);
+  background: #47A8E5;
   border-radius: 2px;
 }
 
 .continue-section {
   background: linear-gradient(90deg, rgba(19,58,124,0.3) 0%, rgba(42,107,172,0.3) 100%);
-  border: 1px solid var(--ford-medium-blue);
+  border: 1px solid #2A6BAC;
   border-radius: 12px;
   margin: 1rem 2rem 2rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -122,7 +111,7 @@
 
 .recommended-section {
   background: linear-gradient(90deg, rgba(71,168,229,0.2) 0%, rgba(42,107,172,0.2) 100%);
-  border: 1px solid var(--ford-light-blue);
+  border: 1px solid #47A8E5;
   border-radius: 12px;
   margin: 1rem 2rem 2rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -153,14 +142,14 @@
 
 /* Navigation Buttons */
 .nav-btn {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border: none;
   border-radius: 50%;
   width: 50px;
   height: 50px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -171,7 +160,7 @@
 }
 
 .nav-btn:hover:not(:disabled) {
-  background: var(--ford-light-blue);
+  background: #47A8E5;
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
@@ -193,19 +182,19 @@
 .course-card {
   flex: 0 0 auto;
   width: 240px;
-  background: var(--ford-dark-blue);
+  background: #133A7C;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  border: 2px solid var(--ford-gray);
+  border: 2px solid #C6C6C6;
 }
 
 .course-card:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  border-color: var(--ford-light-blue);
+  border-color: #47A8E5;
 }
 
 /* Card Images */
@@ -240,32 +229,32 @@
 }
 
 .status-badge.new {
-  background: var(--ford-light-blue);
-  color: var(--ford-white);
+  background: #47A8E5;
+  color: #FFFFFF;
   box-shadow: 0 2px 8px rgba(71,168,229,0.4);
 }
 
 .status-badge.popular {
-  background: var(--ford-medium-blue);
-  color: var(--ford-white);
+  background: #2A6BAC;
+  color: #FFFFFF;
   box-shadow: 0 2px 8px rgba(42,107,172,0.4);
 }
 
 .status-badge.active {
-  background: var(--ford-medium-blue);
-  color: var(--ford-white);
+  background: #2A6BAC;
+  color: #FFFFFF;
   box-shadow: 0 2px 8px rgba(42,107,172,0.4);
 }
 
 .status-badge.upcoming {
-  background: var(--ford-gray);
-  color: var(--ford-dark-blue);
+  background: #C6C6C6;
+  color: #133A7C;
 }
 
 .status-badge.completed {
-  background: var(--ford-dark-blue);
-  color: var(--ford-white);
-  border: 1px solid var(--ford-light-blue);
+  background: #133A7C;
+  color: #FFFFFF;
+  border: 1px solid #47A8E5;
 }
 
 .duration-badge {
@@ -277,7 +266,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   background: rgba(0,0,0,0.8);
-  color: var(--ford-white);
+  color: #FFFFFF;
 }
 
 /* Progress Indicator */
@@ -300,10 +289,10 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--ford-medium-blue);
+  background: #2A6BAC;
   border-radius: 2px;
   transition: width 0.5s ease;
-  box-shadow: 0 0 4px var(--ford-medium-blue);
+  box-shadow: 0 0 4px #2A6BAC;
 }
 
 /* Play Indicator */
@@ -322,7 +311,7 @@
 
 .play-icon {
   font-size: 3rem;
-  color: var(--ford-white);
+  color: #FFFFFF;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
@@ -332,7 +321,7 @@
 }
 
 .card-info h3 {
-  color: var(--ford-white);
+  color: #FFFFFF;
   font-size: 1rem;
   margin: 0 0 0.5rem 0;
   font-weight: 600;
@@ -341,7 +330,7 @@
 }
 
 .description {
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-size: 0.9rem;
   margin: 0 0 0.75rem 0;
   line-height: 1.4;
@@ -360,26 +349,26 @@
 }
 
 .card-meta span {
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-size: 0.85rem;
 }
 
 /* Continue Section Specific Styles */
 .continue .course-card {
   width: 280px;
-  border: 2px solid var(--ford-light-blue);
+  border: 2px solid #47A8E5;
   box-shadow: 0 0 15px rgba(71,168,229,0.3);
 }
 
 .progress-text {
-  color: var(--ford-light-blue) !important;
+  color: #47A8E5 !important;
   font-weight: 500;
-  text-shadow: 0 0 2px var(--ford-light-blue);
+  text-shadow: 0 0 2px #47A8E5;
 }
 
 .continue-btn {
-  background: linear-gradient(90deg, var(--ford-medium-blue) 0%, var(--ford-light-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(90deg, #2A6BAC 0%, #47A8E5 100%);
+  color: #FFFFFF;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -392,22 +381,22 @@
 }
 
 .continue-btn:hover {
-  background: linear-gradient(90deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
+  background: linear-gradient(90deg, #133A7C 0%, #2A6BAC 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(19,58,124,0.4);
 }
 
 /* Admin Home Styles */
 .admin-content {
-  background: var(--ford-white);
+  background: #FFFFFF;
   min-height: 100vh;
   padding: 0;
-  color: var(--ford-dark-blue);
+  color: #133A7C;
 }
 
 .admin-header {
-  background: linear-gradient(90deg, var(--ford-dark-blue) 0%, var(--ford-medium-blue) 100%);
-  color: var(--ford-white);
+  background: linear-gradient(90deg, #133A7C 0%, #2A6BAC 100%);
+  color: #FFFFFF;
   padding: 2rem;
   box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
@@ -427,12 +416,10 @@
 }
 
 .admin-content .section-title {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   text-shadow: none;
   text-align: left; /* Título sempre à esquerda */
 }
-
-
 
 /* Shortcuts Section */
 .shortcuts-grid {
@@ -442,11 +429,11 @@
 }
 
 .shortcut-card {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  border: 1px solid var(--ford-gray);
+  border: 1px solid #C6C6C6;
   transition: all 0.3s ease;
   cursor: pointer;
   text-align: left; /* Conteúdo sempre à esquerda */
@@ -455,18 +442,18 @@
 .shortcut-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  border-color: var(--ford-medium-blue);
+  border-color: #2A6BAC;
 }
 
 .shortcut-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--ford-medium-blue);
+  color: #2A6BAC;
   text-shadow: 0 0 8px rgba(42,107,172,0.3);
 }
 
 .shortcut-card h3 {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.2rem;
   margin: 0 0 0.5rem 0;
   font-weight: 600;
@@ -474,7 +461,7 @@
 }
 
 .shortcut-card p {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 0.9rem;
   line-height: 1.5;
   margin: 0;
@@ -489,15 +476,15 @@
 }
 
 .stat-card {
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  border: 1px solid var(--ford-gray);
+  border: 1px solid #C6C6C6;
 }
 
 .stat-card h3 {
-  color: var(--ford-dark-blue);
+  color: #133A7C;
   font-size: 1.2rem;
   margin: 0 0 1rem 0;
   font-weight: 600;
@@ -509,13 +496,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ford-white);
+  background: #FFFFFF;
   border-radius: 8px;
-  border: 1px dashed var(--ford-gray);
+  border: 1px dashed #C6C6C6;
 }
 
 .chart-placeholder p {
-  color: var(--ford-gray);
+  color: #C6C6C6;
   font-style: italic;
 }
 
@@ -530,7 +517,6 @@
   .card-image {
     height: 160px;
   }
-  
 }
 
 @media (max-width: 768px) {

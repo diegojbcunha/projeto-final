@@ -1,10 +1,4 @@
-:root {
-  --ford-dark-blue: #133A7C;
-  --ford-medium-blue: #2A6BAC;
-  --ford-light-blue: #47A8E5;
-  --ford-white: #FFFFFF;
-  --ford-gray: #C6C6C6;
-}
+/* Layout - Ford Training Hub */
 
 .layout-container {
   display: flex;
@@ -16,8 +10,8 @@
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
-  background: #133A7C; /* Mudando para a cor solicitada */
-  color: #FFFFFF; /* Texto em branco */
+  background: #133A7C;
+  color: #FFFFFF;
   padding: 1rem 0;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   position: fixed;
@@ -51,7 +45,7 @@
 .sidebar-menu a {
   display: block;
   padding: 12px 1rem;
-  color: #FFFFFF; /* Texto em branco */
+  color: #FFFFFF;
   text-decoration: none;
   transition: all 0.3s ease;
   border-left: 3px solid transparent;
@@ -76,7 +70,7 @@
 }
 
 .header {
-  background: var(--ford-white);
+  background: #FFFFFF;
   padding: 1rem;
   border-radius: 0;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -85,12 +79,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, var(--ford-white) 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #f8f9fa 100%);
 }
 
 .header h1 {
   margin: 0;
-  color: #133A7C; /* Mudando para a cor solicitada */
+  color: #133A7C;
   font-size: 1.8rem;
   text-align: left;
   position: relative;
@@ -106,7 +100,7 @@
   transform: translateY(-50%);
   width: 4px;
   height: 1.2em;
-  background: #133A7C; /* Mudando para a cor solicitada */
+  background: #133A7C;
   border-radius: 2px;
 }
 
@@ -118,8 +112,8 @@
 }
 
 .header-buttons button {
-  background: #133A7C; /* Mudando para a cor solicitada */
-  color: #FFFFFF; /* Texto em branco */
+  background: #133A7C;
+  color: #FFFFFF;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -131,7 +125,7 @@
 }
 
 .header-buttons button:hover {
-  background: #2A6BAC; /* Mantendo o efeito hover com a cor mais clara */
+  background: #2A6BAC;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
@@ -148,7 +142,7 @@
   display: none;
   background: none;
   border: none;
-  color: #133A7C; /* Mudando para a cor solicitada */
+  color: #133A7C;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;

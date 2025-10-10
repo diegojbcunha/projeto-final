@@ -1,5 +1,84 @@
 <div class="schedule-container">
-  <h2 class="title">Schedule</h2>
+  <h2 class="section-title">Schedule</h2>
+
+  <!-- Actions Bar -->
+  <div class="actions-bar" *ngIf="isAdmin">
+    <button class="card-action" (click)="addEvent()">+ Add Event</button>
+  </div>
+
+  <!-- Event Form (hidden by default) -->
+  <div class="form-card" *ngIf="showForm">
+    <div class="form-content">
+      <div class="form-header">
+        <h3>{{ editingEvent ? 'Edit Event' : 'Add New Event' }}</h3>
+        <button type="button" class="close-modal" (click)="cancelForm()" aria-label="Close modal">
+          ×
+        </button>
+      </div>
+      <form #eventForm="ngForm" (ngSubmit)="saveEvent(eventForm)">
+        <input
+          type="text"
+          [(ngModel)]="currentEvent.title"
+          name="title"
+          placeholder="Event Title"
+          required
+          #title="ngModel"
+          class="form-control"
+        />
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error-message">
+          Event title is required.
+        </div>
+
+        <input
+          type="date"
+          [(ngModel)]="currentEvent.date"
+          name="date"
+          placeholder="Event Date"
+          required
+          #date="ngModel"
+          class="form-control"
+        />
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="error-message">
+          Event date is required.
+        </div>
+
+        <select
+          [(ngModel)]="currentEvent.type"
+          name="type"
+          required
+          #type="ngModel"
+          class="form-control"
+        >
+          <option value="Training">Training</option>
+          <option value="Path">Learning Path</option>
+        </select>
+
+        <div class="form-actions">
+          <button type="submit" class="save-btn" [disabled]="eventForm.invalid">Save</button>
+          <button type="button" class="cancel-btn" (click)="cancelForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Event Action Modal (Edit/Delete) -->
+  <div class="event-action-modal" *ngIf="showEventActionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Event Options</h3>
+        <button type="button" class="close-modal" (click)="closeEventActionModal()" aria-label="Close modal">
+          ×
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ selectedEvent?.title }}</p>
+        <div class="modal-actions">
+          <button class="edit-btn" (click)="editEvent()">Edit Event</button>
+          <button class="delete-btn" (click)="deleteEvent()">Delete Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FullCalendar -->
   <div class="calendar-wrapper">

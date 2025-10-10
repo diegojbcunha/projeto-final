@@ -1,18 +1,9 @@
 /* Componente de Cards Padronizado - Ford Training Hub */
 
-:root {
-  --primary-dark: #133A7C;
-  --secondary-dark: #2A6BAC;
-  --accent-blue: #47A8E5;
-  --white: #FFFFFF;
-  --light-gray: #C6C6C6;
-  --background-light: #F7F9FC;
-}
-
 /* Card Básico */
 .card {
-  background: var(--white);
-  border: 1px solid var(--light-gray);
+  background: #FFFFFF;
+  border: 1px solid #C6C6C6;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -23,7 +14,7 @@
 .card:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-4px);
-  border-color: var(--accent-blue);
+  border-color: #47A8E5;
 }
 
 /* Card com Imagem */
@@ -39,12 +30,12 @@
 .card-header {
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--light-gray);
+  border-bottom: 1px solid #C6C6C6;
 }
 
 .card-header h3 {
   margin: 0;
-  color: var(--primary-dark);
+  color: #133A7C;
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -56,14 +47,14 @@
 
 .card-body p {
   margin: 0 0 1rem 0;
-  color: var(--primary-dark);
+  color: #133A7C;
   line-height: 1.5;
 }
 
 /* Rodapé do Card */
 .card-footer {
   padding-top: 0.75rem;
-  border-top: 1px solid var(--light-gray);
+  border-top: 1px solid #C6C6C6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -81,17 +72,17 @@
 
 /* Card com Borda Primária */
 .card-primary {
-  border-color: var(--accent-blue);
+  border-color: #47A8E5;
 }
 
 /* Card com Borda Secundária */
 .card-secondary {
-  border-color: var(--secondary-dark);
+  border-color: #2A6BAC;
 }
 
 /* Card com Fundo Alternativo */
 .card-alt {
-  background: var(--background-light);
+  background: #F7F9FC;
 }
 
 /* Card Circular */
@@ -125,7 +116,7 @@
 
 /* Card com Destaque */
 .card-highlight {
-  border-left: 4px solid var(--accent-blue);
+  border-left: 4px solid #47A8E5;
 }
 
 /* Card com Status */
@@ -137,8 +128,8 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: var(--accent-blue);
-  color: var(--white);
+  background: #47A8E5;
+  color: #FFFFFF;
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -153,7 +144,7 @@
 .progress-bar-card {
   width: 100%;
   height: 8px;
-  background: var(--light-gray);
+  background: #C6C6C6;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -161,14 +152,14 @@
 
 .progress-fill-card {
   height: 100%;
-  background: var(--accent-blue);
+  background: #47A8E5;
   border-radius: 4px;
   transition: width 0.5s ease;
 }
 
 .progress-text-card {
   font-size: 0.875rem;
-  color: var(--primary-dark);
+  color: #133A7C;
   text-align: right;
 }
 
