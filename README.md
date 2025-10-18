@@ -2,7 +2,11 @@
 
 Este projeto é uma aplicação Angular para gerenciamento de treinamentos corporativos, permitindo que empresas organizem, acompanhem e gerenciem programas de capacitação de funcionários.
 
-## 📋 Visão Geral
+## Visão Geral
+
+<img width="1915" height="912" alt="Captura de tela 2025-10-18 174148" src="https://github.com/user-attachments/assets/9957d984-8826-4fae-9dc5-ad032e997c10" />
+<img width="1915" height="911" alt="Captura de tela 2025-10-18 174317" src="https://github.com/user-attachments/assets/2f1be52e-a0a0-4826-b388-fe69a71e6e1f" />
+
 
 O sistema oferece uma plataforma completa para:
 - Gerenciamento de cursos e trilhas de aprendizagem
@@ -11,7 +15,7 @@ O sistema oferece uma plataforma completa para:
 - Relatórios de desempenho
 - Sistema de autenticação com diferentes níveis de acesso
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Angular 19** - Framework principal
 - **TypeScript** - Linguagem de programação
@@ -21,7 +25,7 @@ O sistema oferece uma plataforma completa para:
 - **FullCalendar** - Componente de calendário
 - **Ngx-Charts** - Biblioteca de gráficos
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 src/
@@ -36,7 +40,15 @@ src/
 └── environments/            # Configurações de ambiente
 ```
 
-## 🎯 Funcionalidades Principais
+## Funcionalidades Principais
+
+<img width="1916" height="910" alt="Captura de tela 2025-10-18 174200" src="https://github.com/user-attachments/assets/6836882b-e730-4ef5-a911-9e94297608b4" />
+<img width="1915" height="910" alt="Captura de tela 2025-10-18 174215" src="https://github.com/user-attachments/assets/81953583-4514-4e40-ac99-83fbefd84f24" />
+<img width="1915" height="910" alt="Captura de tela 2025-10-18 174215" src="https://github.com/user-attachments/assets/82fad066-b835-4e20-94bc-63c372282d34" />
+<img width="1916" height="915" alt="Captura de tela 2025-10-18 174245" src="https://github.com/user-attachments/assets/4c3e723d-2269-4a1f-a3cd-fe7f4dcc37a1" />
+<img width="1919" height="910" alt="Captura de tela 2025-10-18 174256" src="https://github.com/user-attachments/assets/99aaafe1-4472-4fcb-95c9-345a0b2cca33" />
+<img width="1919" height="911" alt="Captura de tela 2025-10-18 174303" src="https://github.com/user-attachments/assets/40ccca70-4655-473e-bd93-980ea3a3a5d2" />
+
 
 ### Para Usuários Comuns:
 - **Dashboard Personalizado**: Visão geral dos cursos em andamento e recomendados
@@ -51,12 +63,12 @@ src/
 - **Relatórios**: Acompanhamento de progresso e desempenho
 - **Agendamento**: Configuração de eventos e prazos
 
-## 🛠️ Pré-requisitos
+## Pré-requisitos
 
 - Node.js (versão 18 ou superior)
 - npm (geralmente vem com o Node.js)
 
-## 📦 Instalação
+## Instalação
 
 1. **Clone o repositório:**
    ```bash
@@ -69,7 +81,7 @@ src/
    npm install
    ```
 
-## ▶️ Execução
+## Execução
 
 ### Servidor de Desenvolvimento
 
@@ -97,7 +109,7 @@ Após a compilação, acesse `http://localhost:4200/` no seu navegador. A aplica
   - Usuário: `usuario`
   - Senha: `123456`
 
-## 🏗️ Geração de Código
+## Geração de Código
 
 O Angular CLI inclui ferramentas poderosas de scaffolding. Para gerar um novo componente:
 
@@ -111,7 +123,7 @@ Para outros tipos de artefatos (diretivas, pipes, serviços, etc.):
 ng generate directive|pipe|service|class|guard|interface|enum|module
 ```
 
-## 🏗️ Compilação
+## Compilação
 
 Para construir o projeto para produção:
 
@@ -121,7 +133,7 @@ ng build
 
 Os artefatos serão armazenados no diretório `dist/`. Por padrão, a compilação para produção inclui otimizações para melhor performance.
 
-## 🧪 Testes
+## Testes
 
 ### Testes Unitários
 
@@ -141,12 +153,12 @@ ng e2e
 
 *Nota: O Angular CLI não vem com um framework de testes end-to-end por padrão. Você pode escolher um que se adeque às suas necessidades.*
 
-## 📚 Recursos Adicionais
+## Recursos Adicionais
 
 - [Documentação do Angular](https://angular.dev/)
 - [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli)
 
-## 📱 Funcionalidades Detalhadas
+## Funcionalidades Detalhadas
 
 ### Sistema de Cursos
 - Cursos organizados por temas (Segurança, Liderança, Compliance, Soft Skills, Técnico)
@@ -170,7 +182,7 @@ ng e2e
 - Gráficos de acompanhamento
 - Relatórios de conclusão
 
-## 👥 Perfis de Usuário
+## Perfis de Usuário
 
 ### Administrador
 - Acesso completo a todas as funcionalidades
@@ -184,7 +196,7 @@ ng e2e
 - Acompanhamento de progresso
 - Participação em trilhas de aprendizagem
 
-## 🔧 Desenvolvimento
+## Desenvolvimento
 
 ### Estrutura de Componentes
 - **Login/Register**: Autenticação de usuários
@@ -201,7 +213,7 @@ ng e2e
 - **TrainingService**: Gerenciamento de cursos, trilhas e treinamentos
 - **Guards**: Proteção de rotas baseada em permissões
 
-## 🤝 Contribuição
+## Contribuição
 
 1. Faça um fork do projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
