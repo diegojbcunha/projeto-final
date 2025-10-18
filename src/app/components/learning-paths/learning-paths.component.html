@@ -1,21 +1,33 @@
 <div class="paths-container">
   <div class="header-section">
-    <h2 class="title">Learning Paths</h2>
+    <h2 class="title">Recommended Learning Paths</h2>
+    <p class="subtitle" *ngIf="currentUser?.department">Personalized for {{ currentUser?.department }} professionals</p>
 
     <div class="actions-bar" *ngIf="isAdmin">
       <button class="add-btn" (click)="addNew()">+ Add New Path</button>
     </div>
   </div>
 
-  <!-- Learning Paths Grid - 4 fixed cards -->
+  <!-- Info message for personalized recommendations -->
+  <div class="info-message" *ngIf="currentUser?.department">
+    <p>These learning paths are recommended based on your role as a {{ currentUser?.department }} professional.</p>
+  </div>
+
+  <!-- Learning Paths Grid -->
   <div class="paths-grid">
     <app-learning-path-card
-      *ngFor="let path of paths() | slice:0:4; trackBy: trackById"
+      *ngFor="let path of paths(); trackBy: trackById"
       [learningPath]="path"
       [isAdmin]="isAdmin"
       (editPath)="editPath($event)"
       (deletePath)="deletePath($event)">
     </app-learning-path-card>
+  </div>
+
+  <!-- Message when no paths are available -->
+  <div class="no-paths-message" *ngIf="paths().length === 0">
+    <p>No recommended learning paths available for your department yet.</p>
+    <p *ngIf="isAdmin">As an administrator, you can create new learning paths.</p>
   </div>
 
   <div *ngIf="showForm()" class="form-card" (click)="onModalClick($event)">
@@ -42,7 +54,8 @@
           [(ngModel)]="currentPath.description"
           name="description"
           placeholder="Description"
-          rows="3">
+          rows="3"
+          required>
         </textarea>
 
         <input
@@ -50,6 +63,7 @@
           [(ngModel)]="currentPath.estimatedHours"
           name="estimatedHours"
           placeholder="Estimated Hours"
+          required
         />
 
         <input

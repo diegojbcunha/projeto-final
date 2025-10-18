@@ -316,6 +316,83 @@ export class TrainingService {
     // Semester review and planning session (removed from Technical)
   ]);
 
+  constructor() {
+    // Populate paths with courses after initialization
+    this.populatePathsWithCourses();
+  }
+
+  private populatePathsWithCourses() {
+    // This is a simplified example - in a real app, this would come from a backend
+    const allCourses = this.getCourses();
+    
+    // For demo purposes, let's associate some courses with paths
+    // In a real application, this mapping would come from the backend
+    this.paths.update(paths => paths.map(path => {
+      // If courses are already populated, don't overwrite them
+      if (path.courses && path.courses.length > 0) {
+        return path;
+      }
+      
+      // Add some courses to each path based on theme or other criteria
+      switch(path.id) {
+        case 1: // Onboarding Path
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Safety' || c.theme === 'Compliance'
+            ).slice(0, 3)
+          };
+        case 2: // Sales Training
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Soft Skills'
+            ).slice(0, 2)
+          };
+        case 3: // Leadership Development
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Leadership'
+            ).slice(0, 3)
+          };
+        case 4: // Technical Skills
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Technical'
+            ).slice(0, 4)
+          };
+        case 5: // Compliance and Ethics
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Compliance'
+            )
+          };
+        case 6: // Project Management
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Technical' || c.theme === 'Leadership'
+            ).slice(0, 3)
+          };
+        case 7: // Customer Service Excellence
+          return {
+            ...path,
+            courses: allCourses.filter(c => 
+              c.theme === 'Soft Skills'
+            ).slice(0, 2)
+          };
+        default:
+          return {
+            ...path,
+            courses: allCourses.slice(0, 2) // Default to first 2 courses
+          };
+      }
+    }));
+  }
+
   getTrainings(): Training[] { return this.trainings(); }
   getPaths(): LearningPath[] { return this.paths(); }
   getCourses(): Course[] { return this.courses(); }
@@ -329,6 +406,136 @@ export class TrainingService {
    */
   getOnboardingPath(): LearningPath | undefined {
     return this.paths().find(path => path.title === 'Onboarding Path');
+  }
+
+  /**
+   * Get recommended learning paths based on user department/position
+   * @param department - User's department or position
+   */
+  getRecommendedPathsForDepartment(department: string | undefined): LearningPath[] {
+    const allPaths = this.getPaths();
+    const allCourses = this.getCourses();
+    
+    if (!department) {
+      // If no department specified, return general paths
+      return allPaths.slice(0, 3);
+    }
+    
+    // Map departments to relevant themes
+    const departmentThemeMap: { [key: string]: string[] } = {
+      'management': ['Leadership', 'Project Management', 'Soft Skills'],
+      'it': ['Technical', 'Cybersecurity', 'Cloud Computing'],
+      'hr': ['Soft Skills', 'Compliance', 'Leadership'],
+      'sales': ['Soft Skills', 'Sales', 'Customer Service'],
+      'operations': ['Safety', 'Technical', 'Compliance'],
+      'finance': ['Compliance', 'Technical', 'Soft Skills'],
+      'marketing': ['Soft Skills', 'Customer Service', 'Technical'],
+      'admin': ['Soft Skills', 'Compliance', 'Technical'],
+      'engineering': ['Technical', 'Safety', 'Project Management'],
+      'customer service': ['Customer Service', 'Soft Skills', 'Compliance'],
+      'legal': ['Compliance', 'Soft Skills', 'Leadership'],
+      'quality': ['Safety', 'Compliance', 'Technical'],
+      'production': ['Safety', 'Technical', 'Operations'],
+      'logistics': ['Operations', 'Technical', 'Soft Skills'],
+      'research': ['Technical', 'Research', 'Innovation'],
+      'design': ['Technical', 'Creativity', 'Soft Skills']
+    };
+    
+    // Normalize department name for matching
+    const normalizedDepartment = department.toLowerCase();
+    let relevantThemes: string[] = [];
+    
+    // Find matching themes for department
+    for (const [dept, themes] of Object.entries(departmentThemeMap)) {
+      if (normalizedDepartment.includes(dept)) {
+        relevantThemes = themes;
+        break;
+      }
+    }
+    
+    // If no specific match, use general themes
+    if (relevantThemes.length === 0) {
+      relevantThemes = ['Soft Skills', 'Technical'];
+    }
+    
+    // Filter and create recommended paths
+    const recommendedPaths: LearningPath[] = [];
+    
+    // Create a path for each relevant theme
+    relevantThemes.forEach((theme, index) => {
+      const themeCourses = allCourses.filter(course => 
+        course.theme.toLowerCase().includes(theme.toLowerCase()) ||
+        theme.toLowerCase().includes(course.theme.toLowerCase())
+      );
+      
+      if (themeCourses.length > 0) {
+        const path: LearningPath = {
+          id: 100 + index, // Unique ID for recommended paths
+          title: `${theme} Development Path`,
+          description: `Recommended learning path for ${department} professionals focusing on ${theme} skills`,
+          estimatedHours: `${Math.round(themeCourses.slice(0, 3).reduce((sum, course) => sum + course.duration, 0))}h`,
+          image: this.getPathImageForTheme(theme),
+          courses: themeCourses.slice(0, 3), // Limit to 3 courses per path
+          progress: Math.round(Math.random() * 100), // Mock progress
+          status: this.getPathStatus(Math.random())
+        };
+        recommendedPaths.push(path);
+      }
+    });
+    
+    // If no theme-based paths were created, create a general one
+    if (recommendedPaths.length === 0) {
+      const generalPath: LearningPath = {
+        id: 999,
+        title: 'General Professional Development',
+        description: 'General learning path for all professionals',
+        estimatedHours: '10h',
+        image: 'general-path.jpg',
+        courses: allCourses.slice(0, 4),
+        progress: Math.round(Math.random() * 100),
+        status: this.getPathStatus(Math.random())
+      };
+      recommendedPaths.push(generalPath);
+    }
+    
+    // Limit to 4 paths maximum
+    return recommendedPaths.slice(0, 4);
+  }
+  
+  /**
+   * Get path status based on progress
+   * @param progress - Progress value between 0 and 1
+   */
+  private getPathStatus(progress: number): 'In Progress' | 'Completed' | 'Not Started' {
+    if (progress >= 100) return 'Completed';
+    if (progress > 0) return 'In Progress';
+    return 'Not Started';
+  }
+  
+  /**
+   * Get appropriate image for theme
+   * @param theme - Learning theme
+   */
+  private getPathImageForTheme(theme: string): string {
+    const themeImageMap: { [key: string]: string } = {
+      'leadership': 'Leadership Development.png',
+      'technical': 'Technical Skills.png',
+      'soft skills': 'Soft Skills.jpg',
+      'safety': 'Safety Training.jpg',
+      'compliance': 'Compliance and Ethics.jpg',
+      'sales': 'Sales Training.jpg',
+      'project management': 'Project Management.jpg',
+      'customer service': 'Customer Service Excellence.jpg',
+      'cybersecurity': 'cyber.jpg',
+      'cloud computing': 'cloud.jpg',
+      'creativity': 'final_left_side_right_side_brain_visual.jpg',
+      'innovation': 'Automation-and-Robotics.jpeg',
+      'operations': 'project-management.jpg',
+      'research': 'excel.png'
+    };
+    
+    const normalizedTheme = theme.toLowerCase();
+    return themeImageMap[normalizedTheme] || 'general-path.jpg';
   }
 
   // Métodos para Trainings

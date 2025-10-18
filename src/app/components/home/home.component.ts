@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { TrainingService } from '../../services/training.service';
-import { Course } from '../../services/training.service';
+import { Course, LearningPath } from '../../services/training.service';
 import { Usuario } from '../../models/usuario.model';
 import { AdminHomeComponent } from "./admin-home/admin-home.component";
 import { UserHomeComponent } from "./user-home/user-home.component";
@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   continueCourses: Course[] = [];
   recommendedCourses: Course[] = [];
   categorizedCourses: CategorizedCourses[] = [];
+  recommendedPaths: LearningPath[] = [];
   isAdminView = false;
 
   // Admin dashboard data
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
     this.isAdminView = this.authService.isAdmin();
     this.loadDashboardData();
     this.loadCourses();
+    this.loadRecommendedPaths();
   }
 
   /**
@@ -84,12 +86,28 @@ export class HomeComponent implements OnInit {
       }));
     }
   }
+  
+  /**
+   * Load recommended learning paths based on user department
+   */
+  loadRecommendedPaths() {
+    if (!this.isAdminView && this.currentUser) {
+      this.recommendedPaths = this.trainingService.getRecommendedPathsForDepartment(this.currentUser.department);
+    }
+  }
 
   /**
    * Navigate to course viewer with selected course
    */
   onCourseClick(course: Course) {
     this.router.navigate(['/course-viewer'], { queryParams: { courseId: course.id } });
+  }
+  
+  /**
+   * Navigate to learning paths page
+   */
+  navigateToLearningPaths() {
+    this.router.navigate(['/learning-paths']);
   }
 
   /**

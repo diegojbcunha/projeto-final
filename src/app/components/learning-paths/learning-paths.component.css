@@ -11,6 +11,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .title {
@@ -33,6 +35,14 @@
   height: 1.2em;
   background: #47A8E5;
   border-radius: 2px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #2A6BAC;
+  font-weight: 500;
+  margin: 0;
+  width: 100%;
 }
 
 .actions-bar {
@@ -58,12 +68,38 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+.info-message {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.info-message p {
+  margin: 0;
+  color: #133A7C;
+  font-size: 0.9rem;
+}
+
 /* Grid de Learning Paths - 5 cards fixos */
 .paths-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+}
+
+.no-paths-message {
+  text-align: center;
+  padding: 2rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  color: #133A7C;
+}
+
+.no-paths-message p {
+  margin: 0.5rem 0;
 }
 
 .form-card {

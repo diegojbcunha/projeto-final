@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, inject, HostListener, Renderer2, ElementR
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { TrainingService, Course } from '../../../services/training.service';
+import { TrainingService, Course, LearningPath } from '../../../services/training.service';
 
 export interface CategorizedCourses {
   category: string;
@@ -25,6 +25,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   continueCourses: Course[] = [];
   recommendedCourses: Course[] = [];
   categorizedCourses: CategorizedCourses[] = [];
+  recommendedPaths: LearningPath[] = [];
   categories = ['Soft Skills', 'Leadership', 'Safety', 'Compliance', 'Technical'];
 
   // Carousel properties
@@ -74,6 +75,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       category,
       courses: this.recommendedCourses.filter(course => course.theme === category)
     }));
+    
+    // Load recommended learning paths based on user department
+    if (this.currentUser) {
+      this.recommendedPaths = this.trainingService.getRecommendedPathsForDepartment(this.currentUser.department);
+    }
   }
 
   /**
@@ -83,6 +89,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     if (course) {
       this.router.navigate(['/course-viewer'], { queryParams: { courseId: course.id } });
     }
+  }
+  
+  /**
+   * Navigate to learning paths page
+   */
+  navigateToLearningPaths() {
+    this.router.navigate(['/learning-paths']);
   }
 
   /**
@@ -118,6 +131,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadCourses();
     this.startAutoplay();
   }
 
@@ -258,5 +272,12 @@ export class UserHomeComponent implements OnInit, OnDestroy {
    */
   trackByCategory(index: number, item: CategorizedCourses): string {
     return item.category;
+  }
+  
+  /**
+   * TrackBy function for learning paths
+   */
+  trackByPathId(index: number, item: LearningPath): number {
+    return item.id;
   }
 }

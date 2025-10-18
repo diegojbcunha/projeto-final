@@ -1,9 +1,10 @@
-import { Component, signal, computed, HostListener } from '@angular/core';
+import { Component, signal, computed, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LearningPath, Course, Training, TrainingService } from '../../services/training.service';
 import { LearningPathCardComponent } from '../learning-path-card/learning-path-card.component';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-learning-paths',
@@ -12,22 +13,37 @@ import { LearningPathCardComponent } from '../learning-path-card/learning-path-c
   templateUrl: './learning-paths.component.html',
   styleUrls: ['./learning-paths.component.css']
 })
-export class LearningPathsComponent {
+export class LearningPathsComponent implements OnInit {
   isAdmin = false;
   showForm = signal(false);
   editMode = signal(false);
   isSaving = signal(false);
   toastMessage = signal('');
+  currentUser: Usuario | null = null;
 
   paths = signal<LearningPath[]>([]);
   allCourses = signal<Course[]>([]);
   currentPath!: LearningPath;
 
   constructor(private service: TrainingService, private authService: AuthService) {
-    this.paths.set(this.service.getPaths());
     this.allCourses.set(this.service.getCourses());
     this.isAdmin = authService.isAdmin();
-    this.currentPath = this.createEmptyPath();
+    this.currentUser = this.authService.getCurrentUser();
+  }
+  
+  ngOnInit() {
+    this.loadPaths();
+  }
+  
+  loadPaths() {
+    if (this.currentUser) {
+      // Load recommended paths based on user's department
+      const recommendedPaths = this.service.getRecommendedPathsForDepartment(this.currentUser.department);
+      this.paths.set(recommendedPaths);
+    } else {
+      // Fallback to default paths if no user
+      this.paths.set(this.service.getPaths().slice(0, 4));
+    }
   }
 
   createEmptyPath(): LearningPath {
@@ -63,7 +79,7 @@ export class LearningPathsComponent {
       return;
     }
     this.service.deletePath(id);
-    this.paths.set(this.service.getPaths());
+    this.loadPaths(); // Reload paths after deletion
   }
 
   private showToast(message: string) {
@@ -83,11 +99,6 @@ export class LearningPathsComponent {
 
       if (!this.currentPath.description?.trim()) {
         this.showToast('Learning path description is required.');
-        return;
-      }
-
-      if (!this.currentPath.image?.trim()) {
-        this.showToast('Learning path image URL is required.');
         return;
       }
 
@@ -112,36 +123,35 @@ export class LearningPathsComponent {
       const fullCourses = this.allCourses().filter(course => selectedCourseIds.includes(course.id));
 
       // Create path data with validated courses
-      const pathData = {
+      const pathData: LearningPath = {
         ...this.currentPath,
-        courses: fullCourses
+        courses: fullCourses,
+        // Ensure required fields have default values if not provided
+        progress: this.currentPath.progress || 0,
+        status: this.currentPath.status || 'Not Started'
       };
-
-      let savedPath: any;
 
       if (this.editMode()) {
         // Update existing path
         console.log('Updating existing path with ID:', this.currentPath.id);
         this.service.updatePath(pathData);
-        savedPath = pathData;
         console.log('Path updated successfully');
       } else {
         // Add new path with unique ID
-        const newPath = {
+        const newPath: LearningPath = {
           ...pathData,
-          id: Date.now(),
+          id: Date.now(), // Generate a unique ID
           progress: 0,
-          status: 'Not Started' as const
+          status: 'Not Started'
         };
         console.log('Adding new learning path:', newPath);
         this.service.addPath(newPath);
-        savedPath = newPath;
-        console.log('New path added successfully with ID:', savedPath.id);
+        console.log('New path added successfully with ID:', newPath.id);
       }
 
       // Update UI with latest paths
       console.log('Updating paths list...');
-      this.paths.set(this.service.getPaths());
+      this.loadPaths(); // Reload paths to show updated list
 
       // Success feedback
       const operation = this.editMode() ? 'updated' : 'created';

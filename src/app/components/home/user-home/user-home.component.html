@@ -1,4 +1,76 @@
-<!-- Recommended Courses by Category -->
+<div class="user-home-container">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1>Welcome, {{ currentUser?.nome }}!</h1>
+    <p *ngIf="currentUser?.department">Role: {{ currentUser?.department }}</p>
+    <p>Continue your learning journey with personalized recommendations.</p>
+  </div>
+
+  <!-- Recommended Learning Paths Section -->
+  <div class="section" *ngIf="recommendedPaths && recommendedPaths.length > 0">
+    <div class="section-header">
+      <h2>Recommended Learning Paths</h2>
+      <p>Personalized for {{ currentUser?.department }} professionals</p>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card" *ngFor="let path of recommendedPaths; trackBy: trackByPathId" (click)="navigateToLearningPaths()">
+        <img *ngIf="path.image" [src]="path.image" [alt]="path.title" class="path-image" />
+        <div class="path-info">
+          <h3>{{ path.title }}</h3>
+          <p class="desc">{{ path.description }}</p>
+          
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="path.progress"></div>
+          </div>
+          
+          <p class="details">
+            {{ path.courses.length }} courses • {{ path.estimatedHours }} estimated hours
+          </p>
+          
+          <p class="status">{{ path.status }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="view-all-button">
+      <button class="btn-secondary" (click)="navigateToLearningPaths()">
+        View All Learning Paths
+      </button>
+    </div>
+  </div>
+
+  <!-- Continue Learning Section -->
+  <div class="section" *ngIf="continueCourses.length > 0">
+    <div class="section-header">
+      <h2>Continue Learning</h2>
+      <p>Pick up where you left off</p>
+    </div>
+
+    <div class="courses-grid">
+      <div class="course-card" *ngFor="let course of continueCourses; trackBy: trackByFn">
+        <img [src]="course.image" [alt]="course.title" class="course-image" />
+        <div class="course-info">
+          <h3>{{ course.title }}</h3>
+          <p class="description">{{ course.description }}</p>
+          <div class="course-details">
+            <span class="theme">{{ course.theme }}</span>
+            <span class="duration">{{ course.duration }}h</span>
+            <span class="modules">{{ course.modules }} modules</span>
+          </div>
+          <div class="progress-container">
+            <span class="progress-label">{{ course.completionRate }}% Complete</span>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="course.completionRate"></div>
+            </div>
+          </div>
+          <button class="resume-btn" (click)="onCourseClick(course)">Resume</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommended Courses by Category -->
   <div class="section">
     <div class="section-header">
       <h2>Recommended Courses</h2>
@@ -287,3 +359,4 @@
       </div>
     </div>
   </div>
+</div>

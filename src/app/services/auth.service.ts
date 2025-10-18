@@ -9,7 +9,14 @@ export class AuthService {
 
   private mockUsers: Usuario[] = [
     { nome: 'admin', senha: '123456', email: 'admin@sistema.com', perfil: 'admin' },
-    { nome: 'usuario', senha: '123456', email: 'usuario@sistema.com', perfil: 'user' }
+    { nome: 'usuario', senha: '123456', email: 'usuario@sistema.com', perfil: 'user' },
+    // Usuários de teste com diferentes departamentos
+    { nome: 'engenheiro', senha: '123456', email: 'engenheiro@sistema.com', perfil: 'user', department: 'Engineering' },
+    { nome: 'vendedor', senha: '123456', email: 'vendedor@sistema.com', perfil: 'user', department: 'Sales' },
+    { nome: 'rh', senha: '123456', email: 'rh@sistema.com', perfil: 'user', department: 'HR' },
+    { nome: 'ti', senha: '123456', email: 'ti@sistema.com', perfil: 'user', department: 'IT' },
+    { nome: 'financeiro', senha: '123456', email: 'financeiro@sistema.com', perfil: 'user', department: 'Finance' },
+    { nome: 'marketing', senha: '123456', email: 'marketing@sistema.com', perfil: 'user', department: 'Marketing' }
   ];
 
   constructor() {
