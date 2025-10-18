@@ -44,7 +44,6 @@ src/
 
 <img width="1916" height="910" alt="Captura de tela 2025-10-18 174200" src="https://github.com/user-attachments/assets/6836882b-e730-4ef5-a911-9e94297608b4" />
 <img width="1915" height="910" alt="Captura de tela 2025-10-18 174215" src="https://github.com/user-attachments/assets/81953583-4514-4e40-ac99-83fbefd84f24" />
-<img width="1915" height="910" alt="Captura de tela 2025-10-18 174215" src="https://github.com/user-attachments/assets/82fad066-b835-4e20-94bc-63c372282d34" />
 <img width="1916" height="915" alt="Captura de tela 2025-10-18 174245" src="https://github.com/user-attachments/assets/4c3e723d-2269-4a1f-a3cd-fe7f4dcc37a1" />
 <img width="1919" height="910" alt="Captura de tela 2025-10-18 174256" src="https://github.com/user-attachments/assets/99aaafe1-4472-4fcb-95c9-345a0b2cca33" />
 <img width="1919" height="911" alt="Captura de tela 2025-10-18 174303" src="https://github.com/user-attachments/assets/40ccca70-4655-473e-bd93-980ea3a3a5d2" />
